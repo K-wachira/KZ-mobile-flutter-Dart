@@ -1,6 +1,7 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/home.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/email_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -326,18 +327,15 @@ class _EmailSignUpState extends State<EmailSignUp> {
     });
   }
 
-  Future _getuser() async {
-    dynamic user = await getinstance.userid();
-    return user;
-  }
-
   void _signupandsave() async {
     dynamic result = await authinstance.registerToFb(
         emailController.text, nameController.text, passwordController.text);
+    var user = FirebaseAuth.instance.currentUser;
+
     if (result == true) {
       print("Registration successful");
-      final userid = await _getuser();
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home( uid: userid,)));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Home(uid: user.uid)));
     } else {
       showDialog(
           context: context,

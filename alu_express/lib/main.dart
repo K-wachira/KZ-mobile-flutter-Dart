@@ -14,9 +14,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+
+  
     bool _initialized = false;
     bool _error = false;
-
 
 
     // Define an async function to initialize FlutterFire
@@ -34,7 +36,6 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
-
 
 
   @override

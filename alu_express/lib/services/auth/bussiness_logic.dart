@@ -38,14 +38,10 @@ class Authentificate {
 }
 
 class Get {
-  Future userid() async {
-    _auth.authStateChanges().listen((User user) {
-      if (user == null) {
-        print(user.uid);
-        return user.uid;
-      } else {
-        print('User is signed in!');
-      }
-    });
+
+  Future<void> getCurrentUser() async {
+    User userdata = await FirebaseAuth.instance.currentUser;
+    return userdata.uid;
   }
+  
 }

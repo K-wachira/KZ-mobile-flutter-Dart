@@ -34,7 +34,6 @@ class _HomeState extends State<Home> {
         height: MediaQuery.of(context).size.height * 0.65,
         width: MediaQuery.of(context).size.width * 0.65,
         child: Text(widget.uid),
-        
       ),
     );
   }

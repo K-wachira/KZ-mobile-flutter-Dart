@@ -1,5 +1,6 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EmailLogIn extends StatefulWidget {
@@ -18,20 +19,6 @@ class _EmailLogInState extends State<EmailLogIn> {
 
   @override
   Widget build(BuildContext context) {
-    final logo = Image.asset(
-      "assets/images/emirates.png",
-      fit: BoxFit.fill,
-      width: 80.0,
-      height: 80.0,
-    );
-
-    final welcomeImg = Image.asset(
-      "assets/welcome.png",
-      fit: BoxFit.fill,
-      height: 120.0,
-      width: 102.0,
-    );
-
     final welcomeMsg = Column(
       children: <Widget>[
         Text(
@@ -50,11 +37,9 @@ class _EmailLogInState extends State<EmailLogIn> {
             child: SingleChildScrollView(
                 child: Column(children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 40)),
-              logo,
               Padding(padding: EdgeInsets.only(top: 30)),
               welcomeMsg,
               Padding(padding: EdgeInsets.only(bottom: 30)),
-              welcomeImg,
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: TextFormField(
@@ -115,21 +100,22 @@ class _EmailLogInState extends State<EmailLogIn> {
             ]))));
   }
 
-  Future _getuser() async {
-    dynamic user = await getinstance.userid();
-    return user;
-  }
-
   void _loginandsave() async {
     dynamic result = await authclass.loginwithEmailandpass(
         emailController.text, passwordController.text);
+    var user = FirebaseAuth.instance.currentUser;
+    print(user.uid);
 
     print(result);
     if (result == true) {
       print("Login successful");
-      final userid = await _getuser();
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home(uid: userid,)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Home(
+                    uid: user.uid.toString(),
+                  )));
     } else {
       showDialog(
           context: context,
