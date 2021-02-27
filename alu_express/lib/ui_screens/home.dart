@@ -37,6 +37,5 @@ class _HomeState extends State<Home> {
         
       ),
     );
-    //NavigateDrawer(uid: this.uid));
   }
 }
