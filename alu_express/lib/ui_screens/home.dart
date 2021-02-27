@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
     children: <Widget>[
       Padding(padding: EdgeInsets.only(top: 30.0)),
       Text(
-        'Explore Tutor App',
+        'Explore ALU App',
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
       ),

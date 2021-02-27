@@ -1,5 +1,5 @@
-import 'package:alu_express/services/auth/email_login.dart';
-import 'package:alu_express/services/auth/email_signup.dart';
+import 'package:alu_express/main_screens/login_ui_screens/email_login.dart';
+import 'package:alu_express/main_screens/login_ui_screens/email_signup.dart';
 import 'package:flutter/material.dart';
 
 // We can check if the user is logged in  or not and redirect to  the approp page.

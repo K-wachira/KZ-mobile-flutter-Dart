@@ -1,4 +1,4 @@
-import 'package:alu_express/main_screens/landing_page.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
