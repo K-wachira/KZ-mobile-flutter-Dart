@@ -1,5 +1,5 @@
-import 'package:alu_express/main_screens/home.dart';
 import 'package:alu_express/services/auth/bussiness_logic.dart';
+import 'package:alu_express/ui_screens/home.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/email_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
