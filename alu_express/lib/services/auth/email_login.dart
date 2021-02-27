@@ -138,7 +138,7 @@ class _EmailLogInState extends State<EmailLogIn> {
               title: Text("Error"),
               content: Text(result.toString()),
               actions: [
-                RaisedButton(
+                ElevatedButton(
                   child: Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();

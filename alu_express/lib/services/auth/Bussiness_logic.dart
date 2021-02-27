@@ -39,7 +39,7 @@ class Authentificate {
 
 class Get {
   Future userid() async {
-    await _auth.authStateChanges().listen((User user) {
+    _auth.authStateChanges().listen((User user) {
       if (user == null) {
         print(user.uid);
         return user.uid;

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   final String uid;
 
   Home({this.uid});
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final String title = "Home";
 
   final signedInMessage = Column(
@@ -27,6 +33,8 @@ class Home extends StatelessWidget {
         color: Colors.amber,
         height: MediaQuery.of(context).size.height * 0.65,
         width: MediaQuery.of(context).size.width * 0.65,
+        child: Text(widget.uid),
+        
       ),
     );
     //NavigateDrawer(uid: this.uid));

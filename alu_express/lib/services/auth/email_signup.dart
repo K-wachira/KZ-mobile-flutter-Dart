@@ -346,7 +346,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
               title: Text("Error"),
               content: Text(result.toString()),
               actions: [
-                RaisedButton(
+                ElevatedButton(
                   child: Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();
