@@ -1,8 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:alu_express/ui_screens/home.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/email_login.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/email_signup.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -13,40 +18,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
-
-  
-    bool _initialized = false;
-    bool _error = false;
-
-
-    // Define an async function to initialize FlutterFire
-  void initializeFlutterFire() async {
-    try {
-      // Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp();
-      setState(() {
-        _initialized = true;
-      });
-    } catch(e) {
-      // Set `_error` state to true if Firebase initialization fails
-      setState(() {
-        _error = true;
-      });
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: LandingPage(),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: "/",
+        routes: {
+          "/": (context) => LandingPage(),
+          "/home": (context) => Home(),
+          "/login": (context) => EmailLogIn(),
+          "/signup": (context) => EmailSignUp(),
+        });
   }
 }

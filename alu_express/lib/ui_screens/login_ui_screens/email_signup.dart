@@ -1,4 +1,4 @@
-import 'package:alu_express/services/auth/bussiness_logic.dart';
+import 'package:alu_express/services/bloc/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/home.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/email_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';

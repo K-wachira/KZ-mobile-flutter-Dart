@@ -5,7 +5,6 @@ DatabaseReference dbRefvendor =
     FirebaseDatabase.instance.reference().child("Users/Vendor");
 DatabaseReference dbRefclient =
     FirebaseDatabase.instance.reference().child("Users/Vendor");
-
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Authentificate {
@@ -39,9 +38,15 @@ class Authentificate {
 
 class Get {
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Future<bool> isUserLoggedIn() async {
+    User userdata = FirebaseAuth.instance.currentUser;
+    return userdata != null;
+  }
+
   Future<void> getCurrentUser() async {
     User userdata = await FirebaseAuth.instance.currentUser;
     return userdata.uid;
   }
-  
+
 }

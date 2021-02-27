@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final String title = "Home";
+  
 
   final signedInMessage = Column(
     children: <Widget>[
@@ -25,6 +26,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final routes=ModalRoute.of(context).settings.arguments as Map<String,String>;
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -33,7 +35,7 @@ class _HomeState extends State<Home> {
         color: Colors.amber,
         height: MediaQuery.of(context).size.height * 0.65,
         width: MediaQuery.of(context).size.width * 0.65,
-        child: Text(widget.uid),
+        child: Text("widget.uid"  ),
       ),
     );
   }
