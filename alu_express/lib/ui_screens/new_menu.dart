@@ -1,0 +1,157 @@
+import 'package:alu_express/ui_screens/bottom_nav.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+
+class NewMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: Icon(
+          Feather.chevron_left,
+          color: Colors.black,
+        ),
+        title: Padding(
+          // TODO: Make the padding responsive
+          padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
+          child: Text(
+            "Create Menu",
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: "PTSans",
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Text(
+              "AXpress",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "Satisfy",
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Container(
+          color: Colors.white,
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Meze Fresh",
+                  style: TextStyle(
+                      color: Color(0xFFDC2F02),
+                      fontFamily: "PTSans",
+                      fontSize: 18),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ListView(
+                      children: [
+                        FormField(
+                            title:
+                                "Category Name e.g. Breakfast, Drinks, Lunch"),
+                        FormField(title: "Item Name e.g. Fries, Soda"),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                                child: FormField(
+                                    title: "Item Type e.g. Spicy, 500ml")),
+                            IconButton(
+                              iconSize: 16,
+                              icon: Icon(Feather.plus),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(child: FormField(title: "Flavors/Sides")),
+                            IconButton(
+                              iconSize: 16,
+                              icon: Icon(Feather.plus),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              color: Color(0xFFFFCC00),
+                              onPressed: () {},
+                              child: Text("New Item"),
+                            ),
+                            SizedBox(
+                              width: 30.0,
+                            ),
+                            RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              color: Color(0xFFFFCC00),
+                              onPressed: () {},
+                              child: Text("New Category"),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 120.0, vertical: 10.0),
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            color: Color(0xFFDC2F02),
+                            onPressed: () {},
+                            child: Text("Save"),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )),
+      bottomNavigationBar: BottomNav(),
+    );
+  }
+}
+
+class FormField extends StatelessWidget {
+  const FormField({
+    @required this.title,
+    Key key,
+  }) : super(key: key);
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      child: TextFormField(
+          decoration: InputDecoration(
+        border: new OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.black,
+        )),
+        fillColor: Colors.white,
+        labelStyle:
+            TextStyle(color: Colors.black, fontSize: 14, fontFamily: "PTSans"),
+        labelText: title,
+      )),
+    );
+  }
+}
