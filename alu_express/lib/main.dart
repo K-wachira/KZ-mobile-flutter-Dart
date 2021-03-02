@@ -1,4 +1,5 @@
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
+import 'package:alu_express/ui_screens/vendor_profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
