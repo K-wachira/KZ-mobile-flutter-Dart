@@ -15,13 +15,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
+  bool _initialized = false;
+  bool _error = false;
 
-  
-    bool _initialized = false;
-    bool _error = false;
-
-
-    // Define an async function to initialize FlutterFire
+  // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
@@ -29,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _initialized = true;
       });
-    } catch(e) {
+    } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
       setState(() {
         _error = true;
@@ -37,16 +34,12 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
+      title: 'ALU Express',
       home: LandingPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

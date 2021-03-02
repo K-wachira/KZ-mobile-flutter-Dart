@@ -1,8 +1,8 @@
-import 'package:alu_express/ui_screens/login_ui_screens/email_login.dart';
-import 'package:alu_express/ui_screens/login_ui_screens/email_signup.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:alu_express/ui_screens/size_helpers.dart';
 
 // We can check if the user is logged in  or not and redirect to  the approp page.
 class LandingPage extends StatefulWidget {
@@ -30,41 +30,95 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          ElevatedButton(
-            child: Text("Login"),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EmailLogIn()),
-              );
-            },
+    return Stack(
+      children: [
+        Container(
+            decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/bkg.jpg"),
+            fit: BoxFit.cover,
           ),
-          ElevatedButton(
-            child: Text("Signin"),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EmailSignUp()),
-              );
-            },
+        )),
+        Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.white.withOpacity(0.4),
+              Colors.white70.withOpacity(0.7),
+            ],
+            stops: [0.0, 1],
+            begin: Alignment.topCenter,
+          )),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 250.0),
+          child: Align(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "ALU-Express",
+                  style: TextStyle(
+                      color: Colors.red[900],
+                      decoration: TextDecoration.none,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 40,
+                      fontFamily: "PTSerif Bold"),
+                ),
+                SizedBox(height: displayHeight(context) * 0.3),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SizedBox(
+                      width: displayWidth(context) * 0.5,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0)),
+                            primary: Colors.red[900]),
+                        onPressed: () {},
+                        child: Text(
+                          'Student',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'PTSerif Bold'),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: displayHeight(context) * 0.02,
+                    ),
+                    SizedBox(
+                      width: displayWidth(context) * 0.5,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          primary: Colors.amber,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VendorSignUp()),
+                          );
+                        },
+                        child: Text(
+                          'Vendor',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontFamily: 'PTSerif Bold'),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          ElevatedButton(
-            child: Icon(Icons.one_k),
-            onPressed: () {},
-          ),
-          ElevatedButton(
-            child: Icon(Icons.one_k),
-            onPressed: () {},
-          ),
-          ElevatedButton(
-            child: Icon(Icons.one_k),
-            onPressed: () {},
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
