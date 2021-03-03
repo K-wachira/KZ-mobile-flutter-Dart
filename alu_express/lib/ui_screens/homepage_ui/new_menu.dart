@@ -16,10 +16,13 @@ class NewMenu extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        // leading: Icon(
-        //   Feather.chevron_left,
-        //   color: Colors.black,
-        // ),
+        leading: GestureDetector(
+          onTap: () => Navigator.of(context).pop(true),
+          child: Icon(
+            Feather.chevron_left,
+            color: Colors.black,
+          ),
+        ),
         title: Padding(
           // TODO: Make the padding responsive
           padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
@@ -45,7 +48,6 @@ class NewMenu extends StatelessWidget {
         // ],
       ),
       body: MenuBody(),
-      bottomNavigationBar: BottomNav(),
     );
   }
 }
@@ -126,223 +128,217 @@ class _MenuBodyState extends State<MenuBody> {
     }
 
     return Container(
+        height: 500,
+        width: 500,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
-                child: Form(
-                  key: _formKey,
-                  child: ListView(
-                    children: [
-                      TextFormField(
-                          controller: categoryName,
+                child: Padding(
+              padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                        controller: categoryName,
 
-                          // validator: (String input) => {
-                          //       input.isEmpty ? 'Category Name Required' : null,
-                          //     },
-                          decoration: InputDecoration(
-                              labelStyle: kFont.copyWith(fontSize: 14),
-                              labelText:
-                                  "Category Name e.g. Breakfast, Drinks, Lunch")),
-                      Padding(
+                        // validator: (String input) => {
+                        //       input.isEmpty ? 'Category Name Required' : null,
+                        //     },
+                        decoration: InputDecoration(
+                            labelStyle: kFont.copyWith(fontSize: 14),
+                            labelText:
+                                "Category Name e.g. Breakfast, Drinks, Lunch")),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: TextFormField(
+                        controller: name,
+                        decoration: InputDecoration(
+                            labelStyle: kFont.copyWith(fontSize: 14),
+                            labelText: "Product Name e.g. Fries, Soda"),
+                      ),
+                    ),
+                    Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: TextFormField(
-                          controller: name,
-                          decoration: InputDecoration(
-                              labelStyle: kFont.copyWith(fontSize: 14),
-                              labelText: "Product Name e.g. Fries, Soda"),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Upload Photo",
+                                style: kFont,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                icon: Icon(Feather.upload),
+                                onPressed: () {
+                                  getImage();
+                                },
+                              ),
+                            ),
+                          ],
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                              controller: type,
+                              decoration: InputDecoration(
+                                  labelStyle: kFont.copyWith(fontSize: 14),
+                                  labelText: "Sizes e.g. 500ml")),
                         ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Upload Photo",
-                                  style: kFont,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: IconButton(
-                                  icon: Icon(Feather.upload),
-                                  onPressed: () {
-                                    getImage();
-                                  },
-                                ),
-                              ),
-                            ],
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: TextFormField(
-                                controller: type,
-                                decoration: InputDecoration(
-                                    labelStyle: kFont.copyWith(fontSize: 14),
-                                    labelText: "Sizes e.g. 500ml")),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: TextFormField(
-                                controller: price,
-                                decoration: InputDecoration(
-                                    labelStyle: kFont.copyWith(fontSize: 14),
-                                    labelText: "Price"),
-                              ),
+                              controller: price,
+                              decoration: InputDecoration(
+                                  labelStyle: kFont.copyWith(fontSize: 14),
+                                  labelText: "Price"),
                             ),
                           ),
-                          IconButton(
-                            iconSize: 16,
-                            icon: Icon(Feather.plus),
-                            onPressed: () {
-                              setState(() {
-                                choices.add(SideProduct(
-                                    name: type.text, price: price.text));
+                        ),
+                        IconButton(
+                          iconSize: 16,
+                          icon: Icon(Feather.plus),
+                          onPressed: () {
+                            setState(() {
+                              choices.add(SideProduct(
+                                  name: type.text, price: price.text));
 
-                                print(choices);
-                                type.clear();
-                                price.clear();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: TextFormField(
-                                  controller: side,
-                                  decoration: InputDecoration(
-                                      labelStyle: kFont.copyWith(fontSize: 14),
-                                      labelText: "Flavors/Sides")),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: TextFormField(
-                                controller: extraCost,
+                              print(choices);
+                              type.clear();
+                              price.clear();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: TextFormField(
+                                controller: side,
                                 decoration: InputDecoration(
                                     labelStyle: kFont.copyWith(fontSize: 14),
-                                    labelText: "Extra cost"),
-                              ),
+                                    labelText: "Flavors/Sides")),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: TextFormField(
+                              controller: extraCost,
+                              decoration: InputDecoration(
+                                  labelStyle: kFont.copyWith(fontSize: 14),
+                                  labelText: "Extra cost"),
                             ),
                           ),
-                          IconButton(
-                            iconSize: 16,
-                            icon: Icon(Feather.plus),
-                            onPressed: () {
-                              setState(() {
-                                sides.add(SideProduct(
-                                    name: side.text, price: extraCost.text));
-                                side.clear();
-                                price.clear();
-                                print(sides);
-                              });
-                            },
-                          ),
-                        ],
+                        ),
+                        IconButton(
+                          iconSize: 16,
+                          icon: Icon(Feather.plus),
+                          onPressed: () {
+                            setState(() {
+                              sides.add(SideProduct(
+                                  name: side.text, price: extraCost.text));
+                              side.clear();
+                              price.clear();
+                              print(sides);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Color(0xFFFFCC00),
+                        onPressed: () {
+                          setState(() {
+                            products.add((Product(
+                                categoryName: categoryName.text,
+                                price: price.text,
+                                types: choices,
+                                flavors: sides)));
+
+                            name.clear();
+                            side.clear();
+                            type.clear();
+                            price.clear();
+                            extraCost.clear();
+                          });
+                        },
+                        child: Text(
+                          "New Item",
+                          style: kFont,
+                        ),
                       ),
                       SizedBox(
-                        height: 40,
+                        width: 30.0,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            color: Color(0xFFFFCC00),
-                            onPressed: () {
-                              setState(() {
-                                products.add((Product(
-                                    categoryName: categoryName.text,
-                                    price: price.text,
-                                    types: choices,
-                                    flavors: sides)));
-
-                                name.clear();
-                                side.clear();
-                                type.clear();
-                                price.clear();
-                                extraCost.clear();
-                              });
-                            },
-                            child: Text(
-                              "New Item",
-                              style: kFont,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30.0,
-                          ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            color: Color(0xFFFFCC00),
-                            onPressed: () {
-                              setState(() {
-                                Category(
-                                    categoryName: categoryName.text,
-                                    products: products);
-                                categoryName.clear();
-                                name.clear();
-                                side.clear();
-                                type.clear();
-                                price.clear();
-                                extraCost.clear();
-                              });
-                            },
-                            child: Text(
-                              "New Category",
-                              style: kFont,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120.0, vertical: 10.0),
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: Color(0xFFDC2F02),
-                          onPressed: () {},
-                          child: Text(
-                            "Save",
-                            style: kFont,
-                          ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      )
-                    ],
-                  ),
+                        color: Color(0xFFFFCC00),
+                        onPressed: () {
+                          setState(() {
+                            Category(
+                                categoryName: categoryName.text,
+                                products: products);
+                            categoryName.clear();
+                            name.clear();
+                            side.clear();
+                            type.clear();
+                            price.clear();
+                            extraCost.clear();
+                          });
+                        },
+                        child: Text(
+                          "New Category",
+                          style: kFont,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 30.0,
+                      ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Color(0xFFFFCC00),
+                        onPressed: () {},
+                        child: Text(
+                          "Save",
+                          style: kFont,
+                        ),
+                      ),
+                    ])
+                  ],
                 ),
               ),
-            )
+            ))
           ],
         ));
   }

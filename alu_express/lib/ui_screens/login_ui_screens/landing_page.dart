@@ -53,7 +53,7 @@ class _LandingPageState extends State<LandingPage> {
         ),
         Padding(
           padding: EdgeInsets.only(
-            top: displayHeight(context) * 0.7,
+            top: displayHeight(context) * 0.5,
           ),
           // left: displayWidth(context) * 0.05),
           child: Material(
@@ -74,15 +74,17 @@ class _LandingPageState extends State<LandingPage> {
                         letterSpacing: .3,
                       ),
                     ),
-                    Text(
-                      "ALU-Express, ",
-                      style: GoogleFonts.ptSans(
-                        color: Colors.red[900],
-                        decoration: TextDecoration.none,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35,
-                        letterSpacing: .3,
+                    Expanded(
+                      child: Text(
+                        "ALU-Express, ",
+                        style: GoogleFonts.ptSans(
+                          color: Colors.red[900],
+                          decoration: TextDecoration.none,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35,
+                          letterSpacing: .3,
+                        ),
                       ),
                     ),
                   ],
@@ -153,7 +155,9 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                   ],
-                )
+                ),
+                                Expanded(child: SizedBox(height: displayHeight(context) * 0.05)),
+
               ],
             ),
           ),

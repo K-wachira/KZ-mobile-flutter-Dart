@@ -33,19 +33,22 @@ class _ImageCardState extends State<ImageCard> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.16,
-                width: MediaQuery.of(context).size.width * 0.60,
-                child: Image.network(
-                  widget.image,
-                  fit: BoxFit.fitWidth,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.16,
+                  width: MediaQuery.of(context).size.width * 0.60,
+                  child: Image.network(
+                    widget.image,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.15,
+              width: MediaQuery.of(context).size.width * 0.10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +69,14 @@ class _ImageCardState extends State<ImageCard> {
                   style: TextStyle(color: Colors.grey),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _bottomSheet(
+                          image: widget.image,
+                          title: widget.orderid,
+                          rating: 2.toDouble(),
+                          remaining: 20.toDouble(),
+                          sidelist: sidelist);
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.deepOrange,
                       onPrimary: Colors.black, // foreground
@@ -116,19 +126,19 @@ class _ImageCardState extends State<ImageCard> {
                     child: Container(
                       alignment: Alignment.center,
                       height: MediaQuery.of(context).size.height * 0.2,
-                      child: Stack(
-                        children: [
-                          Align(
-                              alignment: Alignment.center,
-                              child: Image.network(
-                                image,
-                                fit: BoxFit.cover,
-                              )),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text("$remaining"),
-                          )
-                        ],
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.22,
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            child: Image.network(
+                              image,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
