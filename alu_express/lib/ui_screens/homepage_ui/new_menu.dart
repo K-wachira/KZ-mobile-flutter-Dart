@@ -10,9 +10,12 @@ class NewMenu extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Feather.chevron_left,
-          color: Colors.black,
+        leading: GestureDetector(
+          onTap: () => Navigator.of(context).pop(true),
+          child: Icon(
+            Feather.chevron_left,
+            color: Colors.black,
+          ),
         ),
         title: Padding(
           // TODO: Make the padding responsive
@@ -39,7 +42,6 @@ class NewMenu extends StatelessWidget {
         ],
       ),
       body: MenuBody(),
-      bottomNavigationBar: BottomNav(),
     );
   }
 }
@@ -65,6 +67,8 @@ class _MenuBodyState extends State<MenuBody> {
   String categoryID;
   Widget build(BuildContext context) {
     return Container(
+      height: 500,
+      width: 500,
         color: Colors.white,
         child: Expanded(
           child: Column(
@@ -78,95 +82,93 @@ class _MenuBodyState extends State<MenuBody> {
                     fontFamily: "PTSans",
                     fontSize: 18),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: ListView(
-                    children: [
-                      TextFormField(
-                          //TODO: Fix this
-                          // validator: (String input) => {
-                          //       if (input.isNotEmpty)
-                          //         {
-                          //           setState(() {
-                          //             input = categoryID;
-                          //           }),
-                          //         },
-                          //     },
-                          decoration: InputDecoration(
-                              labelText:
-                                  "Category Name e.g. Breakfast, Drinks, Lunch")),
-                      TextFormField(
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ListView(
+                  children: [
+                    TextFormField(
+                        //TODO: Fix this
+                        // validator: (String input) => {
+                        //       if (input.isNotEmpty)
+                        //         {
+                        //           setState(() {
+                        //             input = categoryID;
+                        //           }),
+                        //         },
+                        //     },
                         decoration: InputDecoration(
-                            labelText: "Item Name e.g. Fries, Soda"),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Item Type e.g. Spicy, 500ml")),
-                          ),
-                          IconButton(
-                            iconSize: 16,
-                            icon: Icon(Feather.plus),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Flavors/Sides")),
-                          ),
-                          IconButton(
-                            iconSize: 16,
-                            icon: Icon(Feather.plus),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            color: Color(0xFFFFCC00),
-                            onPressed: () {},
-                            child: Text("New Item"),
-                          ),
-                          SizedBox(
-                            width: 30.0,
-                          ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            color: Color(0xFFFFCC00),
-                            onPressed: () {},
-                            child: Text("New Category"),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120.0, vertical: 10.0),
-                        child: RaisedButton(
+                            labelText:
+                                "Category Name e.g. Breakfast, Drinks, Lunch")),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Item Name e.g. Fries, Soda"),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Item Type e.g. Spicy, 500ml")),
+                        ),
+                        IconButton(
+                          iconSize: 16,
+                          icon: Icon(Feather.plus),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Flavors/Sides")),
+                        ),
+                        IconButton(
+                          iconSize: 16,
+                          icon: Icon(Feather.plus),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          color: Color(0xFFDC2F02),
+                          color: Color(0xFFFFCC00),
                           onPressed: () {},
-                          child: Text("Save"),
+                          child: Text("New Item"),
                         ),
-                      )
-                    ],
-                  ),
+                        SizedBox(
+                          width: 30.0,
+                        ),
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Color(0xFFFFCC00),
+                          onPressed: () {},
+                          child: Text("New Category"),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 120.0, vertical: 10.0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: Color(0xFFDC2F02),
+                        onPressed: () {},
+                        child: Text("Save"),
+                      ),
+                    )
+                  ],
                 ),
               )
             ],

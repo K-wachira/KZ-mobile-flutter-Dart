@@ -2,9 +2,11 @@ import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
 import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/new_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
+import 'package:alu_express/ui_screens/homepage_ui/vendor_profile.dart';
+import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:alu_express/ui_screens/homepage_ui/bottom_nav.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeMenu extends StatefulWidget {
   @override
@@ -12,19 +14,81 @@ class HomeMenu extends StatefulWidget {
 }
 
 class _HomeMenuState extends State<HomeMenu> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+
+  List<Widget> pages = [Menu(), Orders(), VendorProfile()];
+
   @override
   Widget build(BuildContext context) {
-    bool isSwitched = false;
+    return Scaffold(
+      body: Center(
+        child: pages.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+        ]),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 8),
+            child: GNav(
+                rippleColor: Colors.grey[300],
+                hoverColor: Colors.grey[100],
+                gap: 8,
+                activeColor: Colors.black,
+                iconSize: 24,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: Duration(milliseconds: 400),
+                tabBackgroundColor: Colors.grey[100],
+                tabs: [
+                  GButton(
+                    icon: LineIcons.home,
+                    text: 'Home',
+                  ),
+                  GButton(
+                    icon: LineIcons.shoppingCart  ,
+                    text: 'Orders',
+                  ),
+                  GButton(
+                    icon: LineIcons.user,
+                    text: 'Profile',
+                  ),
+                ],
+                selectedIndex: _selectedIndex,
+                onTabChange: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                }),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Text(
-          "Home",
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: "PTSans",
-              fontWeight: FontWeight.bold),
+        title: Center(
+          child: Text(
+            "Home",
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: "PTSans",
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: Container(
@@ -103,22 +167,7 @@ class _HomeMenuState extends State<HomeMenu> {
             ),
           )
         ]),
-        // //TODO: Fix Switch
-        //   Switch(
-
-        //     value: isSwitched,
-        //     onChanged: (isSwitched){
-        //         setState(() {
-        //           !isSwitched;
-        //         });
-        //     },
-        //     activeColor: Colors.white,
-        //     activeTrackColor: Colors.yellow,
-        //     inactiveThumbColor: Colors.grey,
-        //     inactiveTrackColor: Colors.white,
-        //         ),
       ),
-      bottomNavigationBar: BottomNav(),
     );
   }
 }

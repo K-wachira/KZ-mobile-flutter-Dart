@@ -190,10 +190,12 @@ class _VendorSignUpState extends State<VendorSignUp> {
                             });
                           },
                         ),
-                        Text(
-                          'I agree to all the terms and conditions.',
-                          style: GoogleFonts.ptSans(
-                              color: Colors.black, fontSize: 15),
+                        Expanded(
+                          child: Text(
+                            'I agree to all the terms and conditions.',
+                            style: GoogleFonts.ptSans(
+                                color: Colors.black, fontSize: 15),
+                          ),
                         )
                       ],
                     ),

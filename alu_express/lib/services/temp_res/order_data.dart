@@ -19,7 +19,7 @@ final List<Map> orders = [
     "Product ID ": "2",
     "Time": "now",
     "imageUrl":
-        "https://www.tasteatlas.com/images/ingredients/18f0d9db0f024db395b9ae8a3b5a5a96.jpg"
+        "https://i.imgur.com/Zumz3MA.jpeg"
   },
   {
     "OrderID": "12dsad21",
@@ -30,7 +30,7 @@ final List<Map> orders = [
     "Product ID ": "2",
     "Time": "now",
     "imageUrl":
-        "https://www.tasteatlas.com/images/ingredients/18f0d9db0f024db395b9ae8a3b5a5a96.jpg"
+        "https://i.imgur.com/6XhRbhk.jpeg"
   },
   {
     "OrderID": "12dsad21",
@@ -41,7 +41,7 @@ final List<Map> orders = [
     "Product ID ": "2",
     "Time": "now",
     "imageUrl":
-        "https://www.tasteatlas.com/images/ingredients/18f0d9db0f024db395b9ae8a3b5a5a96.jpg"
+        "https://i.imgur.com/QNOKQQn.jpeg"
   },
   {
     "OrderID": "12dsad21",
@@ -52,7 +52,7 @@ final List<Map> orders = [
     "Product ID ": "2",
     "Time": "now",
     "imageUrl":
-        "https://www.tasteatlas.com/images/ingredients/18f0d9db0f024db395b9ae8a3b5a5a96.jpg"
+        "https://i.imgur.com/Xa5TYgW.jpeg"
   },
   {
     "OrderID": "12dsad21",
@@ -63,7 +63,7 @@ final List<Map> orders = [
     "Product ID ": "2",
     "Time": "now",
     "imageUrl":
-        "https://www.tasteatlas.com/images/ingredients/18f0d9db0f024db395b9ae8a3b5a5a96.jpg"
+        "https://i.imgur.com/WFecFQR.jpeg"
   },
   {
     "OrderID": "12dsad21",
