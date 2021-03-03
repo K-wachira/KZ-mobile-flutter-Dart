@@ -8,13 +8,11 @@ class Product {
   String productName;
   String price;
   String photoUrl;
-  String categoryName;
   List types;
   List flavors;
 
   Product(
-      {@required this.categoryName,
-      @required this.price,
+      {@required this.price,
       this.flavors,
       this.types,
       this.photoUrl,
@@ -55,4 +53,8 @@ Future<void> addMenuData(postData) async {
   FirebaseFirestore.instance.collection("menus").add(postData).catchError((e) {
     print(e);
   });
+}
+
+getMenuData() async {
+  return FirebaseFirestore.instance.collection("menus").snapshots();
 }

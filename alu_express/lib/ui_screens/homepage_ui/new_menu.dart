@@ -68,7 +68,7 @@ class _MenuBodyState extends State<MenuBody> {
   List categories = [];
   List choices = [];
   List sides = [];
-  String vendorID;
+  // String vendorID;
   File image; // Fetch from login
   TextEditingController name = TextEditingController();
   TextEditingController price = TextEditingController();
@@ -114,17 +114,14 @@ class _MenuBodyState extends State<MenuBody> {
           source: ImageSource.gallery, imageQuality: 50);
       setState(() {
         image = File(img.path);
+        firebase_storage.Reference ref = firebase_storage
+            .FirebaseStorage.instance
+            .ref()
+            .child('products/' + productName + '.jpg');
+
+        firebase_storage.UploadTask task = ref.putFile(image);
+        task.whenComplete(() => imageUrl = ref.getDownloadURL().toString());
       });
-    }
-
-    Future uploadFile(
-        {@required String name, @required File selectedImage}) async {
-      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('products/' + name + '.jpg');
-
-      firebase_storage.UploadTask task = ref.putFile(selectedImage);
-      task.whenComplete(() => imageUrl = ref.getDownloadURL().toString());
     }
 
     return Container(
@@ -215,8 +212,6 @@ class _MenuBodyState extends State<MenuBody> {
                             setState(() {
                               choices.add(SideProduct(
                                   name: type.text, price: price.text));
-
-                              print(choices);
                               type.clear();
                               price.clear();
                             });
@@ -259,7 +254,6 @@ class _MenuBodyState extends State<MenuBody> {
                                   name: side.text, price: extraCost.text));
                               side.clear();
                               price.clear();
-                              print(sides);
                             });
                           },
                         ),
@@ -277,7 +271,6 @@ class _MenuBodyState extends State<MenuBody> {
                         onPressed: () {
                           setState(() {
                             products.add((Product(
-                                categoryName: categoryName.text,
                                 price: price.text,
                                 types: choices,
                                 flavors: sides)));
@@ -304,9 +297,9 @@ class _MenuBodyState extends State<MenuBody> {
                         color: Color(0xFFFFCC00),
                         onPressed: () {
                           setState(() {
-                            Category(
+                            categories.add(Category(
                                 categoryName: categoryName.text,
-                                products: products);
+                                products: products));
                             categoryName.clear();
                             name.clear();
                             side.clear();
@@ -328,7 +321,13 @@ class _MenuBodyState extends State<MenuBody> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         color: Color(0xFFFFCC00),
-                        onPressed: () {},
+                        onPressed: () {
+                          Map<String, String> postData = {
+                            "vendorID": "001",
+                            "categories": categories.toString()
+                          };
+                          addMenuData(postData);
+                        },
                         child: Text(
                           "Save",
                           style: kFont,
