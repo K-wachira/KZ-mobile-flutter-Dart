@@ -45,13 +45,13 @@ class _ImageCardState extends State<ImageCard> {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.1,
+              width: MediaQuery.of(context).size.width * 0.15,
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.033,
                 ),
                 Text(
                   "Order #23",
@@ -124,12 +124,11 @@ class _ImageCardState extends State<ImageCard> {
                       ),
                     ),
                   ),
-                
                   Text(
                     "Order #23",
                     style: TextStyle(fontSize: 16),
                   ),
-                               Expanded(
+                  Expanded(
                     child: ListView.builder(
                       itemCount: servings.length,
                       itemBuilder: (context, index) {
