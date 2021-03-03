@@ -11,7 +11,13 @@ class Orders extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
             bottom: TabBar(
+              labelColor: Colors.deepOrange,
+              indicatorColor: Color(0xFFDC2F02),
+              labelStyle: TextStyle(color: Colors.red, fontFamily: 'PTSans'),
+              unselectedLabelColor: Colors.black,
               tabs: [
                 Tab(
                   text: "Pending",
@@ -20,7 +26,15 @@ class Orders extends StatelessWidget {
                 Tab(text: "Completed"),
               ],
             ),
-            title: Text('Tabs Demo'),
+            title: Center(
+                child: Text(
+              'Orders',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontFamily: "PTSans"),
+            )),
           ),
           body: TabBarView(
             children: [
