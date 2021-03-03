@@ -2,6 +2,12 @@ import 'package:alu_express/ui_screens/homepage_ui/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:alu_express/services/auth/menu_functions.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io';
+
+TextStyle kFont = TextStyle(
+    fontFamily: "PTSans", color: Colors.black, fontWeight: FontWeight.w500);
 
 class NewMenu extends StatelessWidget {
   @override
@@ -10,10 +16,10 @@ class NewMenu extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Feather.chevron_left,
-          color: Colors.black,
-        ),
+        // leading: Icon(
+        //   Feather.chevron_left,
+        //   color: Colors.black,
+        // ),
         title: Padding(
           // TODO: Make the padding responsive
           padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
@@ -25,18 +31,18 @@ class NewMenu extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-            child: Text(
-              "AXpress",
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "Satisfy",
-              ),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+        //     child: Text(
+        //       "AXpress",
+        //       style: TextStyle(
+        //         color: Colors.black,
+        //         fontFamily: "Satisfy",
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
       body: MenuBody(),
       bottomNavigationBar: BottomNav(),
@@ -55,79 +61,211 @@ class MenuBody extends StatefulWidget {
 
 class _MenuBodyState extends State<MenuBody> {
   @override
-  List products;
-  List categories;
-  String productID;
-  String vendorID; // Fetch from login
+  String imageUrl;
+  List products = [];
+  List categories = [];
+  List choices = [];
+  List sides = [];
+  String vendorID;
+  File image; // Fetch from login
+  TextEditingController name = TextEditingController();
+  TextEditingController price = TextEditingController();
+  TextEditingController type = TextEditingController();
+  TextEditingController side = TextEditingController();
+  TextEditingController extraCost = TextEditingController();
+  TextEditingController categoryName = TextEditingController();
   String productName;
-  String price;
-  String photoUrl;
-  String categoryID;
+  String productPrice;
+  String productType;
+  String productSide;
+  String proudctExtraCost;
+  String productphotoUrl;
+  String productCategoryName;
+  final _formKey = GlobalKey<FormState>();
+
+  void initState() {
+    super.initState();
+    name.addListener(() {
+      productName = name.text;
+    });
+    price.addListener(() {
+      productPrice = price.text;
+    });
+    type.addListener(() {
+      productType = type.text;
+    });
+    side.addListener(() {
+      productSide = side.text;
+    });
+    extraCost.addListener(() {
+      proudctExtraCost = extraCost.text;
+    });
+    categoryName.addListener(() {
+      productCategoryName = categoryName.text;
+    });
+  }
+
   Widget build(BuildContext context) {
+    Future getImage() async {
+      final ImagePicker imagePicker = ImagePicker();
+      PickedFile img = await imagePicker.getImage(
+          source: ImageSource.gallery, imageQuality: 50);
+      setState(() {
+        image = File(img.path);
+      });
+    }
+
+    Future uploadFile(
+        {@required String name, @required File selectedImage}) async {
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('products/' + name + '.jpg');
+
+      firebase_storage.UploadTask task = ref.putFile(selectedImage);
+      task.whenComplete(() => imageUrl = ref.getDownloadURL().toString());
+    }
+
     return Container(
         color: Colors.white,
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Meze Fresh",
-                style: TextStyle(
-                    color: Color(0xFFDC2F02),
-                    fontFamily: "PTSans",
-                    fontSize: 18),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
+                child: Form(
+                  key: _formKey,
                   child: ListView(
                     children: [
                       TextFormField(
-                          //TODO: Fix this
+                          controller: categoryName,
+
                           // validator: (String input) => {
-                          //       if (input.isNotEmpty)
-                          //         {
-                          //           setState(() {
-                          //             input = categoryID;
-                          //           }),
-                          //         },
+                          //       input.isEmpty ? 'Category Name Required' : null,
                           //     },
                           decoration: InputDecoration(
+                              labelStyle: kFont.copyWith(fontSize: 14),
                               labelText:
                                   "Category Name e.g. Breakfast, Drinks, Lunch")),
-                      TextFormField(
-                        decoration: InputDecoration(
-                            labelText: "Item Name e.g. Fries, Soda"),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: TextFormField(
+                          controller: name,
+                          decoration: InputDecoration(
+                              labelStyle: kFont.copyWith(fontSize: 14),
+                              labelText: "Product Name e.g. Fries, Soda"),
+                        ),
                       ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Upload Photo",
+                                  style: kFont,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                child: IconButton(
+                                  icon: Icon(Feather.upload),
+                                  onPressed: () {
+                                    getImage();
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Expanded(
                             child: TextFormField(
+                                controller: type,
                                 decoration: InputDecoration(
-                                    labelText: "Item Type e.g. Spicy, 500ml")),
+                                    labelStyle: kFont.copyWith(fontSize: 14),
+                                    labelText: "Sizes e.g. 500ml")),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: TextFormField(
+                                controller: price,
+                                decoration: InputDecoration(
+                                    labelStyle: kFont.copyWith(fontSize: 14),
+                                    labelText: "Price"),
+                              ),
+                            ),
                           ),
                           IconButton(
                             iconSize: 16,
                             icon: Icon(Feather.plus),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                choices.add(SideProduct(
+                                    name: type.text, price: price.text));
+
+                                print(choices);
+                                type.clear();
+                                price.clear();
+                              });
+                            },
                           ),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
-                            child: TextFormField(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: TextFormField(
+                                  controller: side,
+                                  decoration: InputDecoration(
+                                      labelStyle: kFont.copyWith(fontSize: 14),
+                                      labelText: "Flavors/Sides")),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: TextFormField(
+                                controller: extraCost,
                                 decoration: InputDecoration(
-                                    labelText: "Flavors/Sides")),
+                                    labelStyle: kFont.copyWith(fontSize: 14),
+                                    labelText: "Extra cost"),
+                              ),
+                            ),
                           ),
                           IconButton(
                             iconSize: 16,
                             icon: Icon(Feather.plus),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                sides.add(SideProduct(
+                                    name: side.text, price: extraCost.text));
+                                side.clear();
+                                price.clear();
+                                print(sides);
+                              });
+                            },
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        height: 40,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -137,8 +275,25 @@ class _MenuBodyState extends State<MenuBody> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             color: Color(0xFFFFCC00),
-                            onPressed: () {},
-                            child: Text("New Item"),
+                            onPressed: () {
+                              setState(() {
+                                products.add((Product(
+                                    categoryName: categoryName.text,
+                                    price: price.text,
+                                    types: choices,
+                                    flavors: sides)));
+
+                                name.clear();
+                                side.clear();
+                                type.clear();
+                                price.clear();
+                                extraCost.clear();
+                              });
+                            },
+                            child: Text(
+                              "New Item",
+                              style: kFont,
+                            ),
                           ),
                           SizedBox(
                             width: 30.0,
@@ -148,8 +303,23 @@ class _MenuBodyState extends State<MenuBody> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             color: Color(0xFFFFCC00),
-                            onPressed: () {},
-                            child: Text("New Category"),
+                            onPressed: () {
+                              setState(() {
+                                Category(
+                                    categoryName: categoryName.text,
+                                    products: products);
+                                categoryName.clear();
+                                name.clear();
+                                side.clear();
+                                type.clear();
+                                price.clear();
+                                extraCost.clear();
+                              });
+                            },
+                            child: Text(
+                              "New Category",
+                              style: kFont,
+                            ),
                           ),
                         ],
                       ),
@@ -162,15 +332,18 @@ class _MenuBodyState extends State<MenuBody> {
                           ),
                           color: Color(0xFFDC2F02),
                           onPressed: () {},
-                          child: Text("Save"),
+                          child: Text(
+                            "Save",
+                            style: kFont,
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ));
   }
 }

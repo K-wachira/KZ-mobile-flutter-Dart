@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:io';
 
 class Product {
-  String productID;
+  // String productID;
   String productName;
   String price;
   String photoUrl;
-  String categoryID;
+  String categoryName;
   List types;
   List flavors;
 
   Product(
-      {@required this.categoryID,
+      {@required this.categoryName,
       @required this.price,
       this.flavors,
       this.types,
       this.photoUrl,
       // check on ID
-      @required this.productID,
+
       this.productName});
 }
 
 class Category {
-  String categoryID;
+  List products;
   String categoryName;
 
-  Category({@required this.categoryID, @required this.categoryName});
+  Category({@required this.categoryName, @required this.products});
 }
 
 class Menu {
@@ -41,4 +43,16 @@ class Menu {
 
 Future<void> saveMenu() async {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+}
+
+class SideProduct {
+  String name;
+  String price;
+  SideProduct({@required this.name, @required this.price});
+}
+
+Future<void> addMenuData(postData) async {
+  FirebaseFirestore.instance.collection("menus").add(postData).catchError((e) {
+    print(e);
+  });
 }
