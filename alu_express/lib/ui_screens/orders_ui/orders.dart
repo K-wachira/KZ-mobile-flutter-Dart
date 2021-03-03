@@ -14,10 +14,9 @@ class Orders extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.white,
             bottom: TabBar(
-             labelColor: Colors.deepOrange,  
-              indicatorColor: Colors.deepOrangeAccent,
-              labelStyle:
-                  TextStyle(color: Colors.red, fontFamily: 'Family Name'),
+              labelColor: Colors.deepOrange,
+              indicatorColor: Color(0xFFDC2F02),
+              labelStyle: TextStyle(color: Colors.red, fontFamily: 'PTSans'),
               unselectedLabelColor: Colors.black,
               tabs: [
                 Tab(
@@ -30,7 +29,11 @@ class Orders extends StatelessWidget {
             title: Center(
                 child: Text(
               'Orders',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontFamily: "PTSans"),
             )),
           ),
           body: TabBarView(

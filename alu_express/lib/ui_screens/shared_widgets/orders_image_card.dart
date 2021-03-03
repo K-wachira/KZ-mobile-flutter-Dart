@@ -58,7 +58,8 @@ class _ImageCardState extends State<ImageCard> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 18.0),
+                      fontSize: 18,
+                      fontFamily: "PTSans"),
                 ),
                 Text(
                   "10.20",
@@ -73,7 +74,14 @@ class _ImageCardState extends State<ImageCard> {
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
                     ),
-                    child: Text('View'))
+                    child: Text(
+                      'View',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: "PTSans"),
+                    ))
               ],
             )
           ],
@@ -126,20 +134,49 @@ class _ImageCardState extends State<ImageCard> {
                   ),
                   Text(
                     "Order #23",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "PTSans"),
+                  ),
+                  SizedBox(
+                    height: 25,
                   ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: servings.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          leading: Text(servings[index]["quantity"].toString()),
+                          leading: Text(
+                            servings[index]["quantity"].toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "PTSans"),
+                          ),
                           title: Text(
                             '${servings[index]["title"]}: (${servings[index]["type"]})',
                             textScaleFactor: 1.5,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "PTSans"),
                           ),
-                          subtitle: Text(servings[index]["sides"]),
-                          trailing: Text("Kelvin"),
+                          subtitle: Text(
+                            servings[index]["sides"],
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontFamily: "PTSans"),
+                          ),
+                          trailing: Text(
+                            "Kelvin",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: "PTSans"),
+                          ),
                           selected: true,
                           isThreeLine: true,
                         );
@@ -161,7 +198,14 @@ class _ImageCardState extends State<ImageCard> {
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: Text('Accept')),
+                          child: Text(
+                            'Accept',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "PTSans"),
+                          )),
                       ElevatedButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -173,7 +217,14 @@ class _ImageCardState extends State<ImageCard> {
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: Text('Decline'))
+                          child: Text(
+                            'Decline',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "PTSans"),
+                          ))
                     ],
                   ))
                 ]),
