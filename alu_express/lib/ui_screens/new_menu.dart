@@ -1,6 +1,7 @@
 import 'package:alu_express/ui_screens/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:alu_express/services/auth/menu_functions.dart';
 
 class NewMenu extends StatelessWidget {
   @override
@@ -37,97 +38,140 @@ class NewMenu extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-          color: Colors.white,
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Meze Fresh",
-                  style: TextStyle(
-                      color: Color(0xFFDC2F02),
-                      fontFamily: "PTSans",
-                      fontSize: 18),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ListView(
-                      children: [
-                        FormField(
-                            title:
-                                "Category Name e.g. Breakfast, Drinks, Lunch"),
-                        FormField(title: "Item Name e.g. Fries, Soda"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                                child: FormField(
-                                    title: "Item Type e.g. Spicy, 500ml")),
-                            IconButton(
-                              iconSize: 16,
-                              icon: Icon(Feather.plus),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(child: FormField(title: "Flavors/Sides")),
-                            IconButton(
-                              iconSize: 16,
-                              icon: Icon(Feather.plus),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              color: Color(0xFFFFCC00),
-                              onPressed: () {},
-                              child: Text("New Item"),
-                            ),
-                            SizedBox(
-                              width: 30.0,
-                            ),
-                            RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              color: Color(0xFFFFCC00),
-                              onPressed: () {},
-                              child: Text("New Category"),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 120.0, vertical: 10.0),
-                          child: RaisedButton(
+      body: MenuBody(),
+      bottomNavigationBar: BottomNav(),
+    );
+  }
+}
+
+class MenuBody extends StatefulWidget {
+  const MenuBody({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _MenuBodyState createState() => _MenuBodyState();
+}
+
+class _MenuBodyState extends State<MenuBody> {
+  @override
+  List products;
+  List categories;
+  String productID;
+  String vendorID; // Fetch from login
+  String productName;
+  String price;
+  String photoUrl;
+  String categoryID;
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.white,
+        child: Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Meze Fresh",
+                style: TextStyle(
+                    color: Color(0xFFDC2F02),
+                    fontFamily: "PTSans",
+                    fontSize: 18),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                          //TODO: Fix this
+                          // validator: (String input) => {
+                          //       if (input.isNotEmpty)
+                          //         {
+                          //           setState(() {
+                          //             input = categoryID;
+                          //           }),
+                          //         },
+                          //     },
+                          decoration: InputDecoration(
+                              labelText:
+                                  "Category Name e.g. Breakfast, Drinks, Lunch")),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            labelText: "Item Name e.g. Fries, Soda"),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Item Type e.g. Spicy, 500ml")),
+                          ),
+                          IconButton(
+                            iconSize: 16,
+                            icon: Icon(Feather.plus),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: "Flavors/Sides")),
+                          ),
+                          IconButton(
+                            iconSize: 16,
+                            icon: Icon(Feather.plus),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RaisedButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            color: Color(0xFFDC2F02),
+                            color: Color(0xFFFFCC00),
                             onPressed: () {},
-                            child: Text("Save"),
+                            child: Text("New Item"),
                           ),
-                        )
-                      ],
-                    ),
+                          SizedBox(
+                            width: 30.0,
+                          ),
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            color: Color(0xFFFFCC00),
+                            onPressed: () {},
+                            child: Text("New Category"),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120.0, vertical: 10.0),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: Color(0xFFDC2F02),
+                          onPressed: () {},
+                          child: Text("Save"),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          )),
-      bottomNavigationBar: BottomNav(),
-    );
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
 
