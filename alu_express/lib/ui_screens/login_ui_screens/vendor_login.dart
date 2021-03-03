@@ -1,5 +1,5 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
-import 'package:alu_express/ui_screens/home_menu.dart';
+import 'package:alu_express/ui_screens/homepage_ui/home_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
