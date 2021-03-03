@@ -1,4 +1,5 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
+import 'package:alu_express/ui_screens/homepage_ui/home_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
@@ -210,7 +211,7 @@ class _VendorLogInState extends State<VendorLogIn> {
       print("Logged in successfully!");
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Orders()));
+          context, MaterialPageRoute(builder: (context) => HomeMenu()));
     } else {
       showDialog(
           context: context,

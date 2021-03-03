@@ -1,6 +1,9 @@
+import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
+import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
+import 'package:alu_express/ui_screens/homepage_ui/new_menu.dart';
+import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:alu_express/ui_screens/homepage_ui/appbar.dart';
 import 'package:alu_express/ui_screens/homepage_ui/bottom_nav.dart';
 
 class HomeMenu extends StatefulWidget {
@@ -16,32 +19,13 @@ class _HomeMenuState extends State<HomeMenu> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Feather.chevron_left,
-          color: Colors.black,
+        title: Text(
+          "Home",
+          style: TextStyle(
+              color: Colors.black,
+              fontFamily: "PTSans",
+              fontWeight: FontWeight.bold),
         ),
-        title: Padding(
-          padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
-          child: Text(
-            "Home",
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: "PTSans",
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-            child: Text(
-              "AXpress",
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "Satisfy",
-              ),
-            ),
-          ),
-        ],
       ),
       body: Container(
         color: Colors.white,
@@ -61,11 +45,27 @@ class _HomeMenuState extends State<HomeMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                MenuCard(
-                  link: "images/restaurant.png",
-                  title: "My Menu",
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyMenu()));
+                    });
+                  },
+                  child: MenuCard(
+                    link: "images/restaurant.png",
+                    title: "My Menu",
+                  ),
                 ),
-                MenuCard(link: "images/cloche.png", title: "Create Menu"),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => NewMenu()));
+                      });
+                    },
+                    child: MenuCard(
+                        link: "images/cloche.png", title: "Create Menu")),
               ],
             ),
           ),
@@ -76,9 +76,29 @@ class _HomeMenuState extends State<HomeMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                MenuCard(
-                    link: "images/best-price.png", title: "Deal of the Day"),
-                MenuCard(link: "images/megaphone.png", title: "Promotions")
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DealOfTheDay()));
+                    });
+                  },
+                  child: MenuCard(
+                      link: "images/best-price.png", title: "Deal of the Day"),
+                ),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Promotions()));
+                      });
+                    },
+                    child: MenuCard(
+                        link: "images/megaphone.png", title: "Promotions"))
               ],
             ),
           )
