@@ -1,9 +1,9 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
-import 'package:alu_express/ui_screens/home.dart';
+import 'package:alu_express/ui_screens/home_menu.dart';
+import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:alu_express/ui_screens/size_helpers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -55,6 +55,7 @@ class _VendorLogInState extends State<VendorLogIn> {
           SizedBox(
             width: displayWidth(context) * 0.80,
             child: Form(
+              key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -209,11 +210,7 @@ class _VendorLogInState extends State<VendorLogIn> {
       print("Logged in successfully!");
 
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home(
-                    uid: user.uid.toString(),
-                  )));
+          context, MaterialPageRoute(builder: (context) => HomeMenu()));
     } else {
       showDialog(
           context: context,

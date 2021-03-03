@@ -1,4 +1,4 @@
-import 'package:alu_express/ui_screens/bottom_nav.dart';
+import 'package:alu_express/ui_screens/homepage_ui/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:alu_express/services/auth/menu_functions.dart';

@@ -1,8 +1,8 @@
+import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:alu_express/ui_screens/size_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // We can check if the user is logged in  or not and redirect to  the approp page.
