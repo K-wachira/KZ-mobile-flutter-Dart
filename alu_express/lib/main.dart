@@ -1,3 +1,4 @@
+import 'package:alu_express/ui_screens/homepage_ui/home_menu.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ALU Express',
-      home: Orders(),
+      home: HomeMenu(),
       debugShowCheckedModeBanner: false,
     );
   }
