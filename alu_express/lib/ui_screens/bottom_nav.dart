@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({
@@ -11,24 +12,27 @@ class BottomNav extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.home,
+            Feather.home,
+            color: Color(0xFFDC2F02),
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.shopping_cart,
+            Feather.shopping_cart,
+            color: Colors.black,
           ),
           label: 'Orders',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.person_sharp,
+            Feather.user,
+            color: Colors.black,
           ),
           label: 'Profile',
         ),
       ],
-      selectedItemColor: Colors.red[900],
+      selectedItemColor: Color(0xFFDC2F02),
     );
   }
 }
