@@ -9,6 +9,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomeMenu extends StatefulWidget {
+  final userId;
+  HomeMenu({@required this.userId});
   @override
   _HomeMenuState createState() => _HomeMenuState();
 }
@@ -48,7 +50,7 @@ class _HomeMenuState extends State<HomeMenu> {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: LineIcons.shoppingCart  ,
+                    icon: LineIcons.shoppingCart,
                     text: 'Orders',
                   ),
                   GButton(
@@ -124,8 +126,11 @@ class _MenuState extends State<Menu> {
                 GestureDetector(
                     onTap: () {
                       setState(() {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => NewMenu()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NewMenu(uid: widget.userId)));
                       });
                     },
                     child: MenuCard(

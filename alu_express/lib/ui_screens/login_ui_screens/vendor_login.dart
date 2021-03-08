@@ -212,7 +212,11 @@ class _VendorLogInState extends State<VendorLogIn> {
       print("Logged in successfully!");
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeMenu()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeMenu(
+                    userId: user.uid,
+                  )));
     } else {
       showDialog(
           context: context,

@@ -10,6 +10,8 @@ TextStyle kFont = TextStyle(
     fontFamily: "PTSans", color: Colors.black, fontWeight: FontWeight.w500);
 
 class NewMenu extends StatelessWidget {
+  final uid;
+  NewMenu({@required this.uid});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
