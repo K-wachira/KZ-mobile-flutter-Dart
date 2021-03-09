@@ -215,7 +215,7 @@ class _VendorLogInState extends State<VendorLogIn> {
           context,
           MaterialPageRoute(
               builder: (context) => HomeMenu(
-                    userId: user.uid,
+                    userid: user.uid,
                   )));
     } else {
       showDialog(

@@ -9,8 +9,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomeMenu extends StatefulWidget {
-  final userId;
-  HomeMenu({@required this.userId});
+  final userid;
+  const HomeMenu({Key key, this.userid}) : super(key: key);
   @override
   _HomeMenuState createState() => _HomeMenuState();
 }
@@ -114,8 +114,10 @@ class _MenuState extends State<Menu> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyMenu()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyMenu(userId: "123")));
                     });
                   },
                   child: MenuCard(
@@ -129,8 +131,8 @@ class _MenuState extends State<Menu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    NewMenu(uid: widget.userId)));
+                                builder: (context) => NewMenu(
+                                    uid: "                        rId")));
                       });
                     },
                     child: MenuCard(

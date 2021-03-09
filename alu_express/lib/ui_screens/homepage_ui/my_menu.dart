@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class MyMenu extends StatefulWidget {
+  final userId;
+
+  const MyMenu({Key key, this.userId}) : super(key: key);
+
   @override
   _MyMenuState createState() => _MyMenuState();
 }

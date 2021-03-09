@@ -11,7 +11,9 @@ TextStyle kFont = TextStyle(
 
 class NewMenu extends StatelessWidget {
   final uid;
-  NewMenu({@required this.uid});
+
+  const NewMenu({Key key, this.uid}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
