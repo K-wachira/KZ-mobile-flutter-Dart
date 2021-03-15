@@ -28,6 +28,7 @@ class _BottomNavState extends State<BottomNav> {
     }
 
     return BottomNavigationBar(
+      elevation: 30,
       items: [
         BottomNavigationBarItem(
           activeIcon: Icon(

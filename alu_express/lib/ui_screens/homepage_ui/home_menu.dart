@@ -1,6 +1,6 @@
+import 'package:alu_express/ui_screens/homepage_ui/addcategory.dart';
 import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
 import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
-import 'package:alu_express/ui_screens/homepage_ui/new_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
 import 'package:alu_express/ui_screens/homepage_ui/vendor_profile.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
@@ -19,8 +19,8 @@ class _HomeMenuState extends State<HomeMenu> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-
-  List<Widget> pages = [Menu(), Orders(), VendorProfile()];
+  // Menu(uid: widget.userid,
+  List<Widget> pages = [Orders(), VendorProfile()];
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +72,8 @@ class _HomeMenuState extends State<HomeMenu> {
 }
 
 class Menu extends StatefulWidget {
+  final uid;
+  Menu({@required this.uid});
   @override
   _MenuState createState() => _MenuState();
 }
@@ -131,8 +133,8 @@ class _MenuState extends State<Menu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NewMenu(
-                                    uid: "                        rId")));
+                                builder: (context) =>
+                                    AddMenu(userID: widget.uid)));
                       });
                     },
                     child: MenuCard(

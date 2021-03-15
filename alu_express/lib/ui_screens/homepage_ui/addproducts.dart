@@ -9,22 +9,22 @@ import 'dart:io';
 TextStyle kFont = TextStyle(
     fontFamily: "PTSans", color: Colors.black, fontWeight: FontWeight.w500);
 
-class NewMenu extends StatelessWidget {
+class AddProductsPage extends StatelessWidget {
   final uid;
 
-  const NewMenu({Key key, this.uid}) : super(key: key);
+  const AddProductsPage({Key key, this.uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.redAccent[700],
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(true),
           child: Icon(
             Feather.chevron_left,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         title: Padding(
@@ -33,31 +33,22 @@ class NewMenu extends StatelessWidget {
           child: Text(
             "Create Menu",
             style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontFamily: "PTSans",
                 fontWeight: FontWeight.bold),
           ),
         ),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-        //     child: Text(
-        //       "AXpress",
-        //       style: TextStyle(
-        //         color: Colors.black,
-        //         fontFamily: "Satisfy",
-        //       ),
-        //     ),
-        //   ),
-        // ],
       ),
-      body: MenuBody(),
+      body: MenuBody(uid: uid),
+      bottomNavigationBar: BottomNav(),
     );
   }
 }
 
 class MenuBody extends StatefulWidget {
+  final uid;
   const MenuBody({
+    @required this.uid,
     Key key,
   }) : super(key: key);
 
@@ -88,6 +79,7 @@ class _MenuBodyState extends State<MenuBody> {
   String productphotoUrl;
   String productCategoryName;
   final _formKey = GlobalKey<FormState>();
+  String dropdownValue = 'Side';
 
   void initState() {
     super.initState();
@@ -116,16 +108,21 @@ class _MenuBodyState extends State<MenuBody> {
       final ImagePicker imagePicker = ImagePicker();
       PickedFile img = await imagePicker.getImage(
           source: ImageSource.gallery, imageQuality: 50);
+
       setState(() {
         image = File(img.path);
-        firebase_storage.Reference ref = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('products/' + productName + '.jpg');
-
-        firebase_storage.UploadTask task = ref.putFile(image);
-        task.whenComplete(() => imageUrl = ref.getDownloadURL().toString());
       });
+    }
+
+    Future getUrl() {
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('products/' + productName + '.jpg');
+      firebase_storage.UploadTask task = ref.putFile(image);
+      task.whenComplete(() => setState(() {
+            imageUrl = ref.getDownloadURL().toString();
+            print(imageUrl);
+          }));
     }
 
     return Container(
@@ -151,8 +148,7 @@ class _MenuBodyState extends State<MenuBody> {
                         //     },
                         decoration: InputDecoration(
                             labelStyle: kFont.copyWith(fontSize: 14),
-                            labelText:
-                                "Category Name e.g. Breakfast, Drinks, Lunch")),
+                            labelText: "Choose Category for Product")),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: TextFormField(
@@ -173,7 +169,7 @@ class _MenuBodyState extends State<MenuBody> {
                               ),
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
                             Expanded(
                               child: IconButton(
@@ -185,43 +181,39 @@ class _MenuBodyState extends State<MenuBody> {
                             ),
                           ],
                         )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                              controller: type,
-                              decoration: InputDecoration(
-                                  labelStyle: kFont.copyWith(fontSize: 14),
-                                  labelText: "Sizes e.g. 500ml")),
+                    Container(
+                        height: 100,
+                        width: 100,
+                        child: (image != null) ? Image.file(image) : Text("")),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 100, 0),
+                      child: DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: const Icon(Feather.chevron_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: TextFormField(
-                              controller: price,
-                              decoration: InputDecoration(
-                                  labelStyle: kFont.copyWith(fontSize: 14),
-                                  labelText: "Price"),
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          iconSize: 16,
-                          icon: Icon(Feather.plus),
-                          onPressed: () {
-                            setState(() {
-                              choices.add(SideProduct(
-                                  name: type.text, price: price.text));
-                              type.clear();
-                              price.clear();
-                            });
-                          },
-                        ),
-                      ],
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Side',
+                          'Flavor',
+                          'Filling',
+                          'Size',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ),
                     Row(
                       children: [
@@ -232,11 +224,11 @@ class _MenuBodyState extends State<MenuBody> {
                                 controller: side,
                                 decoration: InputDecoration(
                                     labelStyle: kFont.copyWith(fontSize: 14),
-                                    labelText: "Flavors/Sides")),
+                                    labelText: "Side Product Name")),
                           ),
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 10,
                         ),
                         Expanded(
                           child: Padding(
@@ -245,7 +237,7 @@ class _MenuBodyState extends State<MenuBody> {
                               controller: extraCost,
                               decoration: InputDecoration(
                                   labelStyle: kFont.copyWith(fontSize: 14),
-                                  labelText: "Extra cost"),
+                                  labelText: "Extra Product Cost"),
                             ),
                           ),
                         ),
@@ -273,52 +265,15 @@ class _MenuBodyState extends State<MenuBody> {
                         ),
                         color: Color(0xFFFFCC00),
                         onPressed: () {
-                          setState(() {
-                            products.add((Product(
-                                price: price.text,
-                                types: choices,
-                                flavors: sides)));
-
-                            name.clear();
-                            side.clear();
-                            type.clear();
-                            price.clear();
-                            extraCost.clear();
-                          });
+                          setState(() {});
                         },
                         child: Text(
-                          "New Item",
+                          "Save Item",
                           style: kFont,
                         ),
                       ),
                       SizedBox(
-                        width: 30.0,
-                      ),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        color: Color(0xFFFFCC00),
-                        onPressed: () {
-                          setState(() {
-                            categories.add(Category(
-                                categoryName: categoryName.text,
-                                products: products));
-                            categoryName.clear();
-                            name.clear();
-                            side.clear();
-                            type.clear();
-                            price.clear();
-                            extraCost.clear();
-                          });
-                        },
-                        child: Text(
-                          "New Category",
-                          style: kFont,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30.0,
+                        width: 10.0,
                       ),
                       RaisedButton(
                         shape: RoundedRectangleBorder(
@@ -327,13 +282,12 @@ class _MenuBodyState extends State<MenuBody> {
                         color: Color(0xFFFFCC00),
                         onPressed: () {
                           Map<String, String> postData = {
-                            "vendorID": "001",
+                            "vendorID": widget.uid,
                             "categories": categories.toString()
                           };
-                          addMenuData(postData);
                         },
                         child: Text(
-                          "Save",
+                          "Next",
                           style: kFont,
                         ),
                       ),
