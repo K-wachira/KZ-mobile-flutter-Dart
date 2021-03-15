@@ -1,26 +1,26 @@
+import 'package:alu_express/ui_screens/homepage_ui/addcategory.dart';
 import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
 import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
-import 'package:alu_express/ui_screens/homepage_ui/new_menu.dart';
 import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
-import 'package:alu_express/ui_screens/homepage_ui/vendor_profile.dart';
+import 'package:alu_express/ui_screens/homepage_ui/profile_pages/vendor_profile.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-class HomeMenu extends StatefulWidget {
+class HomePage extends StatefulWidget {
   final userid;
-  const HomeMenu({Key key, this.userid}) : super(key: key);
+  const HomePage({Key key, this.userid}) : super(key: key);
   @override
-  _HomeMenuState createState() => _HomeMenuState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeMenuState extends State<HomeMenu> {
+class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-
-  List<Widget> pages = [Menu(), Orders(), VendorProfile()];
+  // Menu(uid: widget.userid,
+  List<Widget> pages = [Menu(uid: null,), Orders(), VendorProfile()];
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +72,9 @@ class _HomeMenuState extends State<HomeMenu> {
 }
 
 class Menu extends StatefulWidget {
+  final uid;
+
+  const Menu({Key key, this.uid}) : super(key: key);
   @override
   _MenuState createState() => _MenuState();
 }
@@ -131,8 +134,8 @@ class _MenuState extends State<Menu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NewMenu(
-                                    uid: "                        rId")));
+                                builder: (context) =>
+                                    AddMenu(userID: widget.uid)));
                       });
                     },
                     child: MenuCard(

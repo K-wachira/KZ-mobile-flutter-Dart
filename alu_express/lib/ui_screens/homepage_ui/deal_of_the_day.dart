@@ -1,4 +1,3 @@
-import 'package:alu_express/ui_screens/homepage_ui/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -9,9 +8,14 @@ class DealOfTheDay extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(
-          Feather.chevron_left,
-          color: Colors.black,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Feather.chevron_left,
+            color: Colors.black,
+          ),
         ),
         title: Padding(
           padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
@@ -39,7 +43,6 @@ class DealOfTheDay extends StatelessWidget {
       body: Center(
         child: Text("Coming Soon"),
       ),
-      bottomNavigationBar: BottomNav(),
     );
   }
 }

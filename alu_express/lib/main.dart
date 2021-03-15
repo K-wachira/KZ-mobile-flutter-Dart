@@ -1,4 +1,4 @@
-import 'package:alu_express/ui_screens/homepage_ui/home_menu.dart';
+import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,7 +44,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'ALU Express',
       home: isLoggedIn
-       ? HomeMenu(userid: userId): LandingPage(),
+          ? HomePage(userid: userId)
+          : LandingPage(), // AddProductsPage()
       debugShowCheckedModeBanner: false,
     );
   }
