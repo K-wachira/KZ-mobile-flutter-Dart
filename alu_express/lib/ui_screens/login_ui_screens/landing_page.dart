@@ -1,7 +1,5 @@
 import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,23 +10,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  String userId;
-
-  bool isLoggedIn = false;
-
-  Future<void> getCurrentUser() async {
-    User userdata = FirebaseAuth.instance.currentUser;
-//    cross check is the user id is not null and is more than 5 characters (normal uid from firebase is 25 characters plus
-    if (((userdata.uid).length) > 5) {
-      setState(() {
-        print(userdata.uid);
-        userId = userdata.uid;
-//        islogged in is set to true showing that user is logged in
-        isLoggedIn = true;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -156,8 +137,8 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ],
                 ),
-                                Expanded(child: SizedBox(height: displayHeight(context) * 0.05)),
-
+                Expanded(
+                    child: SizedBox(height: displayHeight(context) * 0.05)),
               ],
             ),
           ),
