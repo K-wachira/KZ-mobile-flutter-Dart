@@ -48,6 +48,13 @@ class _AddMenuBodyState extends State<AddMenuBody> {
   @override
   TextEditingController categoryController;
   String category;
+  void initState() {
+    super.initState();
+    categoryController.addListener(() {
+      category = categoryController.text;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       Row(
