@@ -44,14 +44,14 @@ class AddMenuBody extends StatefulWidget {
 
 class _AddMenuBodyState extends State<AddMenuBody> {
   @override
-  TextEditingController categoryController;
+  TextEditingController categoryController = TextEditingController() ;
   String category;
-  // void initState() {
-  //   super.initState();
-  //   categoryController.addListener(() {
-  //     category = categoryController.text;
-  //   });
-  // }
+  void initState() {
+    super.initState();
+    categoryController.addListener(() {
+      category = categoryController.text;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -108,7 +108,10 @@ class _AddMenuBodyState extends State<AddMenuBody> {
             borderRadius: BorderRadius.circular(20),
           ),
           color: Color(0xFFFFCC00),
-          onPressed: () {},
+          onPressed: () {
+
+            
+          },
           child: Text(
             "Next",
           ),
