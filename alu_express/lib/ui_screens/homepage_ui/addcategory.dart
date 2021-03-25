@@ -110,17 +110,8 @@ class _AddMenuBodyState extends State<AddMenuBody> {
           ),
           color: Color(0xFFFFCC00),
           onPressed: () {
-<<<<<<< HEAD
-       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddProductsPage(),
-                        ));
-            
-=======
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => AddProductsPage()));
->>>>>>> 1f21c8cbfe5ed305e69a694d85b82b75ecf7f5f3
           },
           child: Text(
             "Next",

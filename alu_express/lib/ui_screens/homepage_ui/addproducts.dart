@@ -112,11 +112,6 @@ class _MenuBodyState extends State<MenuBody> {
                 child: Form(
                     key: _formKey,
                     child: ListView(children: [
-<<<<<<< HEAD
-                      //TODO: Return dropdown of categories in firebase
-                      //TODO: Get documentID of each category as the value of catid
-=======
->>>>>>> 1f21c8cbfe5ed305e69a694d85b82b75ecf7f5f3
                       StreamBuilder(
                           stream: firebaseFirestore
                               .collection('categories')
@@ -149,26 +144,6 @@ class _MenuBodyState extends State<MenuBody> {
                                 value: category,
                               );
                             }
-<<<<<<< HEAD
-                            return DropdownButton(
-                              value: category,
-                              // isDense: true,
-                              onChanged: (valueSelectedByUser) {
-                                setState(() {
-                                  category = valueSelectedByUser;
-                                });
-                              },
-                              hint: Text('Choose category of product'),
-                              items: snapshot.data.docs
-                                  .map((DocumentSnapshot document) {
-                                return DropdownMenuItem<String>(
-                                  value: document.data()['categoryName'],
-                                  child: Text(document.data()['categoryName']),
-                                );
-                              }).toList(),
-                            );
-=======
->>>>>>> 1f21c8cbfe5ed305e69a694d85b82b75ecf7f5f3
                           }),
 
 

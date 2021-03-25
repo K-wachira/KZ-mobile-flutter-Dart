@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   // Define an async function to initialize FlutterFire
   String userId;
 
-  bool isLoggedIn = false;git 
+  bool isLoggedIn = false;
 
   @override
   void initState() {
