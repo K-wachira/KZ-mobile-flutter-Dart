@@ -135,11 +135,12 @@ class _MenuBodyState extends State<MenuBody> {
                     key: _formKey,
                     child: ListView(children: [
                       //TODO: Return dropdown of categories in firebase
-                      // TODO: Get documentID of each category as the value of catid
+                      //TODO: Get documentID of each category as the value of catid
                       StreamBuilder(
                           stream: firebaseFirestore
                               .collection('categories')
-                              .where("vendorID" , isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
+                              .where("vendorID",
+                                  isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -154,7 +155,7 @@ class _MenuBodyState extends State<MenuBody> {
                                 });
                               },
                               hint: Text('Choose category of product'),
-                              items: snapshot.data.documents
+                              items: snapshot.data.docs
                                   .map((DocumentSnapshot document) {
                                 return DropdownMenuItem<String>(
                                   value: document.data()['categoryName'],
@@ -163,6 +164,8 @@ class _MenuBodyState extends State<MenuBody> {
                               }).toList(),
                             );
                           }),
+
+
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: TextFormField(

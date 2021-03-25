@@ -1,3 +1,4 @@
+import 'package:alu_express/ui_screens/homepage_ui/addproducts.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alu_express/services/auth/menu_functions.dart';
@@ -109,7 +110,11 @@ class _AddMenuBodyState extends State<AddMenuBody> {
           ),
           color: Color(0xFFFFCC00),
           onPressed: () {
-
+       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddProductsPage(),
+                        ));
             
           },
           child: Text(
