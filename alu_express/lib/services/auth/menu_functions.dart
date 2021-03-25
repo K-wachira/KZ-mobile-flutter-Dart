@@ -6,10 +6,14 @@ Future<void> saveCategory(data) async {
   });
 }
 
-Future<void> saveProduct(data) async {
-  FirebaseFirestore.instance.collection("products").add(data).catchError((e) {
+saveProduct(data) async {
+  DocumentReference ref = await FirebaseFirestore.instance
+      .collection("products")
+      .add(data)
+      .catchError((e) {
     print(e);
   });
+  return ref;
 }
 
 Future<void> saveSide(data) async {

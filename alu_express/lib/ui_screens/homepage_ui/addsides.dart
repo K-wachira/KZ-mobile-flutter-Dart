@@ -151,25 +151,25 @@ class _FormBodyState extends State<FormBody> {
                 ),
               ),
               SizedBox(width: 20),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                color: Color(0xFFFFCC00),
-                onPressed: () {
-                  setState(() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddProductsPage(),
-                        ));
-                  });
-                },
-                child: Text(
-                  "New Product",
-                  style: kFont,
-                ),
-              ),
+              // RaisedButton(
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(20),
+              //   ),
+              //   color: Color(0xFFFFCC00),
+              //   onPressed: () {
+              //     setState(() {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => AddProductsPage(),
+              //           ));
+              //     });
+              //   },
+              //   child: Text(
+              //     "New Product",
+              //     style: kFont,
+              //   ),
+              // ),
             ],
           ),
         ],

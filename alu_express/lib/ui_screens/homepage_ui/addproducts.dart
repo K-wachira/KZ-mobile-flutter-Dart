@@ -5,13 +5,14 @@ import 'package:alu_express/services/auth/menu_functions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io';
+import 'package:alu_express/ui_screens/homepage_ui/addsides.dart';
 
 TextStyle kFont = TextStyle(
     fontFamily: "PTSans", color: Colors.black, fontWeight: FontWeight.w500);
 
 class AddProductsPage extends StatelessWidget {
-  const AddProductsPage({Key key}) : super(key: key);
-
+  const AddProductsPage({Key key, @required this.uid}) : super(key: key);
+  final String uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +38,19 @@ class AddProductsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: MenuBody(),
+      body: MenuBody(
+        userId: uid,
+      ),
     );
   }
 }
 
 class MenuBody extends StatefulWidget {
   const MenuBody({
+    @required this.userId,
     Key key,
   }) : super(key: key);
-
+  final userId;
   @override
   _MenuBodyState createState() => _MenuBodyState();
 }
@@ -60,8 +64,10 @@ class _MenuBodyState extends State<MenuBody> {
   String productName;
   String productPrice;
   String category;
+  String tempcategory;
   String catid;
   String productphotoUrl;
+  DocumentReference productReference;
   final _formKey = GlobalKey<FormState>();
   DocumentSnapshot snapshot;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -115,8 +121,7 @@ class _MenuBodyState extends State<MenuBody> {
                       StreamBuilder(
                           stream: firebaseFirestore
                               .collection('categories')
-                              .where("vendorID",
-                                  isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
+                              .where("vendorID", isEqualTo: widget.userId)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -131,17 +136,21 @@ class _MenuBodyState extends State<MenuBody> {
                                 myCategories.add(DropdownMenuItem(
                                   child:
                                       Text(docSnapshot.data()['categoryName']),
-                                  value: docSnapshot.data()['categoryName'],
+                                  value: docSnapshot.id,
                                 ));
                               }
+
                               return DropdownButton(
+                                hint: Text("Choose category"),
                                 items: myCategories,
                                 onChanged: (cate) {
                                   setState(() {
-                                    category = cate;
+                                    catid = cate;
+                                    tempcategory = cate;
+                                    print(catid);
                                   });
                                 },
-                                value: category,
+                                value: tempcategory,
                               );
                             }
                           }),
@@ -157,7 +166,7 @@ class _MenuBodyState extends State<MenuBody> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: TextFormField(
-                          controller: name,
+                          controller: price,
                           decoration: InputDecoration(
                               labelStyle: kFont.copyWith(fontSize: 14),
                               labelText: "Price"),
@@ -202,21 +211,23 @@ class _MenuBodyState extends State<MenuBody> {
                         color: Color(0xFFFFCC00),
                         onPressed: () {
                           setState(() {
-                            Map<String, String> postData = {
+                            Map postData = {
                               'categoryID': catid,
                               'photoUrl': imageUrl,
                               'price': productPrice,
                               'productName': productName,
+                              'dealOfTheDay': false,
+                              'promoted': false
                             };
-                            saveProduct(postData);
-                            //TODO: Get productID on save
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => AddSidesPage(
-                            //         prodId: productID,
-                            //       ),
-                            //     ));
+                            productReference = saveProduct(postData);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddSidesPage(
+                                    prodId: productReference,
+                                  ),
+                                ));
                           });
                         },
                         child: Text(

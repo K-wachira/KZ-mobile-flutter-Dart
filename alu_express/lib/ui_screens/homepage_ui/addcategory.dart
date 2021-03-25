@@ -56,65 +56,71 @@ class _AddMenuBodyState extends State<AddMenuBody> {
 
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-              child: Center(
-                child: TextFormField(
-                  controller: categoryController,
-                  decoration: new InputDecoration(
-                    labelText: "Enter Category",
-                    labelStyle: TextStyle(color: Colors.black),
-                    fillColor: Colors.white,
-                    border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(25.0),
-                      borderSide: new BorderSide(),
-                    ),
-                    //fillColor: Colors.green
-                  ),
-                  validator: (val) {
-                    if (val.length == 0) {
-                      return "Category cannot be empty";
-                    } else {
-                      return null;
-                    }
-                  },
-                  style: new TextStyle(
-                    fontFamily: "PTSans",
-                  ),
-                ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        child: Center(
+          child: TextFormField(
+            controller: categoryController,
+            decoration: new InputDecoration(
+              labelText: "Enter Category",
+              labelStyle: TextStyle(color: Colors.black),
+              fillColor: Colors.white,
+              border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(25.0),
+                borderSide: new BorderSide(),
               ),
+              //fillColor: Colors.green
+            ),
+            validator: (val) {
+              if (val.length == 0) {
+                return "Category cannot be empty";
+              } else {
+                return null;
+              }
+            },
+            style: new TextStyle(
+              fontFamily: "PTSans",
             ),
           ),
-          IconButton(
-            icon: Icon(Feather.plus),
-            onPressed: () {
-              category = categoryController.text;
-              Map<String, String> data = {
-                "vendorID": widget.uid,
-                'categoryName': category,
-              };
-              saveCategory(data);
-            },
-          ),
-        ],
+        ),
       ),
       Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
         child: RaisedButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           color: Color(0xFFFFCC00),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddProductsPage()));
+            category = categoryController.text;
+            Map<String, String> data = {
+              "vendorID": widget.uid,
+              'categoryName': category,
+            };
+            saveCategory(data);
           },
           child: Text(
-            "Next",
+            "Save Category",
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 100),
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          color: Color(0xFFFFCC00),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddProductsPage(
+                          uid: widget.uid,
+                        )));
+          },
+          child: Text(
+            "Add Products",
           ),
         ),
       ),
