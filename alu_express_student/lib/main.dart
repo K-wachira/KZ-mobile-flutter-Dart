@@ -1,6 +1,4 @@
-import 'package:alu_express/ui_screens/homepage_ui/home.dart';
-import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
-import 'package:alu_express/ui_screens/orders_ui/orders.dart';
+import 'package:alu_express_student/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ALU Express',
-      home: Home(),
+      home: LandingPage(),
       debugShowCheckedModeBanner: false,
     );
   }
