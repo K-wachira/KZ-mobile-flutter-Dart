@@ -98,28 +98,6 @@ class _MenuBodyState extends State<MenuBody> {
           }));
     }
 
-    // void func() async {
-    //   await FirebaseFirestore.instance
-    //       .collection('categories')
-    //       .where(FieldPath.documentId,
-    //           isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
-    //       .get()
-    //       .then((event) {
-    //     if (event.docs.isNotEmpty) {
-    //       Map<String, dynamic> Function() documentData =
-    //           event.docs.single.data; //if it is a single document
-    //       print(documentData);
-    //     }
-    //   }).catchError((e) => print("error fetching data: $e"));
-    // }
-
-    // Firestore.instance
-    //     .collection(collectionName)
-    //     .where("index", arrayContains: search)
-    //     .where('allowed_roles', arrayContains: GlobalVars.userRole.toString())
-    //     .orderBy('date', descending: true)
-    //     .snapshots();
-
     return Container(
         height: 500,
         width: 500,
@@ -134,34 +112,38 @@ class _MenuBodyState extends State<MenuBody> {
                 child: Form(
                     key: _formKey,
                     child: ListView(children: [
-                      //TODO: Return dropdown of categories in firebase
-                      // TODO: Get documentID of each category as the value of catid
                       StreamBuilder(
                           stream: firebaseFirestore
                               .collection('categories')
-                              .where("vendorID" , isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
+                              .where("vendorID",
+                                  isEqualTo: "FrtNmp6btdZpZELwjMHl6rEAnaI3")
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("");
+                              return Text("Loading");
+                            } else {
+                              List<DropdownMenuItem> myCategories = [];
+                              for (int i = 0;
+                                  i < snapshot.data.docs.length;
+                                  i++) {
+                                DocumentSnapshot docSnapshot =
+                                    snapshot.data.docs[i];
+                                myCategories.add(DropdownMenuItem(
+                                  child:
+                                      Text(docSnapshot.data()['categoryName']),
+                                  value: docSnapshot.data()['categoryName'],
+                                ));
+                              }
+                              return DropdownButton(
+                                items: myCategories,
+                                onChanged: (cate) {
+                                  setState(() {
+                                    category = cate;
+                                  });
+                                },
+                                value: category,
+                              );
                             }
-                            return DropdownButton(
-                              value: category,
-                              // isDense: true,
-                              onChanged: (valueSelectedByUser) {
-                                setState(() {
-                                  category = valueSelectedByUser;
-                                });
-                              },
-                              hint: Text('Choose category of product'),
-                              items: snapshot.data.documents
-                                  .map((DocumentSnapshot document) {
-                                return DropdownMenuItem<String>(
-                                  value: document.data()['categoryName'],
-                                  child: Text(document.data()['categoryName']),
-                                );
-                              }).toList(),
-                            );
                           }),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),

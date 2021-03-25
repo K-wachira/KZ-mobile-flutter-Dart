@@ -1,3 +1,4 @@
+import 'package:alu_express/ui_screens/homepage_ui/addproducts.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:alu_express/services/auth/menu_functions.dart';
@@ -44,7 +45,7 @@ class AddMenuBody extends StatefulWidget {
 
 class _AddMenuBodyState extends State<AddMenuBody> {
   @override
-  TextEditingController categoryController = TextEditingController() ;
+  TextEditingController categoryController = TextEditingController();
   String category;
   void initState() {
     super.initState();
@@ -109,8 +110,8 @@ class _AddMenuBodyState extends State<AddMenuBody> {
           ),
           color: Color(0xFFFFCC00),
           onPressed: () {
-
-            
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddProductsPage()));
           },
           child: Text(
             "Next",
