@@ -1,6 +1,6 @@
-import 'package:alu_express/ui_screens/homepage_ui/main_menu.dart';
-import 'package:alu_express/ui_screens/homepage_ui/profile_pages/vendor_profile.dart';
+import 'package:alu_express/ui_screens/menu_pages/main_menu.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
+import 'package:alu_express/ui_screens/profile_pages/vendor_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -15,11 +15,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   // Menu(uid: widget.userid,
-  List<Widget> pages = [ Menu( uid: null),  Orders(),  VendorProfile() // TODO: 
+  List<Widget> pages = [
+    Menu(uid: null), Orders(), VendorProfile() // TODO:
   ];
 
   @override
   Widget build(BuildContext context) {
+    print("homescreenout");
+    print(widget.userid);
+
     return Scaffold(
       body: Center(
         child: pages.elementAt(_selectedIndex),
@@ -66,5 +70,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

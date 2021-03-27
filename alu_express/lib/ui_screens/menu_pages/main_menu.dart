@@ -1,7 +1,7 @@
-import 'package:alu_express/ui_screens/homepage_ui/addcategory.dart';
-import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
-import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
-import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
+import 'package:alu_express/ui_screens/menu_pages/addcategory.dart';
+import 'package:alu_express/ui_screens/extras/deal_of_the_day.dart';
+import 'package:alu_express/ui_screens/menu_pages/my_menu.dart';
+import 'package:alu_express/ui_screens/extras/promotions.dart';
 import 'package:flutter/material.dart';
 
 

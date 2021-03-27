@@ -5,7 +5,7 @@ import 'package:alu_express/services/auth/menu_functions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io';
-import 'package:alu_express/ui_screens/homepage_ui/addsides.dart';
+import 'package:alu_express/ui_screens/menu_pages/addsides.dart';
 
 TextStyle kFont = TextStyle(
     fontFamily: "PTSans", color: Colors.black, fontWeight: FontWeight.w500);
@@ -46,11 +46,12 @@ class AddProductsPage extends StatelessWidget {
 }
 
 class MenuBody extends StatefulWidget {
+    final userId;
+
   const MenuBody({
     @required this.userId,
     Key key,
   }) : super(key: key);
-  final userId;
   @override
   _MenuBodyState createState() => _MenuBodyState();
 }

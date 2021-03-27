@@ -1,4 +1,4 @@
-import 'package:alu_express/ui_screens/homepage_ui/addproducts.dart';
+import 'package:alu_express/ui_screens/shared_widgets/pop_up_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:alu_express/services/auth/menu_functions.dart';
@@ -130,7 +130,7 @@ class _FormBodyState extends State<FormBody> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                color: Color(0xFFFFCC00),
+                color: Colors.black38,
                 onPressed: () {
                   setState(() {
                     Map<String, String> data = {
@@ -139,9 +139,22 @@ class _FormBodyState extends State<FormBody> {
                       'productID': widget.productID.toString(),
                       'type': dropdownValue,
                     };
-                    saveSide(data);
-                    nameVal.clear();
-                    costVal.clear();
+                    saveSide(data).then((value) {
+                      print(value);
+                      if (value == "OK") {
+                        print("init");
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                PopUp(text: "Sides added "));
+                      }else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                PopUp(text: value));
+
+                      }
+                    });
                   });
                 },
                 child: Text(

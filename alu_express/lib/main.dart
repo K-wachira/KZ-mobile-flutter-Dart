@@ -19,10 +19,11 @@ class _MyAppState extends State<MyApp> {
   // Define an async function to initialize FlutterFire
   String userId;
 
-  Future<String> checkIfLoggedIn() async {
+  Future checkIfLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    final userid = prefs.getString('userID');
-    return userid;
+    final userid = await prefs.getString('userID');
+    print(userid);
+    return userid.toString();
   }
 
   @override

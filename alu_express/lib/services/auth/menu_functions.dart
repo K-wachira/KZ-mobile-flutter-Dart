@@ -16,8 +16,11 @@ Future<DocumentReference> saveProduct(data) async {
   return ref;
 }
 
-Future<void> saveSide(data) async {
+Future<String> saveSide(data) async {
   FirebaseFirestore.instance.collection("sides").add(data).catchError((e) {
+    print("There is an error on the menu funtions");
     print(e);
+    return e();
   });
+  return "OK";
 }

@@ -1,6 +1,6 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
-import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
+import 'package:alu_express/ui_screens/menu_pages/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
