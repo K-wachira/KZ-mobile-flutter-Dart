@@ -1,9 +1,9 @@
-import 'package:alu_express_student/ui_screens/bottom_nav.dart';
+import 'package:alu_express_student/ui_screens/bottom_navbar.dart';
 import 'package:alu_express_student/ui_screens/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class VendorProfile extends StatelessWidget {
+class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
