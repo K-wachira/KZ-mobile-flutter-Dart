@@ -23,7 +23,6 @@ class VendorProfile extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNav(),
       body: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(

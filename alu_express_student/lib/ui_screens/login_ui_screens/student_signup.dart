@@ -292,7 +292,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
     if (result == true) {
       print("Successfully Signed Up");
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Home(uid: user.uid)));
+          MaterialPageRoute(builder: (context) => HomePage(uid: user.uid)));
     } else {
       showDialog(
           context: context,

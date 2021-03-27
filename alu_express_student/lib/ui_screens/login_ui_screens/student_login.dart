@@ -211,7 +211,7 @@ class _StudentLogInState extends State<StudentLogIn> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Home(
+              builder: (context) => HomePage(
                     uid: user.uid.toString(),
                   )));
     } else {
