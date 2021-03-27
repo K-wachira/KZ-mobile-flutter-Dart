@@ -49,9 +49,8 @@ class FormBody extends StatefulWidget {
 }
 
 class _FormBodyState extends State<FormBody> {
-  TextEditingController nameVal;
-
-  TextEditingController costVal;
+  TextEditingController nameVal = TextEditingController();
+  TextEditingController costVal = TextEditingController();
   String name;
   String price;
 
@@ -137,7 +136,7 @@ class _FormBodyState extends State<FormBody> {
                     Map<String, String> data = {
                       'name': name,
                       'price': price,
-                      'productID': widget.productID,
+                      'productID': widget.productID.toString(),
                       'type': dropdownValue,
                     };
                     saveSide(data);
@@ -147,29 +146,10 @@ class _FormBodyState extends State<FormBody> {
                 },
                 child: Text(
                   "Add Side",
-                  style: kFont,
+                  // style: kFont,
                 ),
               ),
               SizedBox(width: 20),
-              // RaisedButton(
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(20),
-              //   ),
-              //   color: Color(0xFFFFCC00),
-              //   onPressed: () {
-              //     setState(() {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => AddProductsPage(),
-              //           ));
-              //     });
-              //   },
-              //   child: Text(
-              //     "New Product",
-              //     style: kFont,
-              //   ),
-              // ),
             ],
           ),
         ],

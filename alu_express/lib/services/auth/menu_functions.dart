@@ -6,7 +6,7 @@ Future<void> saveCategory(data) async {
   });
 }
 
-saveProduct(data) async {
+Future<DocumentReference> saveProduct(data) async {
   DocumentReference ref = await FirebaseFirestore.instance
       .collection("products")
       .add(data)

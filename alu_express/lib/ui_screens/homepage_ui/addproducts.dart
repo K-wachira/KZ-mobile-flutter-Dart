@@ -154,8 +154,6 @@ class _MenuBodyState extends State<MenuBody> {
                               );
                             }
                           }),
-
-
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: TextFormField(
@@ -213,7 +211,7 @@ class _MenuBodyState extends State<MenuBody> {
                         color: Color(0xFFFFCC00),
                         onPressed: () {
                           setState(() {
-                            Map postData = {
+                            Map <String, dynamic> postData = {
                               'categoryID': catid,
                               'photoUrl': imageUrl,
                               'price': productPrice,
@@ -221,15 +219,15 @@ class _MenuBodyState extends State<MenuBody> {
                               'dealOfTheDay': false,
                               'promoted': false
                             };
-                            productReference = saveProduct(postData);
-
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddSidesPage(
-                                    prodId: productReference,
-                                  ),
-                                ));
+                            saveProduct(postData).then((productReference) => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddSidesPage(
+                                          prodId: productReference,
+                                        ),
+                                      ))
+                                });
                           });
                         },
                         child: Text(
@@ -244,28 +242,3 @@ class _MenuBodyState extends State<MenuBody> {
         ));
   }
 }
-
-// class FormField extends StatelessWidget {
-//   const FormField({
-//     @required this.title,
-//     Key key,
-//   }) : super(key: key);
-//   final String title;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-//       child: TextFormField(
-//           decoration: InputDecoration(
-//         border: new OutlineInputBorder(
-//             borderSide: BorderSide(
-//           color: Colors.black,
-//         )),
-//         fillColor: Colors.white,
-//         labelStyle:
-//             TextStyle(color: Colors.black, fontSize: 14, fontFamily: "PTSans"),
-//         labelText: title,
-//       )),
-//     );
-//   }
-// }
