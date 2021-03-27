@@ -4,6 +4,7 @@ import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -200,6 +201,11 @@ class _VendorLogInState extends State<VendorLogIn> {
     });
   }
 
+  Future<void> setUserID(id) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('userID', id);
+  }
+
   void _loginandsave() async {
     print("Home");
     dynamic result = await authclass.loginwithEmailandpass(
@@ -210,7 +216,7 @@ class _VendorLogInState extends State<VendorLogIn> {
     print(result);
     if (result == true) {
       print("Logged in successfully!");
-
+      setUserID(user.uid);
       Navigator.push(
           context,
           MaterialPageRoute(
