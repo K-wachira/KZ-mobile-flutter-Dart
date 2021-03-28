@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:alu_express/services/back_end/services.dart';
-import 'package:alu_express/ui_screens/menu_pages/prev_build/size_helpers.dart';
+import 'package:alu_express/ui_screens/extras/size_helpers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/shared_widgets/pop_up_widgets.dart';
