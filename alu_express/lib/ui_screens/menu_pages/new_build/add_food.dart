@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/services/back_end/services.dart';
 import 'package:alu_express/ui_screens/menu_pages/prev_build/size_helpers.dart';
@@ -19,7 +17,7 @@ class AddFood extends StatefulWidget {
 }
 
 class _AddFoodState extends State<AddFood> {
-  final servicesinstance = Services();
+  final servicesinstance = FirebaseServices();
   bool _checked = false;
   bool isLoading = false;
   String imageUrl;
@@ -40,339 +38,351 @@ class _AddFoodState extends State<AddFood> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          elevation: 1,
+        ),
         body: SingleChildScrollView(
-      child: Align(
-        child: Column(children: <Widget>[
-          Padding(padding: EdgeInsets.only(top: 100)),
-          SvgPicture.asset('assets/1.svg',
-              height: displayHeight(context) * 0.05,
-              width: displayWidth(context) * 0.6),
-          Padding(padding: EdgeInsets.only(top: 30)),
-          Padding(padding: EdgeInsets.only(top: 10)),
-          Text(
-            "Create Food",
-            style: GoogleFonts.roboto(
-              fontSize: 18,
-              color: Colors.black54,
-              letterSpacing: .3,
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 20)),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: TextFormField(
-                        controller: nameController,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          hintText: "Food Name",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Please enter Food Name here";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        controller: priceController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: "Price",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Mandatory Field!, Food Price';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        controller: discountController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: "Discount",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Mandatory Field!, Food Discount';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: TextFormField(
-                        controller: sizeController,
-                        keyboardType: TextInputType.text,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          hintText: "Size",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Please enter size ( Small, Large";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: TextFormField(
-                        controller: ingredientsController,
-                        keyboardType: TextInputType.multiline,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          hintText: "Ingredients",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Please enter the Ingredients";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: TextFormField(
-                        controller: descriptionController,
-                        keyboardType: TextInputType.multiline,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          hintText: "Description",
-                          hintStyle: GoogleFonts.roboto(
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Please enter the Ingredients";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 30)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Checkbox(
-                          activeColor: Colors.red[900],
-                          value: _checked,
-                          onChanged: (value) {
-                            setState(() {
-                              _checked = !_checked;
-                            });
-                          },
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Please Enter if food is Featured',
-                            style: GoogleFonts.ptSans(
-                                color: Colors.black, fontSize: 15),
-                          ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "Food Image",
-                                style: kFont,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: IconButton(
-                                icon: Icon(Feather.upload),
-                                onPressed: () {
-                                  getImage();
-                                },
-                              ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                        height: 150,
-                        width: 150,
-                        child: (image != null) ? Image.file(image) : Text("")),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: isLoading
-                          ? CircularProgressIndicator()
-                          : SizedBox(
-                              width: displayWidth(context) * 0.5,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    primary: Colors.red[900]),
-                                onPressed: () {
-                                  if (_formKey.currentState.validate()) {
-                                    print("Image URL");
-                                    print(imageUrl);
-                                    uploadPic(image).then((value) => {
-                                          print("INside then"),
-                                          print(value),
-                                          imageUrl = value,
-                                          setState(() {
-                                            isLoading = true;
-
-                                            Map<String, dynamic> foodData = {
-                                              'FoodName': nameController.text,
-                                              'ImageURL': imageUrl,
-                                              'Price': priceController.text,
-                                              'Discount':
-                                                  discountController.text,
-                                              'Size': sizeController.text,
-                                              'Ingredients':
-                                                  ingredientsController.text,
-                                              'Description':
-                                                  descriptionController.text,
-                                              'IsFeatured': _checked.toString(),
-                                            };
-                                            print(foodData);
-
-                                            servicesinstance
-                                                .addFood(foodData)
-                                                .then((value) => {
-                                                      if (value == "true")
-                                                        {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  PopUp(
-                                                                      text:
-                                                                          "Successfully added Food",
-                                                                      successful:
-                                                                          true))
-                                                        }
-                                                      else
-                                                        {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  PopUp(
-                                                                      text:
-                                                                          value,
-                                                                      successful:
-                                                                          false))
-                                                        }
-                                                    });
-                                          })
-                                        });
-                                  }
-                                },
-                                child: Text(
-                                  button,
-                                  style: GoogleFonts.ptSans(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 20),
-                      child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Cancel",
-                                  style: GoogleFonts.ptSans(
-                                    fontSize: 15,
-                                    letterSpacing: .3,
-                                    color: Colors.red[900],
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic,
-                                  )))),
-                    ),
-                  ],
+          child: Align(
+            child: Column(children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: 100)),
+              SvgPicture.asset('assets/1.svg',
+                  height: displayHeight(context) * 0.05,
+                  width: displayWidth(context) * 0.6),
+              Padding(padding: EdgeInsets.only(top: 30)),
+              Padding(padding: EdgeInsets.only(top: 10)),
+              Text(
+                "Create Food",
+                style: GoogleFonts.roboto(
+                  fontSize: 18,
+                  color: Colors.black54,
+                  letterSpacing: .3,
                 ),
               ),
-            ),
+              Padding(padding: EdgeInsets.only(top: 20)),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            controller: nameController,
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              hintText: "Food Name",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter Food Name here";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            controller: priceController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: "Price",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Mandatory Field!, Food Price';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            controller: discountController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: "Discount",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Mandatory Field!, Food Discount';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            controller: sizeController,
+                            keyboardType: TextInputType.text,
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              hintText: "Size",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter size ( Small, Large";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            controller: ingredientsController,
+                            keyboardType: TextInputType.multiline,
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              hintText: "Ingredients",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter the Ingredients";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            controller: descriptionController,
+                            keyboardType: TextInputType.multiline,
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              hintText: "Description",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter the Ingredients";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 30)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Checkbox(
+                              activeColor: Colors.red[900],
+                              value: _checked,
+                              onChanged: (value) {
+                                setState(() {
+                                  _checked = !_checked;
+                                });
+                              },
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Please Enter if food is Featured',
+                                style: GoogleFonts.ptSans(
+                                    color: Colors.black, fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "Food Image",
+                                    style: kFont,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: Icon(Feather.upload),
+                                    onPressed: () {
+                                      getImage();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            height: 150,
+                            width: 150,
+                            child:
+                                (image != null) ? Image.file(image) : Text("")),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: isLoading
+                              ? CircularProgressIndicator()
+                              : SizedBox(
+                                  width: displayWidth(context) * 0.5,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        primary: Colors.red[900]),
+                                    onPressed: () {
+                                      if (_formKey.currentState.validate()) {
+                                        print("Image URL");
+                                        print(imageUrl);
+                                        uploadPic(image).then((value) => {
+                                              print("INside then"),
+                                              print(value),
+                                              imageUrl = value,
+                                              setState(() {
+                                                isLoading = true;
+
+                                                Map<String, dynamic> foodData =
+                                                    {
+                                                  'FoodName':
+                                                      nameController.text,
+                                                  'ImageURL': imageUrl,
+                                                  'Price': priceController.text,
+                                                  'Discount':
+                                                      discountController.text,
+                                                  'Size': sizeController.text,
+                                                  'Ingredients':
+                                                      ingredientsController
+                                                          .text,
+                                                  'Description':
+                                                      descriptionController
+                                                          .text,
+                                                  'IsFeatured':
+                                                      _checked.toString(),
+                                                  'Category': "Breakfast",
+                                                };
+                                                print(foodData);
+
+                                                servicesinstance
+                                                    .addFood(foodData)
+                                                    .then((value) => {
+                                                          if (value == "true")
+                                                            {
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder: (BuildContext
+                                                                          context) =>
+                                                                      PopUp(
+                                                                          text:
+                                                                              "Successfully added Food",
+                                                                          successful:
+                                                                              true))
+                                                            }
+                                                          else
+                                                            {
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder: (BuildContext
+                                                                          context) =>
+                                                                      PopUp(
+                                                                          text:
+                                                                              value,
+                                                                          successful:
+                                                                              false))
+                                                            }
+                                                        });
+                                              })
+                                            });
+                                      }
+                                    },
+                                    child: Text(
+                                      button,
+                                      style: GoogleFonts.ptSans(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                          child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Cancel",
+                                      style: GoogleFonts.ptSans(
+                                        fontSize: 15,
+                                        letterSpacing: .3,
+                                        color: Colors.red[900],
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                      )))),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ]),
           ),
-        ]),
-      ),
-    ));
+        ));
   }
 
   Future getImage() async {

@@ -1,6 +1,5 @@
 import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     return userid.toString();
   }
 
-  @override
+    @override
   void initState() {
     super.initState();
     Firebase.initializeApp().whenComplete(() {});
