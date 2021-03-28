@@ -40,7 +40,7 @@ class Authentificate {
 class Get {
 
   Future<void> getCurrentUser() async {
-    User userdata = await FirebaseAuth.instance.currentUser;
+    User userdata = FirebaseAuth.instance.currentUser;
     return userdata.uid;
   }
   

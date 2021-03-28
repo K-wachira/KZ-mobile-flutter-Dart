@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class PopUp extends StatefulWidget {
   final uid;
   final text;
-  bool successful;
+  final successful;
 
   PopUp({
     @required this.text,

@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         userID: widget.userid,
       ),
       Orders(),
-      VendorProfile() // TODO:
+      VendorProfile() 
     ];
 
     return Scaffold(

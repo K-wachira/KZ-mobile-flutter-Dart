@@ -242,20 +242,4 @@ class _ImageCardState extends State<ImageCard> {
         });
   }
 
-  Widget listOfdressing(List<String> item) {
-    List<Widget> list = List<Widget>();
-    for (var i = 0; i < item.length; i++) {
-      list.add(Container(
-          child: FittedBox(
-        fit: BoxFit.fitWidth,
-        child: Text(
-          item[i],
-        ),
-      )));
-    }
-    return Wrap(
-        spacing: 5.0, // gap between adjacent chips
-        runSpacing: 2.0, // gap between lines
-        children: list);
-  }
 }

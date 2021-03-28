@@ -209,7 +209,7 @@ class _VendorLogInState extends State<VendorLogIn> {
     print("Home");
     dynamic result = await authclass.loginwithEmailandpass(
         emailController.text, passwordController.text);
-    var user = await FirebaseAuth.instance.currentUser;
+    var user =  FirebaseAuth.instance.currentUser;
     print(user.uid);
 
     print(result);

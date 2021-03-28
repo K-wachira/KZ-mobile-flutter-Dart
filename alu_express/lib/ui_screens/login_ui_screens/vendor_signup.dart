@@ -318,12 +318,6 @@ class _VendorSignUpState extends State<VendorSignUp> {
           });
       setState(() => isLoading = false);
     }
-    @override
-    void dispose() {
-      super.dispose();
-      nameController.dispose();
-      emailController.dispose();
-      passwordController.dispose();
-    }
+
   }
 }

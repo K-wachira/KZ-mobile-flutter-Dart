@@ -24,6 +24,7 @@ class FirebaseServices {
         .add(data)
         .catchError((e) {
       print(e);
+      // ignore: return_of_invalid_type_from_catch_error
       return e;
     });
     return "true";
