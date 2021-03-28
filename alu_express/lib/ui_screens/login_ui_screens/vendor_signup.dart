@@ -1,6 +1,6 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
-import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
+import 'package:alu_express/ui_screens/menu_pages/prev_build/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -293,8 +293,12 @@ class _VendorSignUpState extends State<VendorSignUp> {
 
     if (result == true) {
       print("Successfully Signed Up");
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomePage())); //TO DO add uid
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    userid: user.uid,
+                  ))); //TO DO add uid
     } else {
       showDialog(
           context: context,

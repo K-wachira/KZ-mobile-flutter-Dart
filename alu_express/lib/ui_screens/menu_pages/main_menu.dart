@@ -1,21 +1,23 @@
-import 'package:alu_express/ui_screens/homepage_ui/addcategory.dart';
-import 'package:alu_express/ui_screens/homepage_ui/deal_of_the_day.dart';
-import 'package:alu_express/ui_screens/homepage_ui/my_menu.dart';
-import 'package:alu_express/ui_screens/homepage_ui/promotions.dart';
+import 'package:alu_express/ui_screens/extras/deal_of_the_day.dart';
+import 'package:alu_express/ui_screens/extras/promotions.dart';
+import 'package:alu_express/ui_screens/menu_pages/new_build/add_food.dart';
+import 'package:alu_express/ui_screens/menu_pages/new_build/vendor_menu.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class Menu extends StatefulWidget {
-  final uid;
+  final userID;
+  const Menu({Key key, this.userID}) : super(key: key);
 
-  const Menu({Key key, this.uid}) : super(key: key);
   @override
   _MenuState createState() => _MenuState();
 }
 
 class _MenuState extends State<Menu> {
+
+
+  @override
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +58,9 @@ class _MenuState extends State<Menu> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyMenu(userId: "123")));
+                              builder: (context) => VendorMenu(
+                                    userid: widget.userID,
+                                  )));
                     });
                   },
                   child: MenuCard(
@@ -67,11 +71,8 @@ class _MenuState extends State<Menu> {
                 GestureDetector(
                     onTap: () {
                       setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AddMenu(userID: widget.uid)));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => AddFood(userid: widget.userID,)));
                       });
                     },
                     child: MenuCard(
@@ -117,7 +118,6 @@ class _MenuState extends State<Menu> {
     );
   }
 }
-
 
 class MenuCard extends StatelessWidget {
   const MenuCard({

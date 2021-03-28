@@ -1,8 +1,7 @@
 import 'package:alu_express/services/auth/bussiness_logic.dart';
 import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
-import 'package:alu_express/ui_screens/homepage_ui/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
-import 'package:alu_express/ui_screens/orders_ui/orders.dart';
+import 'package:alu_express/ui_screens/menu_pages/prev_build/size_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _VendorLogInState extends State<VendorLogIn> {
           ),
           Padding(padding: EdgeInsets.only(top: 20)),
           SizedBox(
-            width: displayWidth(context) * 0.80,
+             width: displayWidth(context) * 0.80,
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -132,7 +131,7 @@ class _VendorLogInState extends State<VendorLogIn> {
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     primary: Colors.red[900]),
-                                onPressed: () {
+                                onPressed: () { 
                                   if (_formKey.currentState.validate()) {
                                     setState(() {
                                       isLoading = true;
