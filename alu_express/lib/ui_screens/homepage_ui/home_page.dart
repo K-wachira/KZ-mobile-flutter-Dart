@@ -1,4 +1,4 @@
-import 'package:alu_express/ui_screens/menu_pages/prev_build/main_menu.dart';
+import 'package:alu_express/ui_screens/menu_pages/main_menu.dart';
 import 'package:alu_express/ui_screens/orders_ui/orders.dart';
 import 'package:alu_express/ui_screens/profile_pages/vendor_profile.dart';
 import 'package:flutter/material.dart';

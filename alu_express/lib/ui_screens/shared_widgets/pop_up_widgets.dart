@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 class PopUp extends StatefulWidget {
   String text;
+  bool successful;
   PopUp({
     @required this.text,
+    this.successful,
     Key key,
   }) : super(key: key);
   @override
@@ -24,14 +26,15 @@ class _PopUpState extends State<PopUp> {
         ],
       ),
       actions: <Widget>[
-        FlatButton(
+        ElevatedButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomePage(userid: "123")));
+            widget.successful
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(userid: "123")))
+                : Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
           child: Text('Ok'),
         ),
       ],
