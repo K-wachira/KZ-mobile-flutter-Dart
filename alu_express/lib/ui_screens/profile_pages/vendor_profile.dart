@@ -1,8 +1,13 @@
+import 'package:alu_express/services/back_end/services.dart';
 import 'package:alu_express/ui_screens/extras/size_helpers.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VendorProfile extends StatelessWidget {
+  final FirebaseServices firebaseServices = FirebaseServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +138,18 @@ class VendorProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(50))),
                       ))
                 ],
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    firebaseServices.signOut();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LandingPage()),
+                        (Route<dynamic> route) => false);
+                  },
+                  child: Text("Logout"))
             ],
           ),
         ),

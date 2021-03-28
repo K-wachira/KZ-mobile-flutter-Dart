@@ -37,12 +37,14 @@ class _AddFoodState extends State<AddFood> {
   TextEditingController sizeController = TextEditingController();
   TextEditingController ingredientsController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 1,
+          elevation: 0,
+          backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Align(
@@ -165,7 +167,33 @@ class _AddFoodState extends State<AddFood> {
                             ),
                             validator: (value) {
                               if (value.isEmpty) {
-                                return "Please enter size ( Small, Large";
+                                return "Please enter size ( Small, Large )";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            controller: quantityController,
+                            keyboardType: TextInputType.text,
+                            style: GoogleFonts.ptSans(
+                              color: Colors.black,
+                              fontSize: 18,
+                              letterSpacing: .3,
+                            ),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              hintText: "Quantity",
+                              hintStyle: GoogleFonts.roboto(
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please enter how many of this products there is";
                               }
                               return null;
                             },
@@ -315,6 +343,8 @@ class _AddFoodState extends State<AddFood> {
                                                       _checked.toString(),
                                                   'Category': "Breakfast",
                                                   'Vendor': widget.userid,
+                                                  'Quantity':
+                                                      quantityController.text,
                                                 };
                                                 print(foodData);
 

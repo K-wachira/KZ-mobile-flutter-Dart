@@ -18,12 +18,16 @@ class _VendorMenuState extends State<VendorMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Menu"),
-        backgroundColor: Colors.transparent,
-        elevation: 1,
+        title: Text(
+          "Your Menu",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: StreamProvider(
-        create: (BuildContext context) => firebaseServices.getFoodList(widget.userid),
+        create: (BuildContext context) =>
+            firebaseServices.getFoodList(widget.userid),
         child: ViewUserPage(),
       ),
     );
@@ -51,8 +55,7 @@ class ViewUserPage extends StatelessWidget {
                   isFeaured: userList[index].isFeatured,
                   size: userList[index].size,
                   ingredients: userList[index].ingredients,
-                     vendor: userList[index].vendor,
-
+                  vendor: userList[index].vendor,
                 )),
           );
   }

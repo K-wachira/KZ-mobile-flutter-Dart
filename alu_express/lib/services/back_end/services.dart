@@ -1,5 +1,6 @@
 import 'package:alu_express/services/back_end/vendor_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
   String userid;
@@ -29,4 +30,9 @@ class FirebaseServices {
     });
     return "true";
   }
+
+//loggout user
+  Future<void> signOut() async {
+  await FirebaseAuth.instance.signOut();
+}
 }
