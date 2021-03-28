@@ -55,7 +55,7 @@ class _VendorLogInState extends State<VendorLogIn> {
           ),
           Padding(padding: EdgeInsets.only(top: 20)),
           SizedBox(
-            width: displayWidth(context) * 0.80,
+             width: displayWidth(context) * 0.80,
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(

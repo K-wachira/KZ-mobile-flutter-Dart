@@ -293,8 +293,12 @@ class _VendorSignUpState extends State<VendorSignUp> {
 
     if (result == true) {
       print("Successfully Signed Up");
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomePage())); //TO DO add uid
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    userid: user.uid,
+                  ))); //TO DO add uid
     } else {
       showDialog(
           context: context,

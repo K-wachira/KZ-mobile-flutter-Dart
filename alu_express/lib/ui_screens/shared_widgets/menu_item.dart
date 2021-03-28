@@ -11,6 +11,7 @@ class UserProfile extends StatefulWidget {
   final String isFeaured;
   final String size;
   final String ingredients;
+  final String vendor;
 
   const UserProfile(
       {Key key,
@@ -22,7 +23,8 @@ class UserProfile extends StatefulWidget {
       this.discount,
       this.isFeaured,
       this.size,
-      this.ingredients})
+      this.ingredients,
+      this.vendor})
       : super(key: key);
 
   @override
@@ -73,6 +75,11 @@ class _UserProfileState extends State<UserProfile> {
                         title: Text("Product information"),
                       ),
                       Divider(),
+                      ListTile(
+                        title: Text("Id "),
+                        leading: Icon(Icons.food_bank),
+                        subtitle: Text(widget.vendor),
+                      ),
                       ListTile(
                         title: Text("Name"),
                         leading: Icon(Icons.food_bank),

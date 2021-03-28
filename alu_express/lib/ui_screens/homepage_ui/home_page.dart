@@ -15,14 +15,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   // Menu(uid: widget.userid,
-  List<Widget> pages = [
-    Menu(uid: null), Orders(), VendorProfile() // TODO:
-  ];
 
   @override
   Widget build(BuildContext context) {
     print("homescreenout");
     print(widget.userid);
+    List<Widget> pages = [
+      Menu(
+        userID: widget.userid,
+      ),
+      Orders(),
+      VendorProfile() // TODO:
+    ];
 
     return Scaffold(
       body: Center(

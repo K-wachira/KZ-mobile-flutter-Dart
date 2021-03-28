@@ -2,12 +2,14 @@ import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
 import 'package:flutter/material.dart';
 
 class PopUp extends StatefulWidget {
-  String text;
+  final uid;
+  final text;
   bool successful;
+
   PopUp({
     @required this.text,
     this.successful,
-    Key key,
+    Key key, this.uid,
   }) : super(key: key);
   @override
   _PopUpState createState() => _PopUpState();
@@ -32,7 +34,7 @@ class _PopUpState extends State<PopUp> {
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(userid: "123")))
+                        builder: (context) => HomePage(userid: widget.uid)))
                 : Navigator.of(context).pop();
           },
           child: Text('Ok'),

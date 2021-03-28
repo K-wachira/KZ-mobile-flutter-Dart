@@ -8,6 +8,7 @@ class VendorModel {
   String price;
   String size;
   String category;
+  String vendor;
 
   VendorModel(
       {this.foodName,
@@ -18,7 +19,9 @@ class VendorModel {
       this.isFeatured,
       this.price,
       this.size,
-      this.category});
+      this.category,
+      this.vendor,
+      });
 
   VendorModel.fromJson(Map<String, dynamic> parsedJSON)
       : foodName = parsedJSON['FoodName'],
@@ -29,5 +32,7 @@ class VendorModel {
         isFeatured = parsedJSON['IsFeatured'],
         price = parsedJSON['Price'],
         size = parsedJSON['Size'],
-        category = parsedJSON['Category'];
+        category = parsedJSON['Category'],
+        vendor = parsedJSON['Vendor'];
+
 }

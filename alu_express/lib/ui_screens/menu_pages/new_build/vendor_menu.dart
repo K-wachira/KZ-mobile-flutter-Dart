@@ -7,6 +7,8 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 
 class VendorMenu extends StatefulWidget {
+  String userid;
+  VendorMenu({Key key, this.userid}) : super(key: key);
   @override
   _VendorMenuState createState() => _VendorMenuState();
 }
@@ -23,7 +25,7 @@ class _VendorMenuState extends State<VendorMenu> {
         elevation: 1,
       ),
       body: StreamProvider(
-        create: (BuildContext context) => firebaseServices.getFoodList(),
+        create: (BuildContext context) => firebaseServices.getFoodList(widget.userid),
         child: ViewUserPage(),
       ),
     );
@@ -34,9 +36,6 @@ class ViewUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List userList = Provider.of<List<VendorModel>>(context);
-    print("list");
-    FirebaseServices firebaseServices = FirebaseServices();
-    print(userList);
 
     return userList == null
         ? CircularProgressIndicator()
@@ -54,6 +53,8 @@ class ViewUserPage extends StatelessWidget {
                   isFeaured: userList[index].isFeatured,
                   size: userList[index].size,
                   ingredients: userList[index].ingredients,
+                     vendor: userList[index].vendor,
+
                 )),
           );
   }

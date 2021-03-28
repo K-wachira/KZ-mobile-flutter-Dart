@@ -12,6 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddFood extends StatefulWidget {
+  final userid;
+  AddFood({Key key, this.userid}) : super(key: key);
+
   @override
   _AddFoodState createState() => _AddFoodState();
 }
@@ -311,6 +314,7 @@ class _AddFoodState extends State<AddFood> {
                                                   'IsFeatured':
                                                       _checked.toString(),
                                                   'Category': "Breakfast",
+                                                  'Vendor': widget.userid,
                                                 };
                                                 print(foodData);
 
@@ -322,26 +326,26 @@ class _AddFoodState extends State<AddFood> {
                                                               showDialog(
                                                                   context:
                                                                       context,
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      PopUp(
-                                                                          text:
-                                                                              "Successfully added Food",
-                                                                          successful:
-                                                                              true))
+                                                                  builder: (BuildContext context) => PopUp(
+                                                                      uid: widget
+                                                                          .userid,
+                                                                      text:
+                                                                          "Successfully added Food",
+                                                                      successful:
+                                                                          true))
                                                             }
                                                           else
                                                             {
                                                               showDialog(
                                                                   context:
                                                                       context,
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      PopUp(
-                                                                          text:
-                                                                              value,
-                                                                          successful:
-                                                                              false))
+                                                                  builder: (BuildContext context) => PopUp(
+                                                                      uid: widget
+                                                                          .userid,
+                                                                      text:
+                                                                          value,
+                                                                      successful:
+                                                                          false))
                                                             }
                                                         });
                                               })
