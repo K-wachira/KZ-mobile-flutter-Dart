@@ -1,12 +1,14 @@
+import 'package:alu_express_student/ui_screens/Models/food_model.dart';
 import 'package:alu_express_student/ui_screens/cart.dart';
+import 'package:alu_express_student/ui_screens/food_fetch.dart';
+import 'package:alu_express_student/ui_screens/home_products.dart';
+import 'package:alu_express_student/ui_screens/products_details.dart';
 import 'package:alu_express_student/ui_screens/student_profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:alu_express_student/ui_screens/size_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flat_icons_flutter/flat_icons_flutter.dart';
 
 class HomePage extends StatefulWidget {
   final uid;
@@ -22,7 +24,54 @@ class _HomePageState extends State<HomePage> {
     Cart(), StudentProfile() // TODO:
   ];
 
+  List<FoodModel> foodList = [];
+
   @override
+  Widget productContainer(
+      {@required String ImageURL,
+      @required String FoodName,
+      @required String Price,
+      @required String Description}) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        height: displayHeight(context) * 0.5,
+        width: displayWidth(context) * 0.5,
+        decoration: BoxDecoration(
+          color: Colors.red[900].withOpacity(.06),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(padding: EdgeInsets.only(top: 5)),
+            CircleAvatar(
+              radius: displayWidth(context) * 0.15,
+              backgroundImage: AssetImage(ImageURL),
+            ),
+            ListTile(
+              leading: Text(
+                FoodName,
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              trailing: Text(
+                Price,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red[900],
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              width: displayWidth(context) * 0.4,
+              child: Text(Description),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         leading: IconButton(
             icon: Icon(
-              FlutterIcons.menu_fea,
+              Icons.sort,
               color: Colors.black,
             ),
             onPressed: () {}),
@@ -46,7 +95,8 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
           padding: EdgeInsets.only(
             top: displayHeight(context) * 0.03,
-            left: displayWidth(context) * 0.05,
+            left: displayWidth(context) * 0.03,
+            right: displayWidth(context) * 0.03,
           ),
           child: Column(
             children: [
@@ -55,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   width: displayWidth(context) * 0.7,
                   child: Text(
-                    "Order from your favourite vendor below",
+                    "Order your favourite meals below",
                     style: GoogleFonts.ptSans(
                         fontSize: 25,
                         color: Colors.red[900],
@@ -70,7 +120,7 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Click on a vendor to view their full menu",
+                  "Click on a product to view the full details",
                   style: GoogleFonts.ptSans(
                       fontSize: 18, color: Colors.black54, letterSpacing: .3),
                 ),
@@ -79,20 +129,54 @@ class _HomePageState extends State<HomePage> {
                 height: displayHeight(context) * 0.03,
               ),
               Container(
-                height: displayHeight(context) * 0.6,
-                width: displayWidth(context) * 0.8,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      height: displayHeight(context) * 0.6,
-                      width: displayWidth(context) * 0.4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.red[900].withOpacity(.06)),
-                    )
+                height: displayHeight(context),
+                child: GridView.count(
+                  shrinkWrap: false,
+                  primary: false,
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  children: [
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice'),
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice'),
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice'),
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice'),
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice'),
+                    productContainer(
+                        ImageURL: 'assets/bkg.jpg',
+                        FoodName: 'Stir Fry Rice',
+                        Price: 'RWF 2500',
+                        Description:
+                            'Vegetable Rice with peas, green beans and a side of your choice')
                   ],
                 ),
-              ),
+              )
             ],
           )),
       bottomNavigationBar: Container(
