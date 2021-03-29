@@ -1,3 +1,4 @@
+import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/ui_screens/cart.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
@@ -23,6 +24,9 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<FoodModel> foodList = [];
+
+  final FirebaseServices firebaseServices = FirebaseServices();
+
 
   @override
   Widget productContainer(
