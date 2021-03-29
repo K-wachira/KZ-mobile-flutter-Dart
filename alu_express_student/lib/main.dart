@@ -1,3 +1,4 @@
+import 'package:alu_express_student/ui_screens/login_ui_screens/student_login.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ALU Express',
-      home: StudentProfile(),
+      home: StudentLogIn(),
       debugShowCheckedModeBanner: false,
     );
   }

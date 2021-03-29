@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
-class HomePage extends StatefulWidget {
+class HomePages extends StatefulWidget {
   final uid;
-  const HomePage({Key key, this.uid}) : super(key: key);
+  const HomePages({Key key, this.uid}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePagesState createState() => _HomePagesState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePagesState extends State<HomePages> {
   int _selectedIndex = 0;
   // Menu(uid: widget.userid,
   List<Widget> pages = [

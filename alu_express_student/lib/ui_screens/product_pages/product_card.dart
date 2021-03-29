@@ -1,9 +1,8 @@
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 
-
 class ProductCard extends StatefulWidget {
-    final String image;
+  final String image;
   final String name;
   final String price;
   final String category;
@@ -28,7 +27,6 @@ class ProductCard extends StatefulWidget {
       this.vendor})
       : super(key: key);
 
-  
   @override
   _ProductCardState createState() => _ProductCardState();
 }
@@ -51,7 +49,7 @@ class _ProductCardState extends State<ProductCard> {
             Padding(padding: EdgeInsets.only(top: 5)),
             CircleAvatar(
               radius: displayWidth(context) * 0.15,
-              backgroundImage: AssetImage(widget.image),
+              backgroundImage: NetworkImage(widget.image),
             ),
             ListTile(
               leading: Text(
