@@ -1,9 +1,10 @@
 import 'package:alu_express_student/services/auth/bussiness_logic.dart';
-import 'package:alu_express_student/ui_screens/homepage_ui/homepagess.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/login_ui_screens/student_signup.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,8 +54,9 @@ class _StudentLogInState extends State<StudentLogIn> {
           ),
           Padding(padding: EdgeInsets.only(top: 20)),
           SizedBox(
-            width: displayWidth(context) * 0.80,
+             width: displayWidth(context) * 0.80,
             child: Form(
+              key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -129,7 +131,7 @@ class _StudentLogInState extends State<StudentLogIn> {
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     primary: Colors.red[900]),
-                                onPressed: () {
+                                onPressed: () { 
                                   if (_formKey.currentState.validate()) {
                                     setState(() {
                                       isLoading = true;
@@ -198,21 +200,27 @@ class _StudentLogInState extends State<StudentLogIn> {
     });
   }
 
+  Future<void> setUserID(id) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('userID', id);
+  }
+
   void _loginandsave() async {
+    print("Home");
     dynamic result = await authclass.loginwithEmailandpass(
         emailController.text, passwordController.text);
-    var user = FirebaseAuth.instance.currentUser;
+    var user =  FirebaseAuth.instance.currentUser;
     print(user.uid);
 
     print(result);
     if (result == true) {
       print("Logged in successfully!");
-
+      setUserID(user.uid);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => HomePage(
-                    uid: user.uid.toString(),
+                    userid: user.uid,
                   )));
     } else {
       showDialog(
