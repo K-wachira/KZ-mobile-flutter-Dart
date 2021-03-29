@@ -1,6 +1,7 @@
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/ui_screens/cart.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
+import 'package:alu_express_student/ui_screens/drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,8 @@ class _HomePageState extends State<HomePage> {
     return InkWell(
       onTap: () {},
       child: Container(
-        height: displayHeight(context) * 0.5,
-        width: displayWidth(context) * 0.5,
+        height: displayHeight(context) * 0.4,
+        width: displayWidth(context) * 0.4,
         decoration: BoxDecoration(
           color: Colors.red[900].withOpacity(.06),
           borderRadius: BorderRadius.circular(30),
@@ -49,11 +50,11 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Text(
                 FoodName,
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                style: GoogleFonts.ptSans(fontSize: 18, color: Colors.black),
               ),
               trailing: Text(
                 Price,
-                style: TextStyle(
+                style: GoogleFonts.ptSans(
                     fontSize: 18,
                     color: Colors.red[900],
                     fontWeight: FontWeight.bold),
@@ -71,15 +72,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: MyDrawer(),
+      ),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.sort,
-              color: Colors.black,
-            ),
-            onPressed: () {}),
+        title: Builder(
+            builder: (context) => IconButton(
+                icon: Icon(Icons.sort),
+                onPressed: () => Scaffold.of(context).openDrawer())),
         actions: [
           IconButton(
               icon: Icon(
