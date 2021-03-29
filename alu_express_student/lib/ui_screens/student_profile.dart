@@ -1,3 +1,4 @@
+import 'package:alu_express_student/ui_screens/card_item.dart';
 import 'package:alu_express_student/ui_screens/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +18,8 @@ class StudentProfile extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
           child: Text(
             "Profile",
-            style: TextStyle(
-                color: Colors.black, fontFamily: "PTSans", fontSize: 22),
+            style: GoogleFonts.ptSans(
+                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -38,7 +39,7 @@ class StudentProfile extends StatelessWidget {
                     ),
                     Positioned(
                       right: 0,
-                      bottom: 25,
+                      bottom: 20,
                       child: SizedBox(
                         height: displayHeight(context) * 0.1,
                         width: displayWidth(context) * 0.1,
@@ -59,80 +60,36 @@ class StudentProfile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 5,
+                height: displayHeight(context) * .03,
+                child: (Text(
+                  'Hello there, ',
+                  style: GoogleFonts.ptSans(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: .5,
+                      color: Colors.red[900]),
+                )),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Vendor Name",
-                    style: GoogleFonts.ptSans(
-                        letterSpacing: .3, fontSize: 18, color: Colors.black),
-                  ),
-                  SizedBox(
-                      width: displayWidth(context) * 0.9,
-                      child: TextField(
-                        cursorColor: Colors.black,
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide(color: Colors.red[900])),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red[900]),
-                                borderRadius: BorderRadius.circular(50))),
-                      )),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    "Vendor Location",
-                    style: GoogleFonts.ptSans(
-                        letterSpacing: .3, fontSize: 18, color: Colors.black),
-                  ),
-                  SizedBox(
-                      width: displayWidth(context) * 0.9,
-                      child: TextField(
-                        cursorColor: Colors.black,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide(color: Colors.red[900])),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red[900]),
-                                borderRadius: BorderRadius.circular(50))),
-                      )),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    "Open Hours",
-                    style: GoogleFonts.ptSans(
-                        letterSpacing: .3, fontSize: 18, color: Colors.black),
-                  ),
-                  SizedBox(
-                      width: displayWidth(context) * 0.9,
-                      child: TextField(
-                        cursorColor: Colors.black,
-                        style: GoogleFonts.ptSans(
-                          color: Colors.black,
-                          fontSize: 18,
-                          letterSpacing: .3,
-                        ),
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide(color: Colors.red[900])),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red[900]),
-                                borderRadius: BorderRadius.circular(50))),
-                      ))
-                ],
+              SizedBox(
+                height: displayHeight(context) * .03,
+              ),
+              CardItem(
+                textItem: 'FullName',
+                userData: 'Student User',
+              ),
+              SizedBox(
+                height: displayHeight(context) * .03,
+              ),
+              CardItem(
+                textItem: 'Email Address',
+                userData: 'student@gmail.com',
+              ),
+              SizedBox(
+                height: displayHeight(context) * .03,
+              ),
+              CardItem(
+                textItem: 'Phone Number',
+                userData: '+2541546712',
               )
             ],
           ),

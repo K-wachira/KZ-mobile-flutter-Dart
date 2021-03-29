@@ -67,6 +67,9 @@ flutter:
     - assets/3.svg
     - assets/4.svg
     - assets/5.svg
+    - assets/smartphone.svg
+    - assets/location.svg
+    - assets/mail.svg
     - assets/bkg.jpg
     - assets/burgers.jpg
     - assets/jollof.jpg
