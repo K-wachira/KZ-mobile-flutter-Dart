@@ -74,10 +74,15 @@ class ViewUserPage extends StatelessWidget {
 
     return userList == null
         ? CircularProgressIndicator()
-        : ListView.builder(
+        : GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
             itemCount: userList.length,
-            itemBuilder: (_, int index) => Padding(
-                padding: EdgeInsets.all(10.0),
+            itemBuilder: (BuildContext ctx, index) {
+              return Container(
+                alignment: Alignment.center,
                 child: ProductCard(
                   image: userList[index].imageURL,
                   name: userList[index].foodName,
@@ -89,10 +94,37 @@ class ViewUserPage extends StatelessWidget {
                   size: userList[index].size,
                   ingredients: userList[index].ingredients,
                   vendor: userList[index].vendor,
-                )),
-          );
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(15)),
+              );
+            });
   }
 }
+
+
+
+
+// ListView.builder(
+//             itemCount: userList.length,
+//             itemBuilder: (_, int index) => Padding(
+//                 padding: EdgeInsets.all(10.0),
+//                 child: ProductCard(
+//                   image: userList[index].imageURL,
+//                   name: userList[index].foodName,
+//                   price: userList[index].price,
+//                   category: userList[index].category,
+//                   description: userList[index].description,
+//                   discount: userList[index].discount,
+//                   isFeaured: userList[index].isFeatured,
+//                   size: userList[index].size,
+//                   ingredients: userList[index].ingredients,
+//                   vendor: userList[index].vendor,
+//                 )),
+//           );
+
+
 
 //  GridView.count(
 //                 shrinkWrap: false,
