@@ -1,7 +1,6 @@
-import 'package:alu_express/services/back_end/services.dart';
+import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/ui_screens/extras/size_helpers.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

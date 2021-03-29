@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../size_helpers.dart';
+import '../shared_widgets/size_helpers.dart';
 
 // We can check if the user is logged in  or not and redirect to  the approp page.
 class LandingPage extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:alu_express_student/ui_screens/cart.dart';
-import 'package:alu_express_student/ui_screens/homepage.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/homepagess.dart';
 import 'package:alu_express_student/ui_screens/notifications.dart';
-import 'package:alu_express_student/ui_screens/size_helpers.dart';
-import 'package:alu_express_student/ui_screens/student_profile.dart';
+import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
+import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
@@ -52,8 +52,8 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                       context,
-                      new MaterialPageRoute(
-                          builder: (context) => new StudentProfile()));
+                       MaterialPageRoute(
+                          builder: (context) =>  StudentProfile()));
                 },
                 leading: Icon(
                   LineIcons.userEdit,
@@ -71,7 +71,7 @@ class MyDrawer extends StatelessWidget {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => new HomePage()));
+                          builder: (context) =>  HomePage()));
                 },
                 leading: Icon(
                   Icons.food_bank_outlined,

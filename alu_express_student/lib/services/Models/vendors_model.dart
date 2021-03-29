@@ -33,7 +33,7 @@ List<Vendors> vendors = [
           'Specialties include light snacks and drinks, burgers, rolex, sandwiches (cheese and chicken), donughts, hot and cold drinks etc'),
   Vendors(
       imageUrl: 'assets/jollof.jpg',
-      price: 'RWF 1500 - 3000',
+      price: 'RWF 1500 - 300',
       name: 'Wazobia Chops',
       description:
           'Specialties include Jollof Rice, Spicy wings and beef, vegetable soup, plantain, puff puff and small chops, etc'),
