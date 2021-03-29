@@ -1,10 +1,10 @@
 import 'package:alu_express_student/services/auth/bussiness_logic.dart';
-import 'package:alu_express_student/ui_screens/homepage.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/homepage.dart';
 import 'package:alu_express_student/ui_screens/login_ui_screens/student_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:alu_express_student/ui_screens/size_helpers.dart';
+import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 const lanSvg = 'assets/svg3';

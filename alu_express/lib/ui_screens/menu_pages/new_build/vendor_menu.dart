@@ -1,5 +1,5 @@
-import 'package:alu_express/services/back_end/services.dart';
-import 'package:alu_express/services/back_end/vendor_model.dart';
+import 'package:alu_express/services/Models/services.dart';
+import 'package:alu_express/services/Models/vendor_model.dart';
 import 'package:alu_express/ui_screens/shared_widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

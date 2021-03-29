@@ -1,11 +1,8 @@
-import 'package:alu_express_student/ui_screens/Models/food_model.dart';
+import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/ui_screens/cart.dart';
-import 'package:alu_express_student/ui_screens/food_fetch.dart';
-import 'package:alu_express_student/ui_screens/home_products.dart';
-import 'package:alu_express_student/ui_screens/products_details.dart';
-import 'package:alu_express_student/ui_screens/student_profile.dart';
+import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:alu_express_student/ui_screens/size_helpers.dart';
+import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';

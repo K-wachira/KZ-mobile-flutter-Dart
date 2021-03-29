@@ -1,9 +1,8 @@
-import 'package:alu_express/services/back_end/vendor_model.dart';
+import 'package:alu_express/services/Models/vendor_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
-  String userid;
 
   FirebaseFirestore _fireStoreDataBase = FirebaseFirestore.instance;
 
