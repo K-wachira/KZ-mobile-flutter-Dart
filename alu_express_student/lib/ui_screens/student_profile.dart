@@ -8,13 +8,13 @@ class StudentProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         leading: Icon(
           Icons.chevron_left_rounded,
           color: Colors.black,
         ),
         title: Padding(
-          padding: const EdgeInsets.fromLTRB(90.0, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
           child: Text(
             "Profile",
             style: TextStyle(
