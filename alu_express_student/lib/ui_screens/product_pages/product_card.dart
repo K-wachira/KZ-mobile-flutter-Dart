@@ -1,3 +1,4 @@
+import 'package:alu_express_student/ui_screens/products_details.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -34,42 +35,48 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: displayHeight(context) * 0.5,
-        width: displayWidth(context) * 0.5,
-        decoration: BoxDecoration(
-          color: Colors.red[900].withOpacity(.06),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(padding: EdgeInsets.only(top: 5)),
-            CircleAvatar(
-              radius: displayWidth(context) * 0.15,
-              backgroundImage: NetworkImage(widget.image),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetails(productName: "Burger")));
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(padding: EdgeInsets.only(top: 5)),
+          Image(
+            width: displayWidth(context) * 0.4,
+            image: NetworkImage(widget.image),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(10)),
+            width: displayWidth(context) * 0.4,
+            padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                Text(
+                  widget.name,
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.red[900],
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'RWF ' + widget.price,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+                // Text(widget.description)
+              ],
             ),
-            ListTile(
-              leading: Text(
-                widget.name,
-                style: TextStyle(fontSize: 18, color: Colors.black),
-              ),
-              trailing: Text(
-                widget.price,
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.red[900],
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              width: displayWidth(context) * 0.4,
-              child: Text(widget.description),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
