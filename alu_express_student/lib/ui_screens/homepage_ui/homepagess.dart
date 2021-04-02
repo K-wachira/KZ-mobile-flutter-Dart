@@ -1,8 +1,8 @@
 import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
-import 'package:alu_express_student/ui_screens/cart.dart';
+import 'package:alu_express_student/ui_screens/cart_pages/cart.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
-import 'package:alu_express_student/ui_screens/drawer.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
-import 'package:alu_express_student/ui_screens/cart.dart';
+import 'package:alu_express_student/ui_screens/cart_pages/cart.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/homepagess.dart';
-import 'package:alu_express_student/ui_screens/notifications.dart';
+import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';

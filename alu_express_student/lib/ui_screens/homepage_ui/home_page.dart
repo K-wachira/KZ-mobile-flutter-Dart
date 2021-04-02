@@ -1,5 +1,5 @@
-import 'package:alu_express_student/ui_screens/cart.dart';
-import 'package:alu_express_student/ui_screens/mycart.dart';
+import 'package:alu_express_student/ui_screens/cart_pages/cart.dart';
+import 'package:alu_express_student/ui_screens/cart_pages/mycart.dart';
 import 'package:alu_express_student/ui_screens/product_pages/home_products.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:flutter/material.dart';

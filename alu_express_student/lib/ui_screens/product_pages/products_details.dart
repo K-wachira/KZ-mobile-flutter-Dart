@@ -11,17 +11,19 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   @override
+  int _quantity = 0;
+
   Widget build(BuildContext context) {
-    void increment(qty) {
+    void _incrementOrder() {
       setState(() {
-        qty++;
+        _quantity++;
       });
     }
 
-    void decrement(qty) {
+    void _decrementOrder() {
       setState(() {
-        if (qty >= 0) {
-          qty--;
+        if (_quantity > 0) {
+          _quantity--;
         }
       });
     }
@@ -42,7 +44,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
 
     final List cart = [];
-    int quantity = 0;
     int total = int.parse(widget.productDetails["price"]);
     return Scaffold(
       appBar: AppBar(
@@ -106,7 +107,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          increment(quantity);
+                          _incrementOrder();
                         });
                       },
                       icon: Icon(Feather.plus),
@@ -119,7 +120,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(10)),
                       child: Text(
-                        quantity.toString(),
+                        '$_quantity',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -134,7 +135,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: IconButton(
                         icon: Icon(Feather.minus),
                         onPressed: () {
-                          decrement(quantity);
+                          setState(() {
+                            _decrementOrder();
+                          });
                         }),
                   )
                 ],
@@ -146,7 +149,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                   onPressed: () {
-                    addToCart(cart, total, quantity, widget.productDetails);
+                    addToCart(cart, total, _quantity, widget.productDetails);
                   },
                   icon: Icon(Feather.shopping_cart),
                   label: Text("Add to cart")),

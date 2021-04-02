@@ -1,4 +1,4 @@
-import 'package:alu_express_student/ui_screens/products_details.dart';
+import 'package:alu_express_student/ui_screens/product_pages/products_details.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
