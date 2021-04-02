@@ -1,5 +1,6 @@
 import 'package:alu_express_student/ui_screens/products_details.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
@@ -35,12 +36,23 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
     return GestureDetector(
       onTap: () {
+        Map productDetails = {
+          "image": widget.image,
+          "name": widget.name,
+          "price": widget.price,
+          "description": widget.description,
+          "ingredients": widget.ingredients,
+          "vendor": widget.vendor,
+          "userid": auth.currentUser.uid,
+        };
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProductDetails(productName: "Burger")));
+                builder: (context) =>
+                    ProductDetails(productDetails: productDetails)));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
