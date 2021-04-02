@@ -10,6 +10,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:date_time_format/date_time_format.dart';
 
 class AddFood extends StatefulWidget {
   final userid;
@@ -29,6 +30,7 @@ class _AddFoodState extends State<AddFood> {
   final _formKey = GlobalKey<FormState>();
   final authinstance = Authentificate();
   final getinstance = Get();
+  final dateTime = DateTime.now();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Map<String, dynamic> foodData;
   TextEditingController nameController = TextEditingController();
@@ -345,6 +347,9 @@ class _AddFoodState extends State<AddFood> {
                                                   'Vendor': widget.userid,
                                                   'Quantity':
                                                       quantityController.text,
+                                                  'DocumentId': '.', // the DocumentId will be updated after creation of the document id. 
+                                                  'Timedate':  DateTimeFormat.format(dateTime),
+
                                                 };
                                                 print(foodData);
 

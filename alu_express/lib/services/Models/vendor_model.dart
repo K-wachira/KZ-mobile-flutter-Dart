@@ -9,19 +9,21 @@ class VendorModel {
   String size;
   String category;
   String vendor;
+  String documentId;
 
-  VendorModel(
-      {this.foodName,
-      this.description,
-      this.discount,
-      this.imageURL,
-      this.ingredients,
-      this.isFeatured,
-      this.price,
-      this.size,
-      this.category,
-      this.vendor,
-      });
+  VendorModel({
+    this.foodName,
+    this.description,
+    this.discount,
+    this.imageURL,
+    this.ingredients,
+    this.isFeatured,
+    this.price,
+    this.size,
+    this.category,
+    this.vendor,
+    this.documentId,
+  });
 
   VendorModel.fromJson(Map<String, dynamic> parsedJSON)
       : foodName = parsedJSON['FoodName'],
@@ -33,6 +35,7 @@ class VendorModel {
         price = parsedJSON['Price'],
         size = parsedJSON['Size'],
         category = parsedJSON['Category'],
-        vendor = parsedJSON['Vendor'];
+        vendor = parsedJSON['Vendor'],
+        documentId = parsedJSON['DocumentId'];
 
 }

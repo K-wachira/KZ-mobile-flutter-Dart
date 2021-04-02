@@ -12,6 +12,7 @@ class MenuCard extends StatefulWidget {
   final String size;
   final String ingredients;
   final String vendor;
+  final String documentId;
 
   const MenuCard(
       {Key key,
@@ -24,7 +25,8 @@ class MenuCard extends StatefulWidget {
       this.isFeaured,
       this.size,
       this.ingredients,
-      this.vendor})
+      this.vendor, 
+      this.documentId})
       : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class _MenuCardState extends State<MenuCard> {
                           size: widget.size,
                           ingredients: widget.ingredients,
                           vendor: widget.vendor,
+                          documentId: widget.documentId,
                         )));
           },
           contentPadding:

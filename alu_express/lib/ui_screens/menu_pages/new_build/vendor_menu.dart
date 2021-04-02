@@ -56,6 +56,8 @@ class ViewUserPage extends StatelessWidget {
                   size: userList[index].size,
                   ingredients: userList[index].ingredients,
                   vendor: userList[index].vendor,
+                  documentId: userList[index].documentId,
+
                 )),
           );
   }

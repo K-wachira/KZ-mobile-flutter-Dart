@@ -1,3 +1,4 @@
+import 'package:alu_express/ui_screens/shared_widgets/menu_edit_pop_up.dart';
 import 'package:flutter/material.dart';
 
 class EditProduct extends StatefulWidget {
@@ -11,6 +12,7 @@ class EditProduct extends StatefulWidget {
   final String size;
   final String ingredients;
   final String vendor;
+  final String documentId;
 
   const EditProduct(
       {Key key,
@@ -23,7 +25,8 @@ class EditProduct extends StatefulWidget {
       this.isFeaured,
       this.size,
       this.ingredients,
-      this.vendor})
+      this.vendor,
+      this.documentId})
       : super(key: key);
 
   @override
@@ -83,36 +86,127 @@ class _EditProductState extends State<EditProduct> {
                         title: Text("Name"),
                         leading: Icon(Icons.food_bank),
                         subtitle: Text(widget.name),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.name,
+                                      field: "FoodName",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("Price"),
                         leading: Icon(Icons.money),
                         subtitle: Text(widget.price),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.price,
+                                      field: "Price",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("discount"),
                         subtitle: Text(widget.discount),
                         leading: Icon(Icons.money_off),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.discount,
+                                      field: "Discount",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("size"),
                         subtitle: Text(widget.size),
                         leading: Icon(Icons.zoom_in),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.size,
+                                      field: "Size",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("category"),
                         subtitle: Text(widget.category),
                         leading: Icon(Icons.category),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.category,
+                                      current: widget.name,
+                                      field: "Category",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("description"),
                         subtitle: Text(widget.description),
                         leading: Icon(Icons.description),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.description,
+                                      field: "Description",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       ListTile(
                         title: Text("ingredients"),
                         subtitle: Text(widget.ingredients),
                         leading: Icon(Icons.line_style_outlined),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    MenuEditPopUp(
+                                      docId: widget.documentId,
+                                      current: widget.ingredients,
+                                      field: "Ingredients",
+                                    ));
+                          },
+                          child: Icon(Icons.edit),
+                        ),
                       ),
                       SizedBox(
                         height: 20,

@@ -3,12 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
-
   FirebaseFirestore _fireStoreDataBase = FirebaseFirestore.instance;
 
   Stream<List<VendorModel>> getFoodList(vendorid) {
-    print("printing vendr id");
-    print(vendorid);
+    //takes in vendorid and returns all the food that the vendor has on the db
     return _fireStoreDataBase
         .collection('Foods')
         .where("Vendor", isEqualTo: vendorid)
@@ -16,6 +14,16 @@ class FirebaseServices {
         .map((snapShot) => snapShot.docs
             .map((document) => VendorModel.fromJson(document.data()))
             .toList());
+  }
+
+  Future<String> updateField(docID, value, field) async {
+    await FirebaseFirestore.instance
+        .collection('Foods')
+        .doc(docID)
+        .update({field: value}).catchError((onError) {
+      return onError;
+    });
+    return "true";
   }
 
   Future<String> addFood(data) async {
@@ -27,11 +35,18 @@ class FirebaseServices {
       // ignore: return_of_invalid_type_from_catch_error
       return e;
     });
+    //DocumentReference(Foods/w09DC3zZtjCdMNtQ6e4Z)
+    String docid = ref.id.toString();
+    print(docid);
+    await FirebaseFirestore.instance
+        .collection('Foods')
+        .doc(docid)
+        .update({'DocumentId': docid});
     return "true";
   }
 
 //loggout user
   Future<void> signOut() async {
-  await FirebaseAuth.instance.signOut();
-}
+    await FirebaseAuth.instance.signOut();
+  }
 }
