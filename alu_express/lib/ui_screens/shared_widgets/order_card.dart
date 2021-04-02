@@ -43,7 +43,7 @@ class _MenuCardState extends State<MenuCard> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => UserProfile(
+                    builder: (context) => EditProduct(
                           image: widget.image,
                           name: widget.name,
                           price: widget.price,
@@ -54,7 +54,6 @@ class _MenuCardState extends State<MenuCard> {
                           size: widget.size,
                           ingredients: widget.ingredients,
                           vendor: widget.vendor,
-
                         )));
           },
           contentPadding:

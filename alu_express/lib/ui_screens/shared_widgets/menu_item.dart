@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UserProfile extends StatefulWidget {
+class EditProduct extends StatefulWidget {
   final String image;
   final String name;
   final String price;
@@ -12,7 +12,7 @@ class UserProfile extends StatefulWidget {
   final String ingredients;
   final String vendor;
 
-  const UserProfile(
+  const EditProduct(
       {Key key,
       this.image,
       this.name,
@@ -27,10 +27,10 @@ class UserProfile extends StatefulWidget {
       : super(key: key);
 
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _EditProductState createState() => _EditProductState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
