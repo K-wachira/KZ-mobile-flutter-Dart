@@ -1,4 +1,5 @@
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -11,31 +12,45 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   @override
-  int _quantity = 0;
+  int _quantity = 1;
+  final dateTime = DateTime.now();
+  final List cart = [];
+  int total = 0;
 
   Widget build(BuildContext context) {
+    int price = int.parse(widget.productDetails["Price"]);
+    total = price;
     void _incrementOrder() {
       setState(() {
         _quantity++;
+        total = price * _quantity;
+        print(total);
       });
     }
 
     void _decrementOrder() {
       setState(() {
-        if (_quantity > 0) {
+        if (_quantity > 1) {
           _quantity--;
+          total = price * _quantity;
+          print(total);
         }
       });
     }
 
-    void addToCart(cart, total, quantity, product) {
+    void addToCart(cart, totals, quantity, product) {
+      setState(() {
+        totals = totals * quantity;
+      });
       Map item = {
-        "name": product["name"],
-        "quantity": quantity.toString(),
-        "total": total.toString(),
-        "vendor": product["vendor"],
-        "customer": product["userid"],
-        "ingeridents": product["ingredients"]
+        "FoodName": product["Name"],
+        "Quantity": quantity.toString(),
+        "Total": totals.toString(),
+        "Vendor": product["Vendor"],
+        "Customer": product["Userid"],
+        "OrderTime": dateTime,
+        "FoodID": product["FoodID"],
+        'Category': product['Category']
       };
       setState(() {
         cart.add(item);
@@ -43,12 +58,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       });
     }
 
-    final List cart = [];
-    int total = int.parse(widget.productDetails["price"]);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red[900],
-        title: Center(child: Text(widget.productDetails["name"])),
+        title: Center(child: Text(widget.productDetails["Name"])),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -60,7 +73,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.productDetails["name"],
+                    widget.productDetails["Name"],
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -70,7 +83,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     height: 20,
                   ),
                   Text(
-                    widget.productDetails["description"],
+                    widget.productDetails["Description"],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 17,
@@ -81,14 +94,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             Image(
-              image: NetworkImage(widget.productDetails["image"]),
+              image: NetworkImage(widget.productDetails["Image"]),
               height: displayHeight(context) * 0.4,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Text(
-                  total.toString(),
+                  (total * _quantity).toString(),
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -149,6 +162,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                   onPressed: () {
+                    print(total);
                     addToCart(cart, total, _quantity, widget.productDetails);
                   },
                   icon: Icon(Feather.shopping_cart),

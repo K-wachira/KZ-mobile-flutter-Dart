@@ -14,6 +14,9 @@ class ProductCard extends StatefulWidget {
   final String size;
   final String ingredients;
   final String vendor;
+  final String foodid;
+  final String timeuploaded;
+  final String quantity;
 
   const ProductCard(
       {Key key,
@@ -26,7 +29,10 @@ class ProductCard extends StatefulWidget {
       this.isFeaured,
       this.size,
       this.ingredients,
-      this.vendor})
+      this.vendor,
+      this.foodid,
+      this.timeuploaded,
+      this.quantity})
       : super(key: key);
 
   @override
@@ -40,13 +46,19 @@ class _ProductCardState extends State<ProductCard> {
     return GestureDetector(
       onTap: () {
         Map productDetails = {
-          "image": widget.image,
-          "name": widget.name,
-          "price": widget.price,
-          "description": widget.description,
-          "ingredients": widget.ingredients,
-          "vendor": widget.vendor,
-          "userid": auth.currentUser.uid,
+          "Image": widget.image,
+          "Name": widget.name,
+          "Price": widget.price,
+          "Description": widget.description,
+          "Ingredients": widget.ingredients,
+          "Vendor": widget.vendor,
+          "Userid": auth.currentUser.uid,
+          "Category": widget.category,
+          "Discount": widget.discount,
+          "Size": widget.size,
+          "FoodID": widget.foodid,
+          "timeuploaded":  widget.timeuploaded,
+
         };
         Navigator.push(
             context,
@@ -65,7 +77,7 @@ class _ProductCardState extends State<ProductCard> {
           Container(
             decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(30)),
             width: displayWidth(context) * 0.4,
             padding: EdgeInsets.all(5),
             child: Column(

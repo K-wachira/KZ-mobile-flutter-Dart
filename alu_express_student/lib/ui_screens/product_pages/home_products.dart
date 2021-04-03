@@ -110,9 +110,11 @@ class ViewUserPage extends StatelessWidget {
                   size: userList[index].size,
                   ingredients: userList[index].ingredients,
                   vendor: userList[index].vendor,
+                  foodid: userList[index].foodid,
+                  timeuploaded: userList[index].timeuploaded,
+                  quantity: userList[index].quantity,
                 ),
               );
             });
   }
 }
-

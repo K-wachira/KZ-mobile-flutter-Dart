@@ -1,6 +1,5 @@
 import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/login_ui_screens/landing_page.dart';
-import 'package:alu_express_student/ui_screens/login_ui_screens/student_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

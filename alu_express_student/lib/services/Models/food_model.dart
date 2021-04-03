@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class FoodModel {
-String foodName;
+  String foodName;
   String description;
   String discount;
   String imageURL;
@@ -11,7 +11,9 @@ String foodName;
   String size;
   String category;
   String vendor;
-
+  String foodid;
+  String timeuploaded;
+  String quantity;
   FoodModel(
       {this.foodName,
       this.description,
@@ -23,7 +25,10 @@ String foodName;
       this.size,
       this.category,
       this.vendor,
-      });
+      this.foodid,
+      this.timeuploaded,
+      this.quantity}
+      );
 
   FoodModel.fromJson(Map<String, dynamic> parsedJSON)
       : foodName = parsedJSON['FoodName'],
@@ -35,5 +40,8 @@ String foodName;
         price = parsedJSON['Price'],
         size = parsedJSON['Size'],
         category = parsedJSON['Category'],
-        vendor = parsedJSON['Vendor'];
+        vendor = parsedJSON['Vendor'],
+        foodid = parsedJSON['DocumentId'],
+        timeuploaded = parsedJSON['Timedate'],
+        quantity = parsedJSON['Quantity'];
 }
