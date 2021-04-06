@@ -1,7 +1,8 @@
+import 'package:alu_express_student/services/Models/cart_funtionality.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   final Map productDetails;
@@ -16,8 +17,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   final dateTime = DateTime.now();
   final List cart = [];
   int total = 0;
+  final CartFunctionality cartFunctionality = CartFunctionality();
 
   Widget build(BuildContext context) {
+
     int price = int.parse(widget.productDetails["Price"]);
     total = price;
     void _incrementOrder() {
@@ -38,7 +41,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       });
     }
 
-    void addToCart(cart, totals, quantity, product) {
+    void createitem(cart, totals, quantity, product) {
       setState(() {
         totals = totals * quantity;
       });
@@ -50,12 +53,10 @@ class _ProductDetailsState extends State<ProductDetails> {
         "Customer": product["Userid"],
         "OrderTime": dateTime,
         "FoodID": product["FoodID"],
-        'Category': product['Category']
-      };
-      setState(() {
-        cart.add(item);
-        print(cart);
-      });
+        'Category': product['Category'],
+        "OrderStatus": "Pending",
+      }; 
+      cartFunctionality.addToCart(item);
     }
 
     return Scaffold(
@@ -162,8 +163,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                   onPressed: () {
-                    print(total);
-                    addToCart(cart, total, _quantity, widget.productDetails);
+                    
+                    createitem(cart, total, _quantity, widget.productDetails);
                   },
                   icon: Icon(Feather.shopping_cart),
                   label: Text("Add to cart")),

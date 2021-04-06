@@ -113,6 +113,7 @@ class ViewUserPage extends StatelessWidget {
                   foodid: userList[index].foodid,
                   timeuploaded: userList[index].timeuploaded,
                   quantity: userList[index].quantity,
+                  indexs: index,
                 ),
               );
             });
