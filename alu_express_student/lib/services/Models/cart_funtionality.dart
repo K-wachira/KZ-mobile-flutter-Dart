@@ -1,4 +1,6 @@
 import 'package:alu_express_student/services/Models/cart_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class CartFunctionality extends ChangeNotifier {
@@ -31,5 +33,14 @@ class CartFunctionality extends ChangeNotifier {
 
   get throwFoodModelList {
     return foodModelList;
+  }
+
+
+
+
+
+  //loggout user
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

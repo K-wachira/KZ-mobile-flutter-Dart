@@ -83,7 +83,12 @@ class _HomeProductsState extends State<HomeProducts> {
   }
 }
 
-class ViewUserPage extends StatelessWidget {
+class ViewUserPage extends StatefulWidget {
+  @override
+  _ViewUserPageState createState() => _ViewUserPageState();
+}
+
+class _ViewUserPageState extends State<ViewUserPage> {
   @override
   Widget build(BuildContext context) {
     List userList = Provider.of<List<FoodModel>>(context);

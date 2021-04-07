@@ -23,7 +23,8 @@ class _HomePageState extends State<HomePage> {
         userid: widget.userid,
       ),
       MyCart(),
-      StudentProfile(),
+      StudentProfile(         userid: widget.userid,
+),
     ];
 
     return Scaffold(
