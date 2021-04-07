@@ -1,6 +1,8 @@
+import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/auth/bussiness_logic.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/login_ui_screens/student_login.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +28,7 @@ class _StudentSignUpState extends State<StudentSignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordMatch = TextEditingController();
+  final FirebaseServices firebaseServices = FirebaseServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -291,8 +294,27 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
     if (result == true) {
       print("Successfully Signed Up");
+      final dateTime = DateTime.now();
+
+      Map<String, dynamic> foodData = {
+        'Fname': nameController.text,
+        'FirebaseID': user.uid,
+        'PhoneNumber': 'Not Set',
+        'StudentID': "Not Set",
+        'ProfilePicture':
+            'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
+        'Email': emailController.text,
+        'Gender': "Not Set",
+        'YearJoinedALU': "Not Set",
+        'DocumentId':
+            '.', // the DocumentId will be updated after creation of the document id.
+        'TimedateRegistered': DateTimeFormat.format(dateTime),
+      };
+
+      await firebaseServices.addStudent(foodData);
+
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomePage( userid  : user.uid)));
+          MaterialPageRoute(builder: (context) => HomePage(userid: user.uid)));
     } else {
       showDialog(
           context: context,
