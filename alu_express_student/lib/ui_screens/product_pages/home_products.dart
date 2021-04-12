@@ -1,6 +1,7 @@
 import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
-import 'package:alu_express_student/ui_screens/product_pages/product_card.dart';
+import 'package:alu_express_student/services/Models/cartcode.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _HomeProductsState extends State<HomeProducts> {
   final FirebaseServices firebaseServices = FirebaseServices();
 
   @override
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   int _quantity = 1;
   final dateTime = DateTime.now();
   final List cart = [];
@@ -63,7 +65,9 @@ class _HomeProductsState extends State<HomeProducts> {
           'Category': product['Category'],
           "OrderStatus": "Pending",
         };
+        cart.add(item);
         cartFunctionality.addToCart(item);
+        print(cart);
       }
 
       showDialog(
@@ -81,7 +85,10 @@ class _HomeProductsState extends State<HomeProducts> {
                 ),
                 new FlatButton(
                   child: new Text("Add to Cart"),
-                  onPressed: () {},
+                  onPressed: () {
+                    createitem(cart, total, _quantity, productDetails);
+                    Navigator.of(context).pop();
+                  },
                 )
               ],
               content: Column(
@@ -126,13 +133,12 @@ class _HomeProductsState extends State<HomeProducts> {
                             color: Colors.yellow,
                             borderRadius: BorderRadius.circular(10)),
                         child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _incrementOrder();
-                            });
-                          },
-                          icon: Icon(Feather.plus),
-                        ),
+                            icon: Icon(Feather.minus),
+                            onPressed: () {
+                              setState(() {
+                                _decrementOrder();
+                              });
+                            }),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -154,13 +160,14 @@ class _HomeProductsState extends State<HomeProducts> {
                             color: Colors.yellow,
                             borderRadius: BorderRadius.circular(10)),
                         child: IconButton(
-                            icon: Icon(Feather.minus),
-                            onPressed: () {
-                              setState(() {
-                                _decrementOrder();
-                              });
-                            }),
-                      )
+                          onPressed: () {
+                            setState(() {
+                              _incrementOrder();
+                            });
+                          },
+                          icon: Icon(Feather.plus),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -182,6 +189,17 @@ class _HomeProductsState extends State<HomeProducts> {
             Icon(Feather.home),
           ],
         )),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: IconButton(
+              icon: Icon(Feather.shopping_cart),
+              onPressed: () {
+                saveCart(cart);
+              },
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
           padding: EdgeInsets.only(
