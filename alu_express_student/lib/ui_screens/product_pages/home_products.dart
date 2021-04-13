@@ -1,7 +1,6 @@
 import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +20,8 @@ class _HomeProductsState extends State<HomeProducts> {
   final FirebaseServices firebaseServices = FirebaseServices();
 
   @override
-  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   int _quantity = 1;
+  List cartItems = [];
   final dateTime = DateTime.now();
   final List cart = [];
   int total = 0;
@@ -195,7 +194,7 @@ class _HomeProductsState extends State<HomeProducts> {
             child: IconButton(
               icon: Icon(Feather.shopping_cart),
               onPressed: () {
-                saveCart(cart);
+                showCart(context, cart);
               },
             ),
           ),
