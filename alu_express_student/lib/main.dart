@@ -1,5 +1,6 @@
 import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/login_ui_screens/landing_page.dart';
+import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,8 @@ class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
-}  
+}
+
 class _MyAppState extends State<MyApp> {
   // Define an async function to initialize FlutterFire
   String userId;

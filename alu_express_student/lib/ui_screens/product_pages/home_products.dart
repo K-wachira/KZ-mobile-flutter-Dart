@@ -1,12 +1,14 @@
 import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:alu_express_student/services/Models/cart_funtionality.dart';
 
@@ -77,14 +79,34 @@ class _HomeProductsState extends State<HomeProducts> {
               title: productDetails["productName"],
               actions: <Widget>[
                 // usually buttons at the bottom of the dialog
-                new FlatButton(
-                  child: new Text("Close"),
+                new ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      primary: Colors.amber),
+                  child: new Text(
+                    "Close",
+                    style: GoogleFonts.ptSans(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
-                new FlatButton(
-                  child: new Text("Add to Cart"),
+                new ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      primary: Colors.red[900]),
+                  child: new Text(
+                    "Add to Cart",
+                    style: GoogleFonts.ptSans(
+                      color: Colors.white,
+                      fontSize: 17,
+                    ),
+                  ),
                   onPressed: () {
                     createitem(cart, total, _quantity, productDetails);
                     Navigator.of(context).pop();
@@ -96,17 +118,19 @@ class _HomeProductsState extends State<HomeProducts> {
                 children: [
                   Text(
                     productDetails["Name"],
-                    style: TextStyle(
-                        fontSize: 22,
+                    style: GoogleFonts.ptSans(
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontSize: 22,
                         letterSpacing: .3),
                   ),
                   Text(
-                    productDetails["Description"],
+                    "Description: " + productDetails["Description"],
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.ptSans(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
                         fontSize: 17,
-                        fontWeight: FontWeight.w400,
                         letterSpacing: .3),
                   ),
                   Image(
@@ -114,13 +138,14 @@ class _HomeProductsState extends State<HomeProducts> {
                     height: displayHeight(context) * 0.2,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        (total * _quantity).toString(),
-                        style: TextStyle(
+                        "RWF " + (total * _quantity).toString(),
+                        style: GoogleFonts.ptSans(
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            fontWeight: FontWeight.w500,
                             letterSpacing: .3),
                       ),
                     ),
@@ -130,10 +155,10 @@ class _HomeProductsState extends State<HomeProducts> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(10)),
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(12)),
                         child: IconButton(
-                            icon: Icon(Feather.minus),
+                            icon: Icon(LineIcons.minus),
                             onPressed: () {
                               setState(() {
                                 _decrementOrder();
@@ -157,8 +182,8 @@ class _HomeProductsState extends State<HomeProducts> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(10)),
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(12)),
                         child: IconButton(
                           onPressed: () {
                             setState(() {
@@ -177,29 +202,21 @@ class _HomeProductsState extends State<HomeProducts> {
     }
 
     return Scaffold(
+      drawer: Drawer(
+        child: DrawerProvider(userid: widget.userid),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.red[700],
-        title: Center(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Home"),
-            SizedBox(width: 20),
-            Icon(Feather.home),
-          ],
-        )),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: IconButton(
-              icon: Icon(Feather.shopping_cart),
-              onPressed: () {
-                saveCart(cart);
-              },
-            ),
-          ),
-        ],
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.sort_rounded, color: Colors.black),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            );
+          },
+        ),
       ),
       body: SingleChildScrollView(
           padding: EdgeInsets.only(
@@ -264,6 +281,7 @@ class ViewUserPage extends StatelessWidget {
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 300,
                 crossAxisSpacing: 20,
@@ -374,20 +392,18 @@ class _ProductCardState extends State<ProductCard> {
             padding: EdgeInsets.all(5),
             child: Column(
               children: [
-                Text(
-                  widget.name,
-                  style: TextStyle(
-                      fontSize: 17,
+                Text(widget.name,
+                    style: GoogleFonts.ptSans(
                       color: Colors.red[900],
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'RWF ' + widget.price,
-                  style: TextStyle(
-                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: .3,
+                      fontSize: 18,
+                    )),
+                Text('RWF ' + widget.price,
+                    style: GoogleFonts.ptSans(
                       color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
+                      fontSize: 16,
+                    )),
                 // Text(widget.description)
               ],
             ),
