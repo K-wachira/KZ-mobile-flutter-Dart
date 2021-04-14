@@ -23,8 +23,8 @@ class _HomeProductsState extends State<HomeProducts> {
   final FirebaseServices firebaseServices = FirebaseServices();
 
   @override
-  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   int _quantity = 1;
+  List cartItems = [];
   final dateTime = DateTime.now();
   final List cart = [];
   int total = 0;
