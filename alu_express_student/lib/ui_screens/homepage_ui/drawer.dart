@@ -1,17 +1,58 @@
+import 'package:alu_express_student/services/Models/firebase_services.dart';
+import 'package:alu_express_student/services/Models/user_model.dart';
 import 'package:alu_express_student/ui_screens/cart_pages/cart.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
+import 'package:alu_express_student/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key key}) : super(key: key);
+class DrawerProvider extends StatefulWidget {
+  final userid;
+
+  const DrawerProvider({Key key, this.userid}) : super(key: key);
+  @override
+  _DrawerProviderState createState() => _DrawerProviderState();
+}
+
+class _DrawerProviderState extends State<DrawerProvider> {
+  final FirebaseServices firebaseServices = FirebaseServices();
 
   @override
   Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: StreamProvider(
+        create: (BuildContext context) =>
+            firebaseServices.getuser(widget.userid),
+        child: MyDrawer(
+          userid: widget.userid,
+        ),
+      ),
+    );
+  }
+}
+
+class MyDrawer extends StatefulWidget {
+  final userid;
+
+  const MyDrawer({Key key, this.userid}) : super(key: key);
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final FirebaseServices firebaseServices = FirebaseServices();
+
+  @override
+  Widget build(BuildContext context) {
+    List userList = Provider.of<List<UserModel>>(context);
+    print(userList);
+    print(widget.userid);
     return Column(
       children: [
         Container(
@@ -23,21 +64,20 @@ class MyDrawer extends StatelessWidget {
               CircleAvatar(
                 radius: 50.0,
                 backgroundColor: Colors.red[900],
-                backgroundImage: AssetImage(''),
+                backgroundImage: NetworkImage(userList[0].profileUrl),
               ),
               SizedBox(
                 height: 5.0,
               ),
               Text(
-                "Nailah HK",
+                userList[0].fname,
                 style: GoogleFonts.ptSans(
                     fontSize: 22.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 5.0,
               ),
-              Text("nailahrocks@gmail.com",
-                  style: GoogleFonts.ptSans(fontSize: 18)),
+              Text(userList[0].email, style: GoogleFonts.ptSans(fontSize: 18)),
               SizedBox(height: 10.0),
 
               // Place Divider Here
@@ -52,8 +92,10 @@ class MyDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                       context,
-                       MaterialPageRoute(
-                          builder: (context) =>  StudentProfile()));
+                      MaterialPageRoute(
+                          builder: (context) => StudentProfile(
+                                userid: widget.userid,
+                              )));
                 },
                 leading: Icon(
                   LineIcons.userEdit,
@@ -71,7 +113,9 @@ class MyDrawer extends StatelessWidget {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) =>  HomePage(userid: null,)));
+                          builder: (context) => HomePage(
+                                userid: widget.userid,
+                              )));
                 },
                 leading: Icon(
                   Icons.food_bank_outlined,
@@ -119,7 +163,12 @@ class MyDrawer extends StatelessWidget {
                 height: displayHeight(context) * 0.15,
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  firebaseServices.signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LandingPage()),
+                      (Route<dynamic> route) => false);
+                },
                 leading: Icon(
                   Icons.logout,
                   color: Colors.red[900],

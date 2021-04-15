@@ -1,6 +1,7 @@
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
 class FirebaseServices extends ChangeNotifier {
@@ -47,6 +48,10 @@ class FirebaseServices extends ChangeNotifier {
             .toList());
   }
 
+//loggout user
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   Future<String> updateField(docID, value, field) async {
     await FirebaseFirestore.instance

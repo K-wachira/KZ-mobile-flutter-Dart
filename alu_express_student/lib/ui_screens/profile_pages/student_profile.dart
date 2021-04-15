@@ -20,6 +20,7 @@ class _StudentProfileState extends State<StudentProfile> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.userid);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -72,7 +73,7 @@ class _UserProfileState extends State<UserProfile> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    child: Image.network(userList[0].profileUrl),
+                    backgroundImage: NetworkImage(userList[0].profileUrl),
                   ),
                   Positioned(
                     right: 0,

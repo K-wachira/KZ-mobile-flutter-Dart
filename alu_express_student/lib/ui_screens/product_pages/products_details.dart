@@ -20,7 +20,6 @@ class _ProductDetailsState extends State<ProductDetails> {
   final CartFunctionality cartFunctionality = CartFunctionality();
 
   Widget build(BuildContext context) {
-
     int price = int.parse(widget.productDetails["Price"]);
     total = price;
     void _incrementOrder() {
@@ -55,7 +54,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         "FoodID": product["FoodID"],
         'Category': product['Category'],
         "OrderStatus": "Pending",
-      }; 
+      };
       cartFunctionality.addToCart(item);
     }
 
@@ -84,7 +83,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     height: 20,
                   ),
                   Text(
-                    widget.productDetails["Description"],
+                    "Description: " + widget.productDetails["Description"],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 17,
@@ -116,7 +115,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.yellow,
+                        color: Colors.amber,
                         borderRadius: BorderRadius.circular(10)),
                     child: IconButton(
                       onPressed: () {
@@ -163,7 +162,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(primary: Colors.red[900]),
                   onPressed: () {
-                    
                     createitem(cart, total, _quantity, widget.productDetails);
                   },
                   icon: Icon(Feather.shopping_cart),
