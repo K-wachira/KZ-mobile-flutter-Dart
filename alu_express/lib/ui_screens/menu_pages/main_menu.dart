@@ -13,11 +13,7 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-
-
   @override
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +26,7 @@ class _MenuState extends State<Menu> {
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: "PTSans",
+                fontSize: 20,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -40,7 +37,7 @@ class _MenuState extends State<Menu> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Meze Fresh",
+              "",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFDC2F02),
@@ -71,8 +68,12 @@ class _MenuState extends State<Menu> {
                 GestureDetector(
                     onTap: () {
                       setState(() {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddFood(userid: widget.userID,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddFood(
+                                      userid: widget.userID,
+                                    )));
                       });
                     },
                     child: MenuCard(

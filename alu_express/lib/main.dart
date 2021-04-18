@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());  
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -42,6 +42,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme:
+          ThemeData(primaryColor: Colors.red[900], primarySwatch: Colors.amber),
       title: 'ALU Express',
       home: isLoggedIn
           ? HomePage(userid: userId)

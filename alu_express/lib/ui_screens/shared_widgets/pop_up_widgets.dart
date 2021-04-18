@@ -9,7 +9,8 @@ class PopUp extends StatefulWidget {
   PopUp({
     @required this.text,
     this.successful,
-    Key key, this.uid,
+    Key key,
+    this.uid,
   }) : super(key: key);
   @override
   _PopUpState createState() => _PopUpState();
@@ -29,6 +30,10 @@ class _PopUpState extends State<PopUp> {
       ),
       actions: <Widget>[
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              primary: Colors.amber),
           onPressed: () {
             widget.successful
                 ? Navigator.push(
