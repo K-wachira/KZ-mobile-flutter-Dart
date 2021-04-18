@@ -1,4 +1,5 @@
 import 'package:alu_express/ui_screens/extras/size_helpers.dart';
+import 'package:alu_express/ui_screens/login_ui_screens/vendor_login.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/vendor_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +46,7 @@ class _LandingPageState extends State<LandingPage> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(
-                            left: displayWidth(context) * 0.03)),
+                            left: displayWidth(context) * 0.04)),
                     Text(
                       "Welcome to ",
                       style: GoogleFonts.ptSans(
@@ -80,7 +81,7 @@ class _LandingPageState extends State<LandingPage> {
                     Text(
                       "Your number one Campus delivery point!",
                       style: GoogleFonts.ptSans(
-                        color: Colors.black54,
+                        color: Colors.black87,
                         fontSize: 18,
                         letterSpacing: .3,
                       ),
@@ -98,9 +99,14 @@ class _LandingPageState extends State<LandingPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0)),
                             primary: Colors.red[900]),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VendorSignUp()));
+                        },
                         child: Text(
-                          'I am a Student',
+                          'Create an Account Here',
                           style: GoogleFonts.ptSans(
                             color: Colors.white,
                             fontSize: 20,
@@ -123,11 +129,11 @@ class _LandingPageState extends State<LandingPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => VendorSignUp()),
+                                builder: (context) => VendorLogIn()),
                           );
                         },
                         child: Text(
-                          'I am a Vendor',
+                          'Log In Here',
                           style: GoogleFonts.ptSans(
                             color: Colors.black,
                             fontSize: 20,

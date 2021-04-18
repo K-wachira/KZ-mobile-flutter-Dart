@@ -1,10 +1,12 @@
 class UserModel {
   String name;
-  String age;
+  String profileURL;
+  String ID;
 
-  UserModel({this.name, this.age});
+  UserModel({this.name, this.profileURL, this.ID});
 
   UserModel.fromJson(Map<String, dynamic> parsedJSON)
-      : name = parsedJSON['name'],
-        age = parsedJSON['age'];
+      : name = parsedJSON['vendorName'],
+        profileURL = parsedJSON['profilePhotoUrl'],
+        ID = parsedJSON['vendorID'];
 }

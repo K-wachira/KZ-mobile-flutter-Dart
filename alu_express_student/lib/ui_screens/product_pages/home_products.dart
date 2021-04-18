@@ -2,6 +2,7 @@ import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
+import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
@@ -222,6 +223,20 @@ class _HomeProductsState extends State<HomeProducts> {
             );
           },
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.notifications_none_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => Notifications()));
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
           padding: EdgeInsets.only(
