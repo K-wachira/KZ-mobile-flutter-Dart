@@ -5,7 +5,10 @@ import 'package:alu_express_student/ui_screens/profile_pages/change_profile_popu
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 class StudentProfile extends StatefulWidget {
   final userid;
@@ -25,9 +28,14 @@ class _StudentProfileState extends State<StudentProfile> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: Icon(
-          Icons.chevron_left_rounded,
-          color: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Padding(
           padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
@@ -56,6 +64,39 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  Position _currentPosition;
+  String _currentAddress;
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _getAddressFromLatLng();
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = placemarks[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List userList = Provider.of<List<UserModel>>(context);
@@ -107,7 +148,7 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: displayHeight(context) * .03,
               child: (Text(
-                'Hello there, ',
+                'Hello, ' + userList[0].fname,
                 style: GoogleFonts.ptSans(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -116,9 +157,81 @@ class _UserProfileState extends State<UserProfile> {
               )),
             ),
             SizedBox(
+              height: displayHeight(context) * .015,
+            ),
+            SizedBox(
+              width: displayWidth(context) * 0.3,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    primary: Colors.red[900]),
+                onPressed: () {
+                  _getCurrentLocation();
+                },
+                child: Text(
+                  "Get Location",
+                  style: GoogleFonts.ptSans(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: displayHeight(context) * .03,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 21.0,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.location_pin,
+                        size: 30,
+                        color: Colors.red[900],
+                      ),
+                      SizedBox(width: displayWidth(context) * 0.06),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            "Location",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .3),
+                          ),
+                          SizedBox(height: 4.0),
+                          if (_currentPosition != null)
+                            Text(
+                              _currentAddress,
+                              style: GoogleFonts.ptSans(
+                                  fontSize: 14, letterSpacing: .3),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
               height: displayHeight(context) * .03,
             ),
             CardItem(
+              iconData: Icon(
+                LineIcons.user,
+                color: Colors.red[900],
+                size: 30.0,
+              ),
               textItem: 'FullName',
               userData: userList[0].fname,
             ),
@@ -126,6 +239,11 @@ class _UserProfileState extends State<UserProfile> {
               height: displayHeight(context) * .03,
             ),
             CardItem(
+              iconData: Icon(
+                Icons.email_outlined,
+                color: Colors.red[900],
+                size: 30.0,
+              ),
               textItem: 'Email Address',
               userData: userList[0].email,
             ),
@@ -133,9 +251,14 @@ class _UserProfileState extends State<UserProfile> {
               height: displayHeight(context) * .03,
             ),
             CardItem(
+              iconData: Icon(
+                Icons.phone_android_rounded,
+                color: Colors.red[900],
+                size: 30.0,
+              ),
               textItem: 'Phone Number',
               userData: userList[0].phoneNumber,
-            )
+            ),
           ],
         ),
       ),

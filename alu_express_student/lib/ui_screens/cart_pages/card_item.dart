@@ -4,13 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CardItem extends StatelessWidget {
   final String textItem;
-  final String userData;
+  final userData;
+  final iconData;
 
-  const CardItem({
-    Key key,
-    this.textItem,
-    this.userData,
-  }) : super(key: key);
+  const CardItem({Key key, this.textItem, this.userData, this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +24,7 @@ class CardItem extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.fingerprint,
-                    size: 30.0,
-                    color: Colors.red[900],
-                  ),
-                ),
+                iconData,
                 SizedBox(width: displayWidth(context) * 0.06),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
