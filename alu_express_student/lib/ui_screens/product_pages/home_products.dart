@@ -226,6 +226,15 @@ class _HomeProductsState extends State<HomeProducts> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
+              Feather.shopping_cart,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              showCart(context, cart);
+            },
+          ),
+          IconButton(
+            icon: Icon(
               Icons.notifications_none_rounded,
               color: Colors.black,
             ),

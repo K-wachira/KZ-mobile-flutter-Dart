@@ -27,44 +27,51 @@ void showCart(context, cart) {
   showDialog(
       context: context,
       builder: (BuildContext ctx) {
-        return AlertDialog(
-          title: Text("My Cart"),
-          actions: [
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            new FlatButton(
-              child: new Text("Place Order"),
-              onPressed: () {
-                saveCart(cart);
-                print("Order Placed");
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-          content: Container(
-            height: 400,
-            width: 300,
-            child: ListView.builder(
-              itemCount: cart.length,
-              itemBuilder: (ctx, i) {
-                String time =
-                    "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("x" + cart[i]["Quantity"]),
-                    Text(cart[i]["FoodName"]),
-                    Text(time),
-                    SizedBox(height: 20),
-                  ],
-                );
-              },
-            ),
-          ),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("My Cart"),
+              actions: [
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("Place Order"),
+                  onPressed: () {
+                    saveCart(cart);
+                    print("Order Placed");
+                    setState(() {
+                      cart = [];
+                    });
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+              content: Container(
+                height: 400,
+                width: 300,
+                child: ListView.builder(
+                  itemCount: cart.length,
+                  itemBuilder: (ctx, i) {
+                    String time =
+                        "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("x" + cart[i]["Quantity"]),
+                        Text(cart[i]["FoodName"]),
+                        Text(time),
+                        SizedBox(height: 20),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            );
+          },
         );
       });
 }
