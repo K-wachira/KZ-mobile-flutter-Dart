@@ -23,7 +23,6 @@ class _HomeProductsState extends State<HomeProducts> {
   final FirebaseServices firebaseServices = FirebaseServices();
 
   @override
-  int _quantity = 1;
   List cartItems = [];
   final dateTime = DateTime.now();
   final List cart = [];
@@ -32,171 +31,177 @@ class _HomeProductsState extends State<HomeProducts> {
 
   Widget build(BuildContext context) {
     void showProductDetails(Map productDetails) {
-      int price = int.parse(productDetails["Price"]);
-      total = price;
-      void _incrementOrder() {
-        setState(() {
-          _quantity++;
-          total = price * _quantity;
-          print(total);
-        });
-      }
-
-      void _decrementOrder() {
-        setState(() {
-          if (_quantity > 1) {
-            _quantity--;
-            total = price * _quantity;
-            print(total);
-          }
-        });
-      }
-
-      void createitem(cart, totals, quantity, product) {
-        setState(() {
-          totals = totals * quantity;
-        });
-        Map item = {
-          "FoodName": product["Name"],
-          "Quantity": quantity.toString(),
-          "Total": totals.toString(),
-          "Vendor": product["Vendor"],
-          "Customer": product["Userid"],
-          "OrderTime": dateTime,
-          "FoodID": product["FoodID"],
-          'Category': product['Category'],
-          "OrderStatus": "Pending",
-        };
-        cart.add(item);
-        cartFunctionality.addToCart(item);
-        print(cart);
-      }
-
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              title: productDetails["productName"],
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                new ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0)),
-                      primary: Colors.amber),
-                  child: new Text(
-                    "Close",
-                    style: GoogleFonts.ptSans(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                new ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0)),
-                      primary: Colors.red[900]),
-                  child: new Text(
-                    "Add to Cart",
-                    style: GoogleFonts.ptSans(
-                      color: Colors.white,
-                      fontSize: 17,
-                    ),
-                  ),
-                  onPressed: () {
-                    createitem(cart, total, _quantity, productDetails);
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-              content: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    productDetails["Name"],
-                    style: GoogleFonts.ptSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        letterSpacing: .3),
-                  ),
-                  Text(
-                    "Description: " + productDetails["Description"],
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.ptSans(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        letterSpacing: .3),
-                  ),
-                  Image(
-                    image: NetworkImage(productDetails["Image"]),
-                    height: displayHeight(context) * 0.2,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Center(
-                      child: Text(
-                        "RWF " + (total * _quantity).toString(),
+            int _quantity = 1;
+            int price = int.parse(productDetails["Price"]);
+            total = price;
+            void _incrementOrder() {
+              setState(() {
+                _quantity++;
+                total = price * _quantity;
+                print(total);
+              });
+            }
+
+            void _decrementOrder() {
+              setState(() {
+                if (_quantity > 1) {
+                  _quantity--;
+                  total = price * _quantity;
+                  print(total);
+                }
+              });
+            }
+
+            void createitem(cart, totals, quantity, product) {
+              setState(() {
+                totals = totals * quantity;
+              });
+              Map item = {
+                "FoodName": product["Name"],
+                "Quantity": quantity.toString(),
+                "Total": totals.toString(),
+                "Vendor": product["Vendor"],
+                "Customer": product["Userid"],
+                "OrderTime": dateTime,
+                "FoodID": product["FoodID"],
+                'Category': product['Category'],
+                "OrderStatus": "Pending",
+              };
+              cart.add(item);
+              cartFunctionality.addToCart(item);
+              print(cart);
+            }
+
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  title: productDetails["productName"],
+                  actions: <Widget>[
+                    // usually buttons at the bottom of the dialog
+                    new ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          primary: Colors.amber),
+                      child: new Text(
+                        "Close",
                         style: GoogleFonts.ptSans(
-                            color: Colors.red[900],
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    new ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          primary: Colors.red[900]),
+                      child: new Text(
+                        "Add to Cart",
+                        style: GoogleFonts.ptSans(
+                          color: Colors.white,
+                          fontSize: 17,
+                        ),
+                      ),
+                      onPressed: () {
+                        createitem(cart, total, _quantity, productDetails);
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                  content: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        productDetails["Name"],
+                        style: GoogleFonts.ptSans(
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 22,
                             letterSpacing: .3),
                       ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: IconButton(
-                            icon: Icon(LineIcons.minus),
-                            onPressed: () {
-                              setState(() {
-                                _decrementOrder();
-                              });
-                            }),
+                      Text(
+                        "Description: " + productDetails["Description"],
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.ptSans(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            letterSpacing: .3),
+                      ),
+                      Image(
+                        image: NetworkImage(productDetails["Image"]),
+                        height: displayHeight(context) * 0.2,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
                           child: Text(
-                            '$_quantity',
-                            style: TextStyle(
+                            "RWF " + (total * _quantity).toString(),
+                            style: GoogleFonts.ptSans(
+                                color: Colors.red[900],
+                                fontWeight: FontWeight.bold,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w500,
                                 letterSpacing: .3),
                           ),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _incrementOrder();
-                            });
-                          },
-                          icon: Icon(Feather.plus),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: IconButton(
+                                icon: Icon(LineIcons.minus),
+                                onPressed: () {
+                                  setState(() {
+                                    _decrementOrder();
+                                  });
+                                }),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                '$_quantity',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: .3),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _incrementOrder();
+                                });
+                              },
+                              icon: Icon(Feather.plus),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                );
+              },
             );
           });
     }
