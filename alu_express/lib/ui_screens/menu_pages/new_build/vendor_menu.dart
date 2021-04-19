@@ -26,8 +26,8 @@ class _VendorMenuState extends State<VendorMenu> {
         elevation: 0,
       ),
       body: StreamProvider(
-        create: (BuildContext context) =>
-            firebaseServices.getFoodList(widget.userid),
+        
+        create: (BuildContext context) => firebaseServices.getFoodList(widget.userid),
         child: ViewUserPage(),
       ),
     );

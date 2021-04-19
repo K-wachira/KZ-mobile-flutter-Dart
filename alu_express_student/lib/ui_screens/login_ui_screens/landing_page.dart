@@ -1,6 +1,7 @@
 import 'package:alu_express_student/ui_screens/login_ui_screens/student_signup.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // We can check if the user is logged in  or not and redirect to  the approp page.
@@ -12,6 +13,17 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
+    // return (Scaffold(
+    //     body: SingleChildScrollView(
+    //   child: Align(
+    //     child: Column(children: <Widget>[
+    //       Padding(padding: EdgeInsets.only(top: 100)),
+    //       SvgPicture.asset('assets/4.svg',
+    //           height: displayHeight(context) * 0.4,
+    //           width: displayWidth(context) * 0.3),
+    //     ]),
+    //   ),
+    // )));
     return Stack(
       children: [
         Container(
@@ -80,7 +92,7 @@ class _LandingPageState extends State<LandingPage> {
                     Text(
                       "Your number one Campus delivery point!",
                       style: GoogleFonts.ptSans(
-                        color: Colors.black54,
+                        color: Colors.black87,
                         fontSize: 18,
                         letterSpacing: .3,
                       ),
@@ -98,7 +110,13 @@ class _LandingPageState extends State<LandingPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0)),
                             primary: Colors.red[900]),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StudentSignUp()),
+                          );
+                        },
                         child: Text(
                           'I am a Student',
                           style: GoogleFonts.ptSans(
@@ -119,13 +137,7 @@ class _LandingPageState extends State<LandingPage> {
                               borderRadius: BorderRadius.circular(50.0)),
                           primary: Colors.amber,
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => StudentSignUp()),
-                          );
-                        },
+                        onPressed: () {},
                         child: Text(
                           'I am a Vendor',
                           style: GoogleFonts.ptSans(

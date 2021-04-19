@@ -22,20 +22,10 @@ Future<void> saveCart(cart) async {
 }
 
 void showCart(context, cart) {
-  // List items = [];
-  // for (int i = 0; i < cart.length; i++) {
-  //   items.add(
-  //     Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         Text(cart[i]["FoodName"]),
-  //         Text(cart[i]["Quantity"]),
-  //         Text(cart[i]["OrderTime"].toString()),
-  //       ],
-  //     ),
-  //   );
-  // }
+  print(cart);
+
   showDialog(
+    
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
@@ -62,12 +52,15 @@ void showCart(context, cart) {
             child: ListView.builder(
               itemCount: cart.length,
               itemBuilder: (ctx, i) {
-                Row(
+                String time =
+                    "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Text("x" + cart[i]["Quantity"]),
                     Text(cart[i]["FoodName"]),
-                    Text(cart[i]["Quantity"]),
-                    Text(cart[i]["OrderTime"].toString()),
+                    Text(time),
+                    SizedBox(height: 20),
                   ],
                 );
               },

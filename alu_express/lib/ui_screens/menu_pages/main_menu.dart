@@ -2,6 +2,7 @@ import 'package:alu_express/ui_screens/extras/deal_of_the_day.dart';
 import 'package:alu_express/ui_screens/extras/promotions.dart';
 import 'package:alu_express/ui_screens/menu_pages/new_build/add_food.dart';
 import 'package:alu_express/ui_screens/menu_pages/new_build/vendor_menu.dart';
+import 'package:alu_express/ui_screens/orders_ui/dashboards/dashboard_card_view.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -12,11 +13,16 @@ class Menu extends StatefulWidget {
   _MenuState createState() => _MenuState();
 }
 
-class _MenuState extends State<Menu> {
-
+class _MenuState extends State<Menu> with TickerProviderStateMixin {
+  AnimationController animationController;
 
   @override
+  void initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 600), vsync: this);
 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +77,12 @@ class _MenuState extends State<Menu> {
                 GestureDetector(
                     onTap: () {
                       setState(() {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddFood(userid: widget.userID,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddFood(
+                                      userid: widget.userID,
+                                    )));
                       });
                     },
                     child: MenuCard(
@@ -84,33 +94,13 @@ class _MenuState extends State<Menu> {
             height: 20.0,
           ),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DealOfTheDay()));
-                    });
-                  },
-                  child: MenuCard(
-                      link: "images/best-price.png", title: "Deal of the Day"),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Promotions()));
-                      });
-                    },
-                    child: MenuCard(
-                        link: "images/megaphone.png", title: "Promotions"))
-              ],
+            child: MediterranesnDietView(
+              animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+                  CurvedAnimation(
+                      parent: animationController,
+                      curve: Interval((1 / 9) * 1, 1.0,
+                          curve: Curves.fastOutSlowIn))),
+              animationController: animationController,
             ),
           )
         ]),
