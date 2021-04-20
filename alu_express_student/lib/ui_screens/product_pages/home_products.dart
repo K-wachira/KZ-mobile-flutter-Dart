@@ -281,12 +281,13 @@ class _HomeProductsState extends State<HomeProducts> {
         actions: <Widget>[
           Stack(children: <Widget>[
             new IconButton(
-              icon: new Icon(
-                Feather.shopping_cart,
-                color: Colors.black,
-              ),
-              onPressed: null,
-            ),
+                icon: new Icon(
+                  Feather.shopping_cart,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  showCart(context);
+                }),
             cart.length == 0
                 ? new Container()
                 : new Positioned(
@@ -309,15 +310,6 @@ class _HomeProductsState extends State<HomeProducts> {
                     ],
                   )),
           ]),
-          // IconButton(
-          //   icon: Icon(
-          //     Feather.shopping_cart,
-          //     color: Colors.black,
-          //   ),
-          //   onPressed: () {
-          //     showCart(context);
-          //   },
-          // ),
           IconButton(
             icon: Icon(
               Icons.notifications_none_rounded,
