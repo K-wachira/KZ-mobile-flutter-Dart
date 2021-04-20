@@ -27,8 +27,23 @@ void showCart(context, cart) {
   showDialog(
       context: context,
       builder: (BuildContext ctx) {
-        return StatefulBuilder(
-          builder: (context, setState) {
+        return StatefulBuilder(builder: (context, setState) {
+          if (cart.length == 0) {
+            return AlertDialog(
+              title: Text("MyCart"),
+              actions: [
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+              content: Center(
+                child: Text("Nothing in cart"),
+              ),
+            );
+          } else {
             return AlertDialog(
               title: Text("My Cart"),
               actions: [
@@ -71,7 +86,7 @@ void showCart(context, cart) {
                 ),
               ),
             );
-          },
-        );
+          }
+        });
       });
 }

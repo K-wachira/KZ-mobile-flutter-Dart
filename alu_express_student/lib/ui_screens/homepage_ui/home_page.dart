@@ -1,5 +1,6 @@
 import 'package:alu_express_student/ui_screens/cart_pages/mycart.dart';
 import 'package:alu_express_student/ui_screens/product_pages/home_products.dart';
+import 'package:alu_express_student/ui_screens/product_pages/myorders.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       HomeProducts(
         userid: widget.userid,
       ),
-      MyCart(),
+      MyOrders(),
       StudentProfile(
         userid: widget.userid,
       ),
@@ -55,8 +56,8 @@ class _HomePageState extends State<HomePage> {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: LineIcons.shoppingCart,
-                    text: 'Cart',
+                    icon: LineIcons.archive,
+                    text: 'Orders',
                   ),
                   GButton(
                     icon: LineIcons.user,

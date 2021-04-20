@@ -383,9 +383,8 @@ class ViewUserPage extends StatelessWidget {
 
     return userList == null
         ? Padding(
-            padding: const EdgeInsets.all(100.0),
-            child: CircularProgressIndicator(),
-          )
+            padding: const EdgeInsets.all(500.0),
+            child: LinearProgressIndicator())
         : GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
