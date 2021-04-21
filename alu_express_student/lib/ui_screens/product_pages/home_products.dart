@@ -31,6 +31,61 @@ class _HomeProductsState extends State<HomeProducts> {
   final CartFunctionality cartFunctionality = CartFunctionality();
 
   Widget build(BuildContext context) {
+    void showCart(context) {
+      print(cart);
+
+      showDialog(
+          context: context,
+          builder: (BuildContext ctx) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  title: Text("My Cart"),
+                  actions: [
+                    new FlatButton(
+                      child: new Text("Close"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    new FlatButton(
+                      child: new Text("Place Order"),
+                      onPressed: () {
+                        saveCart(cart);
+                        print("Order Placed");
+                        setState(() {
+                          cart.clear();
+                        });
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                  content: Container(
+                    height: 400,
+                    width: 300,
+                    child: ListView.builder(
+                      itemCount: cart.length,
+                      itemBuilder: (ctx, i) {
+                        String time =
+                            "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("x" + cart[i]["Quantity"]),
+                            Text(cart[i]["FoodName"]),
+                            Text(time),
+                            SizedBox(height: 20),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          });
+    }
+
     void showProductDetails(Map productDetails) {
       showDialog(
           context: context,
@@ -224,6 +279,7 @@ class _HomeProductsState extends State<HomeProducts> {
           },
         ),
         actions: <Widget>[
+<<<<<<< HEAD
           IconButton(
             icon: Icon(
               Feather.shopping_cart,
@@ -233,6 +289,39 @@ class _HomeProductsState extends State<HomeProducts> {
               showCart(context, cart, widget.userid);
             },
           ),
+=======
+          Stack(children: <Widget>[
+            new IconButton(
+                icon: new Icon(
+                  Feather.shopping_cart,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  showCart(context);
+                }),
+            cart.length == 0
+                ? new Container()
+                : new Positioned(
+                    child: new Stack(
+                    children: <Widget>[
+                      new Icon(Icons.brightness_1,
+                          size: 20.0, color: Colors.red[800]),
+                      new Positioned(
+                          top: 3.0,
+                          right: 4.0,
+                          child: new Center(
+                            child: new Text(
+                              cart.length.toString(),
+                              style: new TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11.0,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )),
+                    ],
+                  )),
+          ]),
+>>>>>>> e171ef1d17fcc0ca3c42839a13f97c3b07caa63e
           IconButton(
             icon: Icon(
               Icons.notifications_none_rounded,
@@ -306,9 +395,8 @@ class ViewUserPage extends StatelessWidget {
 
     return userList == null
         ? Padding(
-            padding: const EdgeInsets.all(100.0),
-            child: CircularProgressIndicator(),
-          )
+            padding: const EdgeInsets.all(500.0),
+            child: LinearProgressIndicator())
         : GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
