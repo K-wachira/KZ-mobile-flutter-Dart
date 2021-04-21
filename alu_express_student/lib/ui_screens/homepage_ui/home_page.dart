@@ -3,7 +3,6 @@ import 'package:alu_express_student/ui_screens/product_pages/home_products.dart'
 import 'package:alu_express_student/ui_screens/product_pages/myorders.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 

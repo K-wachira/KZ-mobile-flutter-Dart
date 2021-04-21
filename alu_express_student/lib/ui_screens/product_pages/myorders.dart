@@ -1,8 +1,8 @@
 import 'package:alu_express_student/ui_screens/cart_pages/card_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyOrders extends StatefulWidget {
   @override
@@ -21,17 +21,27 @@ class _MyOrdersState extends State<MyOrders> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red[900],
-          title: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("My Orders"),
-              SizedBox(
-                width: 20,
-              ),
-            ],
-          )),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.chevron_left_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Padding(
+            padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
+            child: Text(
+              "My Orders",
+              style: GoogleFonts.ptSans(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
         body: StreamBuilder(
             stream: firebaseFirestore
@@ -60,8 +70,28 @@ class _MyOrdersState extends State<MyOrders> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text("x" + order["quantity"]),
-                                  Text(order["foodName"]),
+                                  Text(
+                                    order["foodName"],
+                                    style: GoogleFonts.ptSans(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "x" + order["quantity"],
+                                    style: GoogleFonts.ptSans(
+                                      fontSize: 16,
+                                      color: Colors.red[900],
+                                    ),
+                                  ),
+                                  Text(
+                                    "RWF " + order["total"],
+                                    style: GoogleFonts.ptSans(
+                                        fontSize: 16,
+                                        color: Colors.red[900],
+                                        fontWeight: FontWeight.bold),
+                                  ),
+
                                   // Text("x" +
                                   //     snapshot.data().docs[index]["quantity"]),
                                 ]),

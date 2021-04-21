@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:alu_express/services/Models/services.dart';
 
 const lanSvg = 'assets/svg3';
 
@@ -26,6 +27,7 @@ class _VendorSignUpState extends State<VendorSignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordMatch = TextEditingController();
+  final FirebaseServices firebaseServices = FirebaseServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -293,6 +295,18 @@ class _VendorSignUpState extends State<VendorSignUp> {
 
     if (result == true) {
       print("Successfully Signed Up");
+
+      Map<String, dynamic> vendordata = {
+        'vendorName': nameController.text,
+        'vendorID': user.uid,
+        'open': "true",
+        'profilePhotoUrl':
+            'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
+        'Email': emailController.text,
+      };
+
+      await firebaseServices.addVendor(vendordata);
+
       Navigator.push(
           context,
           MaterialPageRoute(

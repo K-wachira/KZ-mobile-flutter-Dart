@@ -66,8 +66,8 @@ class _VendorProfileState extends State<VendorProfile> {
 
   @override
   Widget build(BuildContext context) {
-    List userList = Provider.of<List<UserModel>>(context);
-    print(userList);
+    List vendordata = Provider.of<List<UserModel>>(context);
+    print(vendordata);
     return Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
@@ -81,6 +81,7 @@ class _VendorProfileState extends State<VendorProfile> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.amber,
+                    backgroundImage: NetworkImage(vendordata[0].profileURL),
                   ),
                   Positioned(
                     right: 0,
@@ -114,8 +115,8 @@ class _VendorProfileState extends State<VendorProfile> {
                 size: 30.0,
               ),
               textItem: 'Vendor Name',
-              userData: "",
-              // userData: userList[0].name,
+              // userData: "",
+              userData: vendordata[0].name,
             ),
             SizedBox(
               height: displayHeight(context) * .03,
@@ -127,8 +128,8 @@ class _VendorProfileState extends State<VendorProfile> {
                 size: 30.0,
               ),
               textItem: 'Vendor ID',
-              userData: "",
-              // userData: userList[0].ID,
+              // userData: "",
+              userData: vendordata[0].iD,
             ),
             SizedBox(
               height: displayHeight(context) * .03,
@@ -141,6 +142,15 @@ class _VendorProfileState extends State<VendorProfile> {
               ),
               textItem: 'Open Hours',
               userData: "8 AM - 4 PM",
+            ),
+            CardItem(
+              iconData: Icon(
+                Icons.phone_android_rounded,
+                color: Colors.amber[600],
+                size: 30.0,
+              ),
+              textItem: 'Open?',
+              userData: vendordata[0].isOpen.toString(),
             ),
             SizedBox(
               height: 5,
