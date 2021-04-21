@@ -35,37 +35,59 @@ class _PendingState extends State<Pending> {
   Widget build(BuildContext context) {
     List pendingorders = Provider.of<List<OrderModel>>(context);
 
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: pendingorders.length,
-      itemBuilder: (context, index) {
-        Stream<DocumentSnapshot> courseDocStream = FirebaseFirestore.instance
-            .collection('orders')
-            .doc(pendingorders[index].foodID)
-            .snapshots();
-        return StreamBuilder<DocumentSnapshot>(
-          stream: courseDocStream,
-          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.active) {
-              // get course document
-              var foodDocument = snapshot.data.data;
+    return pendingorders == null
+        ? CircularProgressIndicator()
+        : ListView.builder(
+            itemCount: pendingorders.length,
+            itemBuilder: (_, index) {
+              if (pendingorders[index].orderStatus == "Pending") {
+                CollectionReference users =
+                    FirebaseFirestore.instance.collection('Foods');
 
-              // get sections from the document
-              var images = foodDocument()["ImageURL"];
+                return FutureBuilder<DocumentSnapshot>(
+                  future: users.doc(pendingorders[index].foodID).get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
 
-              // build list using names from sections
-              return ImageCard(
-                image: images,
-                ordernumber: "1",
-                time: pendingorders[index]['orderTime'],
-                orderid: orders[index]["customerID"],
-              );
-            } else {
+                    if (snapshot.hasData && !snapshot.data.exists) {
+                      return Text("Error Food does not exist");
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data = snapshot.data.data();
+
+                      Map<String, dynamic> orderdetails = {
+                        "image": data["ImageURL"],
+                        "ordernumber": "1",
+                        "time": pendingorders[index].orderTime,
+                        "orderid": pendingorders[index].orderID,
+                        "state": "Pending",
+                        "quantity": pendingorders[index].quantity ,
+                        "price" : data["Price"],
+                        "inStock":data["Quantity"],
+                        "foodName": data["FoodName"],
+                        "studentId": pendingorders[index].customerID,
+                        "discount": data["Discount"],
+                        "size": data["Size"],
+
+                      };
+                      return Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: ImageCard(
+                          products: orderdetails,
+                        ),
+                      );
+                    }
+
+                    return Text("loading");
+                  },
+                );
+              }
+
               return Container();
-            }
-          },
-        );
-      },
-    );
+            });
   }
 }

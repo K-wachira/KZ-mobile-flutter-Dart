@@ -23,9 +23,8 @@ class FirebaseServices extends ChangeNotifier {
   Stream<List<OrderModel>> getpendingorderList(vendorid) {
     // pending orders
     return _fireStoreDataBase
-        .collection('orders/$vendorid')
-        .where("orderStatus", isEqualTo: "Pending")
-        .orderBy("orderTime")
+        .collection('orders')
+        .where("vendorID", isEqualTo: vendorid)
         .snapshots()
         .map((snapShot) => snapShot.docs
             .map((document) => OrderModel.fromJson(document.data()))
@@ -35,8 +34,8 @@ class FirebaseServices extends ChangeNotifier {
   Stream<List<OrderModel>> getAcceptedorderList(vendorid) {
     // Accepted orders
     return _fireStoreDataBase
-        .collection('orders/$vendorid')
-        .where("orderStatus", isEqualTo: "Accepted")
+        .collection('orders')
+        .where("vendorID", isEqualTo: vendorid)
         .orderBy("orderTime")
         .snapshots()
         .map((snapShot) => snapShot.docs
@@ -44,11 +43,11 @@ class FirebaseServices extends ChangeNotifier {
             .toList());
   }
 
-  Stream<List<OrderModel>> getAcceptedCompletedList(vendorid) {
+  Stream<List<OrderModel>> getCompletedList(vendorid) {
     // Completed orders
     return _fireStoreDataBase
-        .collection('orders/$vendorid')
-        .where("orderStatus", isEqualTo: "Completed")
+        .collection('orders')
+        .where("vendorID", isEqualTo: vendorid)
         .orderBy("orderTime")
         .snapshots()
         .map((snapShot) => snapShot.docs
@@ -118,16 +117,13 @@ class FirebaseServices extends ChangeNotifier {
     return "true";
   }
 
-  Future<String> updateprofileField(docID, value, field, collection) async {
-    await FirebaseFirestore.instance
-        .collection(collection)
-        .doc(docID)
-        .update({field: value}).catchError((onError) {
-      return onError;
-    });
-    return "true";
-  }
+  Future<DocumentSnapshot> getsingledoc(docid)async{
 
+        Stream documentStream= FirebaseFirestore.instance.collection('Foods').doc(docid).snapshots();
+
+
+  
+  }
 //loggout user
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();

@@ -37,9 +37,9 @@ class Orders extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Pending(),
-            AcceptedItem(),
-            Completed(),
+            PendingOrders(),
+            AcceptedOrders(),
+            CompletedOrders(),
           ],
         ),
       ),

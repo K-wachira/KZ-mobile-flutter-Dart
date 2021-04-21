@@ -52,15 +52,7 @@ class _VendorPrState extends State<VendorPr> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamProvider(
-          // initialData: [
-          // {
-          // "name": "Loading ..",
-          // "profileURL":
-          // 'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
-          // "iD": "Loading ..",
-          // "isOpen": "Loading .."
-          // }
-          // ],
+     
           create: (BuildContext context) =>
               firebaseServices.getuser(widget.userID),
           child: VendorProfile(),

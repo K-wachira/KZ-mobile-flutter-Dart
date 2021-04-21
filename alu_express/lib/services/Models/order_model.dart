@@ -8,6 +8,7 @@ class OrderModel {
   String quantity;
   String total;
   String vendor;
+  String orderID;
 
   OrderModel(
       {this.category,
@@ -18,7 +19,8 @@ class OrderModel {
       this.orderTime,
       this.quantity,
       this.total,
-      this.vendor});
+      this.vendor,
+      this.orderID});
 
   OrderModel.fromJson(Map<String, dynamic> parsedJSON)
       : category = parsedJSON['category'],
@@ -26,8 +28,10 @@ class OrderModel {
         foodID = parsedJSON['foodID'],
         foodName = parsedJSON['foodName'],
         orderStatus = parsedJSON['orderStatus'],
-        orderTime = parsedJSON['orderTime'],
+        orderTime = parsedJSON['orderTime'].toString(),
         quantity = parsedJSON['quantity'],
         total = parsedJSON['total'],
+        orderID = parsedJSON['orderID'],
         vendor = parsedJSON['vendor'];
+
 }
