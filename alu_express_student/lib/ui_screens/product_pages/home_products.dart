@@ -2,8 +2,6 @@ import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
-import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -40,19 +38,42 @@ class _HomeProductsState extends State<HomeProducts> {
             return StatefulBuilder(
               builder: (context, setState) {
                 return AlertDialog(
-                  title: Text("My Cart"),
+                  title: Text(
+                    "My Cart",
+                    style: GoogleFonts.ptSans(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: .3),
+                  ),
                   actions: [
-                    new FlatButton(
-                      child: new Text("Close"),
+                    new ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                      ),
+                      child: new Text("Close",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 16, color: Colors.black)),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    new FlatButton(
-                      child: new Text("Place Order"),
+                    new ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                      ),
+                      child: new Text(
+                        "Place Order",
+                        style: GoogleFonts.ptSans(
+                            fontSize: 16, color: Colors.black),
+                      ),
                       onPressed: () {
                         saveCart(cart);
-                        print("Order Placed");
+                        print("Order Placed!");
                         setState(() {
                           cart.clear();
                         });
@@ -282,7 +303,7 @@ class _HomeProductsState extends State<HomeProducts> {
           Stack(children: <Widget>[
             new IconButton(
                 icon: new Icon(
-                  Feather.shopping_cart,
+                  LineIcons.shoppingCart,
                   color: Colors.black,
                 ),
                 onPressed: () {
@@ -310,18 +331,6 @@ class _HomeProductsState extends State<HomeProducts> {
                     ],
                   )),
           ]),
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none_rounded,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Notifications()));
-            },
-          )
         ],
       ),
       body: SingleChildScrollView(

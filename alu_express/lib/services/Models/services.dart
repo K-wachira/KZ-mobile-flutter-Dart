@@ -28,6 +28,24 @@ class FirebaseServices extends ChangeNotifier {
     return "true";
   }
 
+  Future<String> addVendor(data) async {
+    DocumentReference ref = await FirebaseFirestore.instance
+        .collection("vendors")
+        .add(data)
+        .catchError((e) {
+      print(e);
+      // ignore: return_of_invalid_type_from_catch_error
+      return e;
+    });
+    String docid = ref.id.toString();
+    print(docid);
+    await FirebaseFirestore.instance
+        .collection('vendors')
+        .doc(docid)
+        .update({'DocumentId': docid});
+    return "true";
+  }
+
   Stream<List<UserModel>> getuser(useid) {
     print(useid);
     return _fireStoreDataBase
