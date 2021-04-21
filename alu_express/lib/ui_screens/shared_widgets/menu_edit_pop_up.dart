@@ -72,7 +72,7 @@ class _MenuEditPopUpState extends State<MenuEditPopUp> {
           onPressed: () {
             print(toUpdate.text);
             servicesinstance
-                .updateField(widget.docId, toUpdate.text, widget.field)
+                .updateField(widget.docId, toUpdate.text, widget.field, 'Foods' )
                 .then((value) => {
                       if (value == 'true')
                         {Navigator.of(context).pop()}

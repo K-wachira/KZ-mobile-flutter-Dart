@@ -1,7 +1,9 @@
 import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/services/Models/user_model.dart';
 import 'package:alu_express/ui_screens/extras/size_helpers.dart';
+import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
+import 'package:alu_express/ui_screens/profile_pages/change_profile_pic.dart';
 import 'package:alu_express/ui_screens/profile_pages/vendor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +34,10 @@ class _VendorPrState extends State<VendorPr> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(userid: widget.userID)));
           },
         ),
         title: Padding(
@@ -47,6 +52,15 @@ class _VendorPrState extends State<VendorPr> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamProvider(
+          // initialData: [
+          // {
+          // "name": "Loading ..",
+          // "profileURL":
+          // 'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
+          // "iD": "Loading ..",
+          // "isOpen": "Loading .."
+          // }
+          // ],
           create: (BuildContext context) =>
               firebaseServices.getuser(widget.userID),
           child: VendorProfile(),
@@ -67,7 +81,7 @@ class _VendorProfileState extends State<VendorProfile> {
   @override
   Widget build(BuildContext context) {
     List vendordata = Provider.of<List<UserModel>>(context);
-    print(vendordata);
+    print(vendordata[0]);
     return Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
@@ -95,9 +109,18 @@ class _VendorProfileState extends State<VendorProfile> {
                           style: TextButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
-                          onPressed: () {},
-                          child: Icon(Icons.camera_alt_rounded,
-                              color: Colors.black),
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    ProfilePicEdit(
+                                      docId: vendordata[0].documentId,
+                                    ));
+                          },
+                          child: Icon(
+                            Icons.camera_alt_rounded,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),

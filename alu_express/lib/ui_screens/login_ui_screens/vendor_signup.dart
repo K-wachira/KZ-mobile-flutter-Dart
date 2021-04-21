@@ -300,6 +300,7 @@ class _VendorSignUpState extends State<VendorSignUp> {
         'vendorName': nameController.text,
         'vendorID': user.uid,
         'open': "true",
+        'documentId': "",
         'profilePhotoUrl':
             'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
         'Email': emailController.text,

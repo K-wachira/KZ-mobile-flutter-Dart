@@ -31,6 +31,7 @@ class FirebaseServices extends ChangeNotifier {
             .map((document) => OrderModel.fromJson(document.data()))
             .toList());
   }
+
   Stream<List<OrderModel>> getAcceptedorderList(vendorid) {
     // Accepted orders
     return _fireStoreDataBase
@@ -43,7 +44,7 @@ class FirebaseServices extends ChangeNotifier {
             .toList());
   }
 
- Stream<List<OrderModel>> getAcceptedCompletedList(vendorid) {
+  Stream<List<OrderModel>> getAcceptedCompletedList(vendorid) {
     // Completed orders
     return _fireStoreDataBase
         .collection('orders/$vendorid')
@@ -59,9 +60,9 @@ class FirebaseServices extends ChangeNotifier {
     Null;
   }
 
-  Future<String> updateField(docID, value, field) async {
+  Future<String> updateField(docID, value, field, collection) async {
     await FirebaseFirestore.instance
-        .collection('Foods')
+        .collection(collection)
         .doc(docID)
         .update({field: value}).catchError((onError) {
       return onError;
@@ -83,7 +84,7 @@ class FirebaseServices extends ChangeNotifier {
     await FirebaseFirestore.instance
         .collection('vendors')
         .doc(docid)
-        .update({'DocumentId': docid});
+        .update({'documentId': docid});
     return "true";
   }
 
@@ -114,6 +115,16 @@ class FirebaseServices extends ChangeNotifier {
         .collection('Foods')
         .doc(docid)
         .update({'DocumentId': docid});
+    return "true";
+  }
+
+  Future<String> updateprofileField(docID, value, field, collection) async {
+    await FirebaseFirestore.instance
+        .collection(collection)
+        .doc(docID)
+        .update({field: value}).catchError((onError) {
+      return onError;
+    });
     return "true";
   }
 
