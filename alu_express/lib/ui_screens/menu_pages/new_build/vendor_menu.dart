@@ -2,6 +2,7 @@ import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/services/Models/vendor_model.dart';
 import 'package:alu_express/ui_screens/shared_widgets/order_card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class VendorMenu extends StatefulWidget {
@@ -18,11 +19,27 @@ class _VendorMenuState extends State<VendorMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Your Menu",
-          style: TextStyle(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Colors.white,
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
+          child: Text(
+            "Your Menu",
+            style: GoogleFonts.ptSans(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                letterSpacing: .3),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: StreamProvider(
@@ -57,7 +74,6 @@ class ViewUserPage extends StatelessWidget {
                   ingredients: userList[index].ingredients,
                   vendor: userList[index].vendor,
                   documentId: userList[index].documentId,
-
                 )),
           );
   }

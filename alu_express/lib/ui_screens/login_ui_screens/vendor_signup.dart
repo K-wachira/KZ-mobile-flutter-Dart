@@ -318,6 +318,5 @@ class _VendorSignUpState extends State<VendorSignUp> {
           });
       setState(() => isLoading = false);
     }
-
   }
 }

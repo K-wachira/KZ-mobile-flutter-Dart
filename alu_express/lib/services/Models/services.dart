@@ -1,4 +1,5 @@
 import 'package:alu_express/services/Models/order_model.dart';
+import 'package:alu_express/services/Models/user_model.dart';
 import 'package:alu_express/services/Models/vendor_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,6 +67,17 @@ class FirebaseServices extends ChangeNotifier {
       return onError;
     });
     return "true";
+  }
+
+  Stream<List<UserModel>> getuser(useid) {
+    print(useid);
+    return _fireStoreDataBase
+        .collection('vendors')
+        .where("vendorID", isEqualTo: useid)
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((document) => UserModel.fromJson(document.data()))
+            .toList());
   }
 
   Future<String> addFood(data) async {

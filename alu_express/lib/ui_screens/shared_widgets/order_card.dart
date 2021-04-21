@@ -1,5 +1,6 @@
 import 'package:alu_express/ui_screens/shared_widgets/menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuCard extends StatefulWidget {
   final String image;
@@ -25,7 +26,7 @@ class MenuCard extends StatefulWidget {
       this.isFeaured,
       this.size,
       this.ingredients,
-      this.vendor, 
+      this.vendor,
       this.documentId})
       : super(key: key);
 
@@ -69,9 +70,18 @@ class _MenuCardState extends State<MenuCard> {
           ),
           title: Text(
             widget.name,
+            style: GoogleFonts.ptSans(fontSize: 18, letterSpacing: .3),
           ),
-          subtitle: Text(widget.price),
-          trailing: Icon(Icons.arrow_forward),
+          subtitle: Text(
+            "RWF " + widget.price,
+            style: GoogleFonts.ptSans(
+                color: Colors.red[900], fontSize: 14, letterSpacing: .3),
+          ),
+          trailing: Icon(
+            Icons.chevron_right_rounded,
+            color: Colors.black,
+            size: 30.0,
+          ),
           isThreeLine: false,
         ),
       ),

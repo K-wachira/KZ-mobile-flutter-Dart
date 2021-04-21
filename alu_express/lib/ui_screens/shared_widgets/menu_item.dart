@@ -1,5 +1,6 @@
 import 'package:alu_express/ui_screens/shared_widgets/menu_edit_pop_up.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditProduct extends StatefulWidget {
   final String image;
@@ -39,7 +40,7 @@ class _EditProductState extends State<EditProduct> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          elevation: 1,
+          elevation: 0,
         ),
         backgroundColor: Colors.grey.shade300,
         body: SingleChildScrollView(
@@ -51,15 +52,12 @@ class _EditProductState extends State<EditProduct> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.3,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
                   color: Colors.lightBlueAccent,
                   image: DecorationImage(
                     image: NetworkImage(widget.image),
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: Center(
-                    child: Text("Vendor Name", style: TextStyle(fontSize: 20))),
               )),
           Container(
             margin: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 16.0),
@@ -74,16 +72,28 @@ class _EditProductState extends State<EditProduct> {
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        title: Text("Product information"),
+                        title: Text(
+                          "Product information",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: .3),
+                        ),
                       ),
                       Divider(),
                       ListTile(
-                        title: Text("Id "),
+                        title: Text(
+                          "Food ID ",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 18, letterSpacing: .3),
+                        ),
                         leading: Icon(Icons.food_bank),
                         subtitle: Text(widget.vendor),
                       ),
                       ListTile(
-                        title: Text("Name"),
+                        title: Text("Name",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         leading: Icon(Icons.food_bank),
                         subtitle: Text(widget.name),
                         trailing: GestureDetector(
@@ -101,7 +111,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("Price"),
+                        title: Text("Price",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         leading: Icon(Icons.money),
                         subtitle: Text(widget.price),
                         trailing: GestureDetector(
@@ -119,7 +131,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("discount"),
+                        title: Text("Discount",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         subtitle: Text(widget.discount),
                         leading: Icon(Icons.money_off),
                         trailing: GestureDetector(
@@ -137,7 +151,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("size"),
+                        title: Text("Size",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         subtitle: Text(widget.size),
                         leading: Icon(Icons.zoom_in),
                         trailing: GestureDetector(
@@ -155,7 +171,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("category"),
+                        title: Text("Category",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         subtitle: Text(widget.category),
                         leading: Icon(Icons.category),
                         trailing: GestureDetector(
@@ -173,7 +191,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("description"),
+                        title: Text("Description",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         subtitle: Text(widget.description),
                         leading: Icon(Icons.description),
                         trailing: GestureDetector(
@@ -191,7 +211,9 @@ class _EditProductState extends State<EditProduct> {
                         ),
                       ),
                       ListTile(
-                        title: Text("ingredients"),
+                        title: Text("Ingredients",
+                            style: GoogleFonts.ptSans(
+                                fontSize: 18, letterSpacing: .3)),
                         subtitle: Text(widget.ingredients),
                         leading: Icon(Icons.line_style_outlined),
                         trailing: GestureDetector(

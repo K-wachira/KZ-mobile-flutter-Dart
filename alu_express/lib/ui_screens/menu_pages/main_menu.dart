@@ -13,17 +13,8 @@ class Menu extends StatefulWidget {
   _MenuState createState() => _MenuState();
 }
 
-class _MenuState extends State<Menu> with TickerProviderStateMixin {
-  AnimationController animationController;
-
+class _MenuState extends State<Menu> {
   @override
-  void initState() {
-    animationController = AnimationController(
-        duration: const Duration(milliseconds: 600), vsync: this);
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +27,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: "PTSans",
+                fontSize: 20,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -46,7 +38,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Meze Fresh",
+              "",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFDC2F02),
@@ -93,16 +85,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
           SizedBox(
             height: 20.0,
           ),
-          Expanded(
-            child: MediterranesnDietView(
-              animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                  CurvedAnimation(
-                      parent: animationController,
-                      curve: Interval((1 / 9) * 1, 1.0,
-                          curve: Curves.fastOutSlowIn))),
-              animationController: animationController,
-            ),
-          )
+     
         ]),
       ),
     );

@@ -45,7 +45,6 @@ class _MenuEditPopUpState extends State<MenuEditPopUp> {
                   fontSize: 18,
                   letterSpacing: .3,
                 ),
-                textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
                   hintText: widget.current,
                   hintStyle: GoogleFonts.roboto(
@@ -66,6 +65,10 @@ class _MenuEditPopUpState extends State<MenuEditPopUp> {
       ),
       actions: <Widget>[
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              primary: Colors.red[900]),
           onPressed: () {
             print(toUpdate.text);
             servicesinstance

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-Future<void> saveCart(cart) async {
+Future<void> saveCart(cart, vendorid) async {
   for (int i = 0; i < cart.length; i++) {
     Map data = {
       "foodName": cart[i]["FoodName"],
@@ -15,57 +15,66 @@ Future<void> saveCart(cart) async {
       'category': cart[i]["Category"],
       "orderStatus": cart[i]["OrderStatus"]
     };
-    print(data);
+    print(
+      data,
+    );
+    print(vendorid);
     Map<String, dynamic> myMap = new Map<String, dynamic>.from(data);
     await firebaseFirestore.collection("orders").add(myMap);
   }
 }
 
-void showCart(context, cart) {
+void showCart(context, cart, vendorid) {
   print(cart);
 
   showDialog(
-    
       context: context,
       builder: (BuildContext ctx) {
-        return AlertDialog(
-          title: Text("My Cart"),
-          actions: [
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            new FlatButton(
-              child: new Text("Place Order"),
-              onPressed: () {
-                saveCart(cart);
-                print("Order Placed");
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-          content: Container(
-            height: 400,
-            width: 300,
-            child: ListView.builder(
-              itemCount: cart.length,
-              itemBuilder: (ctx, i) {
-                String time =
-                    "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("x" + cart[i]["Quantity"]),
-                    Text(cart[i]["FoodName"]),
-                    Text(time),
-                    SizedBox(height: 20),
-                  ],
-                );
-              },
-            ),
-          ),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("My Cart"),
+              actions: [
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("Place Order"),
+                  onPressed: () {
+                    saveCart(cart, vendorid);
+                    print("Order Placed");
+                    setState(() {
+                      cart = [];
+                    });
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+              content: Container(
+                height: 400,
+                width: 300,
+                child: ListView.builder(
+                  itemCount: cart.length,
+                  itemBuilder: (ctx, i) {
+                    String time =
+                        "${cart[i]["OrderTime"].year.toString()}-${cart[i]["OrderTime"].month.toString().padLeft(2, '0')}-${cart[i]["OrderTime"].day.toString().padLeft(2, '0')}   ${cart[i]["OrderTime"].hour.toString()}-${cart[i]["OrderTime"].minute.toString()}";
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("x" + cart[i]["Quantity"]),
+                        Text(cart[i]["FoodName"]),
+                        Text(time),
+                        SizedBox(height: 20),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            );
+          },
         );
       });
 }

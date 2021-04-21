@@ -54,7 +54,7 @@ class _StudentLogInState extends State<StudentLogIn> {
           ),
           Padding(padding: EdgeInsets.only(top: 20)),
           SizedBox(
-             width: displayWidth(context) * 0.80,
+            width: displayWidth(context) * 0.80,
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -131,7 +131,7 @@ class _StudentLogInState extends State<StudentLogIn> {
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     primary: Colors.red[900]),
-                                onPressed: () { 
+                                onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     setState(() {
                                       isLoading = true;
@@ -209,7 +209,7 @@ class _StudentLogInState extends State<StudentLogIn> {
     print("Home");
     dynamic result = await authclass.loginwithEmailandpass(
         emailController.text, passwordController.text);
-    var user =  FirebaseAuth.instance.currentUser;
+    var user = FirebaseAuth.instance.currentUser;
     print(user.uid);
 
     print(result);
