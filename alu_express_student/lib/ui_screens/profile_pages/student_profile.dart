@@ -4,6 +4,7 @@ import 'package:alu_express_student/ui_screens/cart_pages/card_item.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/change_profile_popup.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
@@ -106,7 +107,11 @@ class _UserProfileState extends State<UserProfile> {
 
     print("userlist");
     print(userList);
-    return Align(
+    return  userList == null
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
+        : Align(
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
         child: Column(

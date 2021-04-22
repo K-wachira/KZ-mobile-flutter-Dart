@@ -40,7 +40,7 @@ dependencies:
   carousel_slider: ^3.0.0
   provider: ^5.0.0
   modal_bottom_sheet: ^2.0.0
-
+  flutter_spinkit: "^4.1.2"
   geolocator: ^7.0.3
   geocoding: ^2.0.0
 
