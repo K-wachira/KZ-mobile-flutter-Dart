@@ -38,6 +38,7 @@ class FirebaseServices extends ChangeNotifier {
   }
 
   Stream<List<UserModel>> getuser(useid) {
+    print("iserviced");
     print(useid);
     return _fireStoreDataBase
         .collection('Student')

@@ -2,6 +2,7 @@ import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
+import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -300,17 +301,15 @@ class _HomeProductsState extends State<HomeProducts> {
           },
         ),
         actions: <Widget>[
-<<<<<<< HEAD
           IconButton(
             icon: Icon(
               Feather.shopping_cart,
               color: Colors.black,
             ),
             onPressed: () {
-              showCart(context, cart, widget.userid);
+              showCart(context);
             },
           ),
-=======
           Stack(children: <Widget>[
             new IconButton(
                 icon: new Icon(
@@ -342,8 +341,6 @@ class _HomeProductsState extends State<HomeProducts> {
                     ],
                   )),
           ]),
-<<<<<<< HEAD
->>>>>>> e171ef1d17fcc0ca3c42839a13f97c3b07caa63e
           IconButton(
             icon: Icon(
               Icons.notifications_none_rounded,
@@ -356,8 +353,6 @@ class _HomeProductsState extends State<HomeProducts> {
                       builder: (BuildContext context) => Notifications()));
             },
           )
-=======
->>>>>>> d121fc53fc7413e7c975dae57f4e90d683504add
         ],
       ),
       body: SingleChildScrollView(

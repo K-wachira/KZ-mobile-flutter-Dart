@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-Future<void> saveCart(cart, vendorid) async {
+Future<void> saveCart(cart) async {
   for (int i = 0; i < cart.length; i++) {
     Map data = {
       "foodName": cart[i]["FoodName"],
@@ -18,7 +18,6 @@ Future<void> saveCart(cart, vendorid) async {
     print(
       data,
     );
-    print(vendorid);
     Map<String, dynamic> myMap = new Map<String, dynamic>.from(data);
     await firebaseFirestore.collection("orders").add(myMap);
   }
@@ -59,7 +58,7 @@ void showCart(context, cart, vendorid) {
                 new FlatButton(
                   child: new Text("Place Order"),
                   onPressed: () {
-                    saveCart(cart, vendorid);
+                    saveCart(cart);
                     print("Order Placed");
                     setState(() {
                       cart = [];

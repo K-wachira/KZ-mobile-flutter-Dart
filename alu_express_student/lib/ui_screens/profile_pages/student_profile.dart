@@ -20,10 +20,11 @@ class StudentProfile extends StatefulWidget {
 
 class _StudentProfileState extends State<StudentProfile> {
   final FirebaseServices firebaseServices = FirebaseServices();
-
   @override
   Widget build(BuildContext context) {
+    print("userid");
     print(widget.userid);
+    print((firebaseServices.getuser(widget.userid)));
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -64,6 +65,8 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  final FirebaseServices firebaseServices = FirebaseServices();
+
   Position _currentPosition;
   String _currentAddress;
 
@@ -100,6 +103,8 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     List userList = Provider.of<List<UserModel>>(context);
+
+    print("userlist");
     print(userList);
     return Align(
       alignment: Alignment.topCenter,
