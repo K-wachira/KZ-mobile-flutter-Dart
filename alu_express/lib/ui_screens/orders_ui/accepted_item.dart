@@ -4,11 +4,12 @@ import 'package:alu_express/services/temp_res/order_data.dart';
 import 'package:alu_express/ui_screens/shared_widgets/orders_image_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class AcceptedOrders extends StatefulWidget {
   final userid;
-  AcceptedOrders({Key key, this.userid}) : super(key: key);
+  AcceptedOrders({Key key, @required this.userid}) : super(key: key);
   @override
   _AcceptedOrdersState createState() => _AcceptedOrdersState();
 }
@@ -36,7 +37,9 @@ class _AcceptedState extends State<Accepted> {
     List Acceptedorders = Provider.of<List<OrderModel>>(context);
 
     return Acceptedorders == null
-        ? CircularProgressIndicator()
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
         : ListView.builder(
             itemCount: Acceptedorders.length,
             itemBuilder: (_, index) {
@@ -58,20 +61,19 @@ class _AcceptedState extends State<Accepted> {
 
                     if (snapshot.connectionState == ConnectionState.done) {
                       Map<String, dynamic> data = snapshot.data.data();
-                          Map<String, dynamic> orderdetails = {
+                      Map<String, dynamic> orderdetails = {
                         "image": data["ImageURL"],
                         "ordernumber": "1",
                         "time": Acceptedorders[index].orderTime,
                         "orderid": Acceptedorders[index].orderID,
                         "state": "Accepted",
-                        "quantity": Acceptedorders[index].quantity ,
-                        "price" : data["Price"],
-                        "inStock":data["Quantity"],
+                        "quantity": Acceptedorders[index].quantity,
+                        "price": data["Price"],
+                        "inStock": data["Quantity"],
                         "foodName": data["FoodName"],
                         "studentId": Acceptedorders[index].customerID,
                         "discount": data["Discount"],
                         "size": data["Size"],
-
                       };
                       return Padding(
                         padding: EdgeInsets.all(10.0),

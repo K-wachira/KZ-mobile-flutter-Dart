@@ -39,8 +39,8 @@ dependencies:
   grouped_list: ^4.0.0
   provider:
   cached_network_image: ^3.0.0
-  flutter_spinkit: 
-  
+  flutter_spinkit: "^4.1.2"
+
 
 
 

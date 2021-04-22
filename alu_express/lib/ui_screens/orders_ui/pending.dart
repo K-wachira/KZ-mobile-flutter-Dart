@@ -4,11 +4,12 @@ import 'package:alu_express/services/temp_res/order_data.dart';
 import 'package:alu_express/ui_screens/shared_widgets/orders_image_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class PendingOrders extends StatefulWidget {
   final userid;
-  PendingOrders({Key key, this.userid}) : super(key: key);
+  PendingOrders({Key key, @required this.userid}) : super(key: key);
   @override
   _PendingOrdersState createState() => _PendingOrdersState();
 }
@@ -36,7 +37,9 @@ class _PendingState extends State<Pending> {
     List pendingorders = Provider.of<List<OrderModel>>(context);
 
     return pendingorders == null
-        ? CircularProgressIndicator()
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
         : ListView.builder(
             itemCount: pendingorders.length,
             itemBuilder: (_, index) {
@@ -65,14 +68,13 @@ class _PendingState extends State<Pending> {
                         "time": pendingorders[index].orderTime,
                         "orderid": pendingorders[index].orderID,
                         "state": "Pending",
-                        "quantity": pendingorders[index].quantity ,
-                        "price" : data["Price"],
-                        "inStock":data["Quantity"],
+                        "quantity": pendingorders[index].quantity,
+                        "price": data["Price"],
+                        "inStock": data["Quantity"],
                         "foodName": data["FoodName"],
                         "studentId": pendingorders[index].customerID,
                         "discount": data["Discount"],
                         "size": data["Size"],
-
                       };
                       return Padding(
                         padding: EdgeInsets.all(10.0),
@@ -87,7 +89,7 @@ class _PendingState extends State<Pending> {
                 );
               }
 
-              return Container();
+              return Text("Empty");
             });
   }
 }

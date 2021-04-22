@@ -4,6 +4,8 @@ import 'package:alu_express/ui_screens/orders_ui/pending.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatelessWidget {
+    final userid;
+  Orders({Key key, @required this.userid}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -37,9 +39,9 @@ class Orders extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            PendingOrders(),
-            AcceptedOrders(),
-            CompletedOrders(),
+            PendingOrders(userid: userid,),
+            AcceptedOrders(userid: userid,),
+            CompletedOrders(userid: userid,),
           ],
         ),
       ),

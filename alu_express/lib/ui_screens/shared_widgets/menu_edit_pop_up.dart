@@ -9,9 +9,9 @@ class MenuEditPopUp extends StatefulWidget {
 
   MenuEditPopUp({
     @required this.docId,
-    this.current,
+    @required this.current,
     Key key,
-    this.field,
+   @required  this.field,
   }) : super(key: key);
   @override
   _MenuEditPopUpState createState() => _MenuEditPopUpState();

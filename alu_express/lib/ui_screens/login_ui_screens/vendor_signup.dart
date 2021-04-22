@@ -297,6 +297,7 @@ class _VendorSignUpState extends State<VendorSignUp> {
       print("Successfully Signed Up");
 
       Map<String, dynamic> vendordata = {
+        
         'vendorName': nameController.text,
         'vendorID': user.uid,
         'open': "true",

@@ -7,7 +7,7 @@ class CardItem extends StatelessWidget {
   final userData;
   final iconData;
 
-  const CardItem({Key key, this.textItem, this.userData, this.iconData})
+  const CardItem({Key key, @required this.textItem, @required this.userData, @required this.iconData})
       : super(key: key);
 
   @override

@@ -17,17 +17,17 @@ class MenuCard extends StatefulWidget {
 
   const MenuCard(
       {Key key,
-      this.image,
-      this.name,
-      this.price,
-      this.category,
-      this.description,
-      this.discount,
-      this.isFeaured,
-      this.size,
-      this.ingredients,
-      this.vendor,
-      this.documentId})
+      @required this.image,
+     @required  this.name,
+     @required  this.price,
+     @required  this.category,
+     @required  this.description,
+     @required  this.discount,
+     @required  this.isFeaured,
+     @required  this.size,
+     @required  this.ingredients,
+     @required  this.vendor,
+    @required   this.documentId})
       : super(key: key);
 
   @override

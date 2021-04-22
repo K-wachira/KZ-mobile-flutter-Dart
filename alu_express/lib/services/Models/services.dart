@@ -20,6 +20,20 @@ class FirebaseServices extends ChangeNotifier {
             .toList());
   }
 
+  Stream<List<UserModel>> getuser(userid) {
+    print("object");
+    print(userid);
+    print("object");
+
+    return _fireStoreDataBase
+        .collection('vendors')
+        .where("vendorID", isEqualTo: userid)
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((document) => UserModel.fromJson(document.data()))
+            .toList());
+  }
+
   Stream<List<OrderModel>> getpendingorderList(vendorid) {
     // pending orders
     return _fireStoreDataBase
@@ -87,17 +101,6 @@ class FirebaseServices extends ChangeNotifier {
     return "true";
   }
 
-  Stream<List<UserModel>> getuser(useid) {
-    print(useid);
-    return _fireStoreDataBase
-        .collection('vendors')
-        .where("vendorID", isEqualTo: useid)
-        .snapshots()
-        .map((snapShot) => snapShot.docs
-            .map((document) => UserModel.fromJson(document.data()))
-            .toList());
-  }
-
   Future<String> addFood(data) async {
     DocumentReference ref = await FirebaseFirestore.instance
         .collection("Foods")
@@ -117,13 +120,6 @@ class FirebaseServices extends ChangeNotifier {
     return "true";
   }
 
-  Future<DocumentSnapshot> getsingledoc(docid)async{
-
-        Stream documentStream= FirebaseFirestore.instance.collection('Foods').doc(docid).snapshots();
-
-
-  
-  }
 //loggout user
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();

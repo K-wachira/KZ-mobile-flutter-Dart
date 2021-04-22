@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
   final userID;
-  const Menu({Key key, this.userID}) : super(key: key);
+  const Menu({Key key, @required this.userID}) : super(key: key);
 
   @override
   _MenuState createState() => _MenuState();

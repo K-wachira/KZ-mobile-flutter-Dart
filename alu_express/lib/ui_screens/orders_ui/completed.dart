@@ -4,11 +4,12 @@ import 'package:alu_express/services/temp_res/order_data.dart';
 import 'package:alu_express/ui_screens/shared_widgets/orders_image_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class CompletedOrders extends StatefulWidget {
   final userid;
-  CompletedOrders({Key key, this.userid}) : super(key: key);
+  CompletedOrders({Key key, @required this.userid}) : super(key: key);
   @override
   _CompletedOrdersState createState() => _CompletedOrdersState();
 }
@@ -36,7 +37,9 @@ class _CompletedState extends State<Completed> {
     List Completedorders = Provider.of<List<OrderModel>>(context);
 
     return Completedorders == null
-        ? CircularProgressIndicator()
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
         : ListView.builder(
             itemCount: Completedorders.length,
             itemBuilder: (_, index) {
@@ -86,7 +89,7 @@ class _CompletedState extends State<Completed> {
                 );
               }
 
-              return Container();
+              return Text("Empty");
             });
   }
 }
