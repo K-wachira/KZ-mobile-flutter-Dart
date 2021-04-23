@@ -38,7 +38,7 @@ class _PendingState extends State<Pending> {
 
     return pendingorders == null
         ? SpinKitSquareCircle(
-            color: Colors.amberAccent,
+            color: Colors.amber,
           )
         : ListView.builder(
             itemCount: pendingorders.length,
