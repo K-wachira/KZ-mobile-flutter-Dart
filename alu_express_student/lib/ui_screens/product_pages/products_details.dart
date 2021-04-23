@@ -40,9 +40,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
 
     void createitem(cart, totals, quantity, product) {
-      setState(() {
-        totals = totals * quantity;
-      });
+      // setState(() {
+      //   totals = totals * quantity;
+      // });
       Map item = {
         "FoodName": product["Name"],
         "Quantity": quantity.toString(),

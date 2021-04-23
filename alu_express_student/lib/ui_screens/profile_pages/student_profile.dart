@@ -1,6 +1,7 @@
 import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/user_model.dart';
 import 'package:alu_express_student/ui_screens/cart_pages/card_item.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/change_profile_popup.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,12 @@ class _StudentProfileState extends State<StudentProfile> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                          userid: widget.userid,
+                        )));
           },
         ),
         title: Padding(

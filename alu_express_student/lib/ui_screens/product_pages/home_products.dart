@@ -118,7 +118,7 @@ class _HomeProductsState extends State<HomeProducts> {
               setState(() {
                 _quantity++;
                 total = price * _quantity;
-                print(total);
+                // print(total);
               });
             }
 
@@ -127,7 +127,7 @@ class _HomeProductsState extends State<HomeProducts> {
                 if (_quantity > 1) {
                   _quantity--;
                   total = price * _quantity;
-                  print(total);
+                  // print(total);
                 }
               });
             }
