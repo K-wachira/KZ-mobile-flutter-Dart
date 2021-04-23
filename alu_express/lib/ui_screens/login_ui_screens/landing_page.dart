@@ -135,9 +135,9 @@ class _LandingPageState extends State<LandingPage> {
                         child: Text(
                           'Log In Here',
                           style: GoogleFonts.ptSans(
-                            color: Colors.black,
-                            fontSize: 20,
-                          ),
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
