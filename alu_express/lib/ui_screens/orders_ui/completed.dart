@@ -38,7 +38,7 @@ class _CompletedState extends State<Completed> {
 
     return Completedorders == null
         ? SpinKitSquareCircle(
-            color: Colors.amberAccent,
+            color: Colors.amber,
           )
         : ListView.builder(
             itemCount: Completedorders.length,
