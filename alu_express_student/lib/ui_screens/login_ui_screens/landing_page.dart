@@ -59,7 +59,7 @@ class _LandingPageState extends State<LandingPage> {
                       letterSpacing: .3,
                     ),
                   ),
-                  SizedBox(height: displayHeight(context) * 0.1),
+                  SizedBox(height: displayHeight(context) * 0.08),
                   Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[

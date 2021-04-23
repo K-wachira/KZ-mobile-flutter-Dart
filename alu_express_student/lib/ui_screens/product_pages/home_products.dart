@@ -378,8 +378,7 @@ class _HomeProductsState extends State<HomeProducts> {
               SizedBox(
                 height: displayHeight(context) * 0.03,
               ),
-              Container(
-                height: displayHeight(context),
+              SingleChildScrollView(
                 child: StreamProvider(
                   create: (BuildContext context) =>
                       firebaseServices.getFoodList(),
@@ -402,7 +401,8 @@ class ViewUserPage extends StatelessWidget {
     return userList == null
         ? SpinKitSquareCircle(color: Colors.amberAccent)
         : GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 300,
                 crossAxisSpacing: 20,
