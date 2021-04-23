@@ -36,6 +36,8 @@ class FirebaseServices extends ChangeNotifier {
 
   Stream<List<OrderModel>> getpendingorderList(vendorid) {
     // pending orders
+    print(vendorid);
+    print("getpending");  
     return _fireStoreDataBase
         .collection('orders')
         .where("vendorID", isEqualTo: vendorid)

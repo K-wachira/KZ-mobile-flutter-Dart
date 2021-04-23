@@ -148,8 +148,10 @@ class _ProductCardState extends State<ProductCard> {
                             letterSpacing: .3),
                       ),
                       CachedNetworkImage(
+                        fit: BoxFit.contain,
                         imageUrl: productDetails["Image"],
                         height: displayHeight(context) * 0.2,
+                        width: displayWidth(context) * 0.1,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) =>
                                 CircularProgressIndicator(
@@ -225,6 +227,7 @@ class _ProductCardState extends State<ProductCard> {
         children: [
           Padding(padding: EdgeInsets.only(top: 5)),
           CachedNetworkImage(
+            fit: BoxFit.contain,
             imageUrl: widget.image,
             width: displayWidth(context) * 0.4,
             progressIndicatorBuilder: (context, url, downloadProgress) =>

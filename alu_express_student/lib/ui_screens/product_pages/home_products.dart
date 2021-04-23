@@ -530,7 +530,9 @@ class _ProductCardState extends State<ProductCard> {
         children: [
           Padding(padding: EdgeInsets.only(top: 5)),
           CachedNetworkImage(
+            fit: BoxFit.cover,
             width: displayWidth(context) * 0.4,
+            height: displayHeight(context) * 0.15,
             imageUrl: widget.image,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 SpinKitRotatingCircle(
