@@ -53,7 +53,7 @@ class _ImageCardState extends State<ImageCard> {
                   height: MediaQuery.of(context).size.height * 0.033,
                 ),
                 Text(
-                  widget.products["ordernumber"],
+                  widget.products["quantity"],
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -61,7 +61,7 @@ class _ImageCardState extends State<ImageCard> {
                       fontFamily: "PTSans"),
                 ),
                 Text(
-                  " widget.products[time]",
+                  widget.products["price"],
                   style: TextStyle(color: Colors.grey),
                 ),
                 ElevatedButton(
@@ -91,14 +91,14 @@ class _ImageCardState extends State<ImageCard> {
     );
   }
 
-
   void _bottomSheet({
     Map products,
   }) {
     String secondstime = widget.products["time"].substring(18, 28);
     print(widget.products["time"]);
     print(secondstime);
-    print(DateTime.fromMicrosecondsSinceEpoch((int.parse(secondstime)) * 1000000));
+    print(DateTime.fromMicrosecondsSinceEpoch(
+        (int.parse(secondstime)) * 1000000));
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -136,7 +136,7 @@ class _ImageCardState extends State<ImageCard> {
                     ),
                   ),
                   Text(
-                    "Order #23",
+                    products["price"],
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -146,130 +146,111 @@ class _ImageCardState extends State<ImageCard> {
                   SizedBox(
                     height: 25,
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: servings.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Text(
-                            servings[index]["quantity"].toString(),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: "PTSans"),
-                          ),
-                          title: Text(
-                            '${servings[index]["title"]}: (${servings[index]["type"]})',
-                            textScaleFactor: 1.5,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: "PTSans"),
-                          ),
-                          subtitle: Text(
-                            servings[index]["sides"],
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontFamily: "PTSans"),
-                          ),
-                          trailing: Text(
-                            "Kelvin",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: "PTSans"),
-                          ),
-                          selected: true,
-                          isThreeLine: true,
-                        );
-                      },
-                    ),
+                  Text(
+                    products["foodName"],
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "PTSans"),
                   ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    products["size"],
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "PTSans"),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  // Expanded(
+                  //   child: ,
 
-                  if (products['state'] == "Pending")...{
-       InkWell(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            firebaseServices.updateField(products["orderid"],
-                                "Accepted", "orderStatus", "orders");
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepOrange,
-                            onPrimary: Colors.black, // foreground
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: Text(
-                            'Accept',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: "PTSans"),
-                          )),
-                      ElevatedButton(
-                          onPressed: () {
+                  // ),
+                  if (products['state'] == "Pending") ...{
+                    InkWell(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
                               firebaseServices.updateField(products["orderid"],
-                                "Completed", "orderStatus", "orders");
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepOrangeAccent[700],
-                            onPrimary: Colors.black, // foreground
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
+                                  "Accepted", "orderStatus", "orders");
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.deepOrange,
+                              onPrimary: Colors.black, // foreground
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Decline',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: "PTSans"),
-                          ))
-                    ],
-                  ))
-                  }else if (products['state'] == "Accepted")...{
-                             InkWell(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            firebaseServices.updateField(products["orderid"],
-                                "Completed", "orderStatus", "orders");
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepOrange,
-                            onPrimary: Colors.black, // foreground
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
+                            child: Text(
+                              'Accept',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: "PTSans"),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              firebaseServices.updateField(products["orderid"],
+                                  "Completed", "orderStatus", "orders");
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.deepOrangeAccent[700],
+                              onPrimary: Colors.black, // foreground
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Complete Order',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: "PTSans"),
-                          )),
-              
-                    ],
-                  ))
-                  } else if (products['state'] == "Completed")...{
-
-
-                  }
-         
+                            child: Text(
+                              'Decline',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: "PTSans"),
+                            ))
+                      ],
+                    ))
+                  } else if (products['state'] == "Accepted") ...{
+                    InkWell(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              firebaseServices.updateField(products["orderid"],
+                                  "Completed", "orderStatus", "orders");
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.deepOrange,
+                              onPrimary: Colors.black, // foreground
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
+                            ),
+                            child: Text(
+                              'Complete Order',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: "PTSans"),
+                            )),
+                      ],
+                    ))
+                  } else if (products['state'] == "Completed")
+                    ...{}
                 ]),
           );
         });

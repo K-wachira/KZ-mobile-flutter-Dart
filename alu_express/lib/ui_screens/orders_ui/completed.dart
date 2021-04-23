@@ -52,11 +52,11 @@ class _CompletedState extends State<Completed> {
                   builder: (BuildContext context,
                       AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.hasError) {
-                      return Text("Something went wrong");
+                      return Text(""); //Something went wrong
                     }
 
                     if (snapshot.hasData && !snapshot.data.exists) {
-                      return Text("Error Food does not exist");
+                      return Text(""); //Error Food does not exist
                     }
 
                     if (snapshot.connectionState == ConnectionState.done) {
@@ -89,7 +89,7 @@ class _CompletedState extends State<Completed> {
                 );
               }
 
-              return Text("Empty");
+              return Text(""); //Empty
             });
   }
 }

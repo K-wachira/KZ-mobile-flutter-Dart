@@ -19,7 +19,13 @@ Future<void> saveCart(cart) async {
       data,
     );
     Map<String, dynamic> myMap = new Map<String, dynamic>.from(data);
-    await firebaseFirestore.collection("orders").add(myMap);
+    DocumentReference ref = await firebaseFirestore.collection("orders").add(myMap);
+       String docid = ref.id.toString();
+    print(docid);
+    await FirebaseFirestore.instance
+        .collection('orders')
+        .doc(docid)
+        .update({'orderID': docid});
   }
 }
 

@@ -33,5 +33,4 @@ class OrderModel {
         total = parsedJSON['total'],
         orderID = parsedJSON['orderID'],
         vendor = parsedJSON['vendor'];
-
 }

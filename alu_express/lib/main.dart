@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         setState(() {
           print(userdata.uid);
           userId = userdata.uid;
-//        islogged in is set to true showing that user is logged in
+//        islogged in is  set to true showing that user is logged in
           isLoggedIn = true;
         });
         print(isLoggedIn);

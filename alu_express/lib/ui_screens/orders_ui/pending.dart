@@ -52,11 +52,11 @@ class _PendingState extends State<Pending> {
                   builder: (BuildContext context,
                       AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.hasError) {
-                      return Text("Something went wrong");
+                      return Text(""); //omething went wrong
                     }
 
                     if (snapshot.hasData && !snapshot.data.exists) {
-                      return Text("Error Food does not exist");
+                      return Text(""); //Error Food does not exist
                     }
 
                     if (snapshot.connectionState == ConnectionState.done) {
@@ -84,12 +84,14 @@ class _PendingState extends State<Pending> {
                       );
                     }
 
-                    return Text("loading");
+                    return SpinKitSquareCircle(
+                      color: Colors.amberAccent,
+                    );
                   },
                 );
               }
 
-              return Text("Empty");
+              return Text("");
             });
   }
 }

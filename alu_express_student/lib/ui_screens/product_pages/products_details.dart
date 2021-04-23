@@ -54,6 +54,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         "FoodID": product["FoodID"],
         'Category': product['Category'],
         "OrderStatus": "Pending",
+        "orderID": ""
+
       };
       cartFunctionality.addToCart(item);
     }

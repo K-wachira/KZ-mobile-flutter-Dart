@@ -23,15 +23,6 @@ class _MyOrdersState extends State<MyOrders> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.chevron_left_rounded,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: Padding(
             padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
             child: Text(
@@ -68,7 +59,7 @@ class _MyOrdersState extends State<MyOrders> {
                                 horizontal: 8.0, vertical: 16.0),
                             child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     order["foodName"],
@@ -89,6 +80,13 @@ class _MyOrdersState extends State<MyOrders> {
                                     style: GoogleFonts.ptSans(
                                         fontSize: 16,
                                         color: Colors.red[900],
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    order["orderStatus"],
+                                    style: GoogleFonts.ptSans(
+                                        fontSize: 16,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
 

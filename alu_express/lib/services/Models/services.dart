@@ -37,7 +37,7 @@ class FirebaseServices extends ChangeNotifier {
   Stream<List<OrderModel>> getpendingorderList(vendorid) {
     // pending orders
     print(vendorid);
-    print("getpending");  
+    print("getpending");
     return _fireStoreDataBase
         .collection('orders')
         .where("vendorID", isEqualTo: vendorid)
@@ -76,6 +76,11 @@ class FirebaseServices extends ChangeNotifier {
   }
 
   Future<String> updateField(docID, value, field, collection) async {
+    print(docID);
+    print(value);
+    print(field);
+    print(collection);
+
     await FirebaseFirestore.instance
         .collection(collection)
         .doc(docID)
