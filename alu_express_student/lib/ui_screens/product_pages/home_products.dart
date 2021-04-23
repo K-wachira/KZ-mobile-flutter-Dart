@@ -534,6 +534,14 @@ class _ProductCardState extends State<ProductCard> {
             width: displayWidth(context) * 0.4,
             height: displayHeight(context) * 0.15,
             imageUrl: widget.image,
+            imageBuilder: (context, imageProvider) => Container(
+              width: 80.0,
+              height: 80.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 SpinKitRotatingCircle(
               color: Colors.amber,
