@@ -83,11 +83,6 @@ class _MyDrawerState extends State<MyDrawer> {
                       ),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    // CircleAvatar(
-                    //   radius: 50.0,
-                    //   backgroundColor: Colors.red[900],
-                    //   backgroundImage: NetworkImage(userList[0].profileUrl),
-                    // ),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -151,24 +146,6 @@ class _MyDrawerState extends State<MyDrawer> {
                     SizedBox(
                       height: displayHeight(context) * 0.03,
                     ),
-                    // ListTile(
-                    //   onTap: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         new MaterialPageRoute(
-                    //             builder: (context) => new Cart()));
-                    //   },
-                    //   leading: Icon(
-                    //     LineIcons.shoppingCart,
-                    //     color: Colors.red[900],
-                    //   ),
-                    //   title: Text("Cart",
-                    //       style: GoogleFonts.ptSans(
-                    //           fontSize: 18, fontWeight: FontWeight.bold)),
-                    // ),
-                    // SizedBox(
-                    //   height: displayHeight(context) * 0.03,
-                    // ),
                     ListTile(
                       onTap: () {
                         Navigator.push(
@@ -185,7 +162,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
-                      height: displayHeight(context) * 0.39,
+                      height: displayHeight(context) * 0.2,
                     ),
                     ListTile(
                       onTap: () {

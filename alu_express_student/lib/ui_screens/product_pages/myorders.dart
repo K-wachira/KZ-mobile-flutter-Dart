@@ -1,10 +1,12 @@
-import 'package:alu_express_student/ui_screens/cart_pages/card_item.dart';
+import 'package:alu_express_student/ui_screens/homepage_ui/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyOrders extends StatefulWidget {
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final uid = FirebaseAuth.instance.currentUser.uid;
   @override
   _MyOrdersState createState() => _MyOrdersState();
 }
@@ -19,10 +21,25 @@ class _MyOrdersState extends State<MyOrders> {
   }
 
   Widget build(BuildContext context) {
+    print(widget.uid);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.chevron_left_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            userid: widget.uid,
+                          )));
+            },
+          ),
           title: Padding(
             padding: const EdgeInsets.fromLTRB(100.0, 0, 0, 0),
             child: Text(
@@ -53,6 +70,8 @@ class _MyOrdersState extends State<MyOrders> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 5),
                       child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
                           color: Colors.grey[100],
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -64,21 +83,21 @@ class _MyOrdersState extends State<MyOrders> {
                                   Text(
                                     order["foodName"],
                                     style: GoogleFonts.ptSans(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     "x" + order["quantity"],
                                     style: GoogleFonts.ptSans(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       color: Colors.red[900],
                                     ),
                                   ),
                                   Text(
                                     "RWF " + order["total"],
                                     style: GoogleFonts.ptSans(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         color: Colors.red[900],
                                         fontWeight: FontWeight.bold),
                                   ),

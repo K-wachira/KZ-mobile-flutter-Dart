@@ -3,9 +3,7 @@ import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart'
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProductCard extends StatefulWidget {
   final String image;

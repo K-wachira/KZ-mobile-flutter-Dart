@@ -42,7 +42,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     void createitem(cart, totals, quantity, product) {
       setState(() {
-        totals = totals * quantity;
+        totals = price * quantity;
       });
       Map item = {
         "FoodName": product["Name"],
@@ -102,11 +102,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                   CircularProgressIndicator(value: downloadProgress.progress),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-
-            // Image(
-            //   image: NetworkImage(widget.productDetails["Image"]),
-            //   height: displayHeight(context) * 0.4,
-            // ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
@@ -129,9 +124,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         borderRadius: BorderRadius.circular(10)),
                     child: IconButton(
                       onPressed: () {
-                        setState(() {
-                          _incrementOrder();
-                        });
+                        _incrementOrder();
                       },
                       icon: Icon(Feather.plus),
                     ),

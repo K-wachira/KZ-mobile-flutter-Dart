@@ -39,7 +39,7 @@ class _StudentProfileState extends State<StudentProfile> {
             color: Colors.black,
           ),
           onPressed: () {
-                    Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePage(userid: widget.userid)));
@@ -145,10 +145,6 @@ class _UserProfileState extends State<UserProfile> {
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
-                        // CircleAvatar(
-                        //   backgroundColor: Colors.amber,
-                        //   backgroundImage: NetworkImage(userList[0].profileUrl),
-                        // ),
                         Positioned(
                           right: 0,
                           bottom: 20,

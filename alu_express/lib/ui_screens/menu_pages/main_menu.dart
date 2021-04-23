@@ -1,8 +1,5 @@
-import 'package:alu_express/ui_screens/extras/deal_of_the_day.dart';
-import 'package:alu_express/ui_screens/extras/promotions.dart';
 import 'package:alu_express/ui_screens/menu_pages/new_build/add_food.dart';
 import 'package:alu_express/ui_screens/menu_pages/new_build/vendor_menu.dart';
-import 'package:alu_express/ui_screens/orders_ui/dashboards/dashboard_card_view.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -85,7 +82,6 @@ class _MenuState extends State<Menu> {
           SizedBox(
             height: 20.0,
           ),
-     
         ]),
       ),
     );

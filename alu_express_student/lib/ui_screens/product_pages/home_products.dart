@@ -2,7 +2,6 @@ import 'package:alu_express_student/services/Models/firebase_services.dart';
 import 'package:alu_express_student/services/Models/food_model.dart';
 import 'package:alu_express_student/services/Models/cartcode.dart';
 import 'package:alu_express_student/ui_screens/homepage_ui/drawer.dart';
-import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +136,7 @@ class _HomeProductsState extends State<HomeProducts> {
 
             void createitem(cart, totals, quantity, product) {
               setState(() {
-                totals = totals * quantity;
+                totals = price * quantity;
               });
               Map item = {
                 "FoodName": product["Name"],
@@ -223,20 +222,13 @@ class _HomeProductsState extends State<HomeProducts> {
                                 SpinKitRotatingCircle(
                           color: Colors.amberAccent,
                         ),
-                        // CircularProgressIndicator(
-                        //     value: downloadProgress.progress),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-
-                      // Image(
-                      //   image:
-                      //       CachedNetworkImageProvider(productDetails["Image"]),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            "RWF " + (total * _quantity).toString(),
+                            "RWF " + (total).toString(),
                             style: GoogleFonts.ptSans(
                                 color: Colors.red[900],
                                 fontWeight: FontWeight.bold,
@@ -316,20 +308,12 @@ class _HomeProductsState extends State<HomeProducts> {
           },
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Feather.shopping_cart,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              showCart(context);
-            },
-          ),
           Stack(children: <Widget>[
             new IconButton(
                 icon: new Icon(
                   LineIcons.shoppingCart,
                   color: Colors.black,
+                  size: 30,
                 ),
                 onPressed: () {
                   showCart(context);
@@ -356,18 +340,6 @@ class _HomeProductsState extends State<HomeProducts> {
                     ],
                   )),
           ]),
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none_rounded,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Notifications()));
-            },
-          )
         ],
       ),
       body: SingleChildScrollView(
