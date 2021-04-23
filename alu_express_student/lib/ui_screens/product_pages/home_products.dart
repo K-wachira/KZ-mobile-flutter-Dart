@@ -6,10 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:alu_express_student/services/Models/cart_funtionality.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeProducts extends StatefulWidget {
   final userid;
@@ -118,7 +120,7 @@ class _HomeProductsState extends State<HomeProducts> {
               setState(() {
                 _quantity++;
                 total = price * _quantity;
-                // print(total);
+                print(total);
               });
             }
 
@@ -127,14 +129,14 @@ class _HomeProductsState extends State<HomeProducts> {
                 if (_quantity > 1) {
                   _quantity--;
                   total = price * _quantity;
-                  // print(total);
+                  print(total);
                 }
               });
             }
 
             void createitem(cart, totals, quantity, product) {
               setState(() {
-                totals = totals * quantity;
+                totals = price * quantity;
               });
               Map item = {
                 "FoodName": product["Name"],
@@ -212,15 +214,21 @@ class _HomeProductsState extends State<HomeProducts> {
                             fontSize: 17,
                             letterSpacing: .3),
                       ),
-                      Image(
-                        image: NetworkImage(productDetails["Image"]),
+                      CachedNetworkImage(
                         height: displayHeight(context) * 0.2,
+                        imageUrl: productDetails["Image"],
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                SpinKitRotatingCircle(
+                          color: Colors.amberAccent,
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            "RWF " + (total * _quantity).toString(),
+                            "RWF " + (total).toString(),
                             style: GoogleFonts.ptSans(
                                 color: Colors.red[900],
                                 fontWeight: FontWeight.bold,
@@ -305,6 +313,7 @@ class _HomeProductsState extends State<HomeProducts> {
                 icon: new Icon(
                   LineIcons.shoppingCart,
                   color: Colors.black,
+                  size: 30,
                 ),
                 onPressed: () {
                   showCart(context);
@@ -391,9 +400,7 @@ class ViewUserPage extends StatelessWidget {
     List userList = Provider.of<List<FoodModel>>(context);
 
     return userList == null
-        ? Padding(
-            padding: const EdgeInsets.all(500.0),
-            child: LinearProgressIndicator())
+        ? SpinKitSquareCircle(color: Colors.amberAccent)
         : GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -494,9 +501,24 @@ class _ProductCardState extends State<ProductCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(padding: EdgeInsets.only(top: 5)),
-          Image(
+          CachedNetworkImage(
+            fit: BoxFit.cover,
             width: displayWidth(context) * 0.4,
-            image: NetworkImage(widget.image),
+            height: displayHeight(context) * 0.15,
+            imageUrl: widget.image,
+            imageBuilder: (context, imageProvider) => Container(
+              width: 80.0,
+              height: 80.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                SpinKitRotatingCircle(
+              color: Colors.amber,
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           Container(
             decoration: BoxDecoration(

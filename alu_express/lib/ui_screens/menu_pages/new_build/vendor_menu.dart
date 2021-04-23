@@ -2,12 +2,13 @@ import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/services/Models/vendor_model.dart';
 import 'package:alu_express/ui_screens/shared_widgets/order_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class VendorMenu extends StatefulWidget {
   final userid;
-  VendorMenu({Key key, this.userid}) : super(key: key);
+  VendorMenu({Key key, @required this.userid}) : super(key: key);
   @override
   _VendorMenuState createState() => _VendorMenuState();
 }
@@ -57,7 +58,9 @@ class ViewUserPage extends StatelessWidget {
     List userList = Provider.of<List<VendorModel>>(context);
 
     return userList == null
-        ? CircularProgressIndicator()
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
         : ListView.builder(
             itemCount: userList.length,
             itemBuilder: (_, int index) => Padding(

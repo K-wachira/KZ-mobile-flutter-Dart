@@ -296,16 +296,18 @@ class _VendorSignUpState extends State<VendorSignUp> {
     if (result == true) {
       print("Successfully Signed Up");
 
-      Map<String, dynamic> foodData = {
+      Map<String, dynamic> vendordata = {
+        
         'vendorName': nameController.text,
         'vendorID': user.uid,
         'open': "true",
+        'documentId': "",
         'profilePhotoUrl':
             'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
         'Email': emailController.text,
       };
 
-      await firebaseServices.addVendor(foodData);
+      await firebaseServices.addVendor(vendordata);
 
       Navigator.push(
           context,

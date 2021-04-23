@@ -1,79 +1,94 @@
+import 'package:alu_express/services/Models/order_model.dart';
+import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/services/temp_res/order_data.dart';
+import 'package:alu_express/ui_screens/shared_widgets/orders_image_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
-class AcceptedItem extends StatelessWidget {
+class AcceptedOrders extends StatefulWidget {
+  final userid;
+  AcceptedOrders({Key key, @required this.userid}) : super(key: key);
+  @override
+  _AcceptedOrdersState createState() => _AcceptedOrdersState();
+}
+
+class _AcceptedOrdersState extends State<AcceptedOrders> {
+  final FirebaseServices firebaseServices = FirebaseServices();
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(
-          height: 10,
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(25.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.20,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Image.network(
-              "https://i.imgur.com/QNOKQQn.jpg",
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "ORDER #23",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 18.0),
-              ),
-              Text(
-                "10.20am",
-                style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.black87,
-                    fontSize: 18.0),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: servings.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: Text(servings[index]["quantity"].toString()),
-                title: Text(
-                  '${servings[index]["title"]}: (${servings[index]["type"]})',
-                  textScaleFactor: 1.5,
-                ),
-                subtitle: Text(servings[index]["sides"]),
-                trailing: Text("Kelvin"),
-                selected: true,
-                isThreeLine: true,
-              );
-            },
-          ),
-        ),
-        ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              primary: Colors.amberAccent,
-              onPrimary: Colors.black, // foreground
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-              ),
-            ),
-            child: Text('Ready'))
-      ],
+    return StreamProvider(
+      create: (BuildContext context) =>
+          firebaseServices.getAcceptedorderList(widget.userid),
+      child: Accepted(),
     );
+  }
+}
+
+class Accepted extends StatefulWidget {
+  @override
+  _AcceptedState createState() => _AcceptedState();
+}
+
+class _AcceptedState extends State<Accepted> {
+  Widget build(BuildContext context) {
+    List Acceptedorders = Provider.of<List<OrderModel>>(context);
+
+    return Acceptedorders == null
+        ? SpinKitSquareCircle(
+            color: Colors.amberAccent,
+          )
+        : ListView.builder(
+            itemCount: Acceptedorders.length,
+            itemBuilder: (_, index) {
+              if (Acceptedorders[index].orderStatus == "Accepted") {
+                CollectionReference users =
+                    FirebaseFirestore.instance.collection('Foods');
+
+                return FutureBuilder<DocumentSnapshot>(
+                  future: users.doc(Acceptedorders[index].foodID).get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
+
+                    if (snapshot.hasData && !snapshot.data.exists) {
+                      return Text("Error Food does not exist");
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data = snapshot.data.data();
+                      Map<String, dynamic> orderdetails = {
+                        "image": data["ImageURL"],
+                        "ordernumber": "1",
+                        "time": Acceptedorders[index].orderTime,
+                        "orderid": Acceptedorders[index].orderID,
+                        "state": "Accepted",
+                        "quantity": Acceptedorders[index].quantity,
+                        "price": data["Price"],
+                        "inStock": data["Quantity"],
+                        "foodName": data["FoodName"],
+                        "studentId": Acceptedorders[index].customerID,
+                        "discount": data["Discount"],
+                        "size": data["Size"],
+                      };
+                      return Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: ImageCard(
+                          products: orderdetails,
+                        ),
+                      );
+                    }
+
+                    return Text("loading");
+                  },
+                );
+              }
+
+              return Container();
+            });
   }
 }

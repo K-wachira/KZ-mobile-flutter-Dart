@@ -14,7 +14,7 @@ import 'package:date_time_format/date_time_format.dart';
 
 class AddFood extends StatefulWidget {
   final userid;
-  AddFood({Key key, this.userid}) : super(key: key);
+  AddFood({Key key, @required this.userid}) : super(key: key);
 
   @override
   _AddFoodState createState() => _AddFoodState();
@@ -347,9 +347,11 @@ class _AddFoodState extends State<AddFood> {
                                                   'Vendor': widget.userid,
                                                   'Quantity':
                                                       quantityController.text,
-                                                  'DocumentId': '.', // the DocumentId will be updated after creation of the document id. 
-                                                  'Timedate':  DateTimeFormat.format(dateTime),
-
+                                                  'DocumentId':
+                                                      '.', // the DocumentId will be updated after creation of the document id.
+                                                  'Timedate':
+                                                      DateTimeFormat.format(
+                                                          dateTime),
                                                 };
                                                 print(foodData);
 
@@ -387,7 +389,7 @@ class _AddFoodState extends State<AddFood> {
                                             });
                                       }
                                     },
-                                    child: Text(
+                                   child: Text(
                                       button,
                                       style: GoogleFonts.ptSans(
                                         color: Colors.white,

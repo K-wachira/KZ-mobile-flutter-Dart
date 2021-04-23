@@ -15,13 +15,15 @@ Future<void> saveCart(cart) async {
       'category': cart[i]["Category"],
       "orderStatus": cart[i]["OrderStatus"]
     };
-    print(data);
+    print(
+      data,
+    );
     Map<String, dynamic> myMap = new Map<String, dynamic>.from(data);
     await firebaseFirestore.collection("orders").add(myMap);
   }
 }
 
-void showCart(context, cart) {
+void showCart(context, cart, vendorid) {
   print(cart);
 
   showDialog(

@@ -1,12 +1,16 @@
 class UserModel {
   String name;
   String profileURL;
-  String ID;
-
-  UserModel({this.name, this.profileURL, this.ID});
+  String iD;
+  String isOpen;
+  String documentId;
+  UserModel(
+      {this.name, this.isOpen, this.profileURL, this.iD, this.documentId});
 
   UserModel.fromJson(Map<String, dynamic> parsedJSON)
       : name = parsedJSON['vendorName'],
         profileURL = parsedJSON['profilePhotoUrl'],
-        ID = parsedJSON['vendorID'];
+        documentId = parsedJSON['documentId'],
+        isOpen = parsedJSON['open'].toString(),
+        iD = parsedJSON['vendorID'];
 }

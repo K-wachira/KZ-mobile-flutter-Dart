@@ -9,9 +9,9 @@ class MenuEditPopUp extends StatefulWidget {
 
   MenuEditPopUp({
     @required this.docId,
-    this.current,
+    @required this.current,
     Key key,
-    this.field,
+   @required  this.field,
   }) : super(key: key);
   @override
   _MenuEditPopUpState createState() => _MenuEditPopUpState();
@@ -72,7 +72,7 @@ class _MenuEditPopUpState extends State<MenuEditPopUp> {
           onPressed: () {
             print(toUpdate.text);
             servicesinstance
-                .updateField(widget.docId, toUpdate.text, widget.field)
+                .updateField(widget.docId, toUpdate.text, widget.field, 'Foods' )
                 .then((value) => {
                       if (value == 'true')
                         {Navigator.of(context).pop()}

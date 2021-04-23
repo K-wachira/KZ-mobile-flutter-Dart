@@ -8,9 +8,9 @@ class PopUp extends StatefulWidget {
 
   PopUp({
     @required this.text,
-    this.successful,
+    @required this.successful,
     Key key,
-    this.uid,
+    @required  this.uid,
   }) : super(key: key);
   @override
   _PopUpState createState() => _PopUpState();

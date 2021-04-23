@@ -39,14 +39,18 @@ dependencies:
   shared_preferences: ^2.0.5
   carousel_slider: ^3.0.0
   provider: ^5.0.0
+  modal_bottom_sheet: ^2.0.0
+  flutter_spinkit: "^4.1.2"
   geolocator: ^7.0.3
   geocoding: ^2.0.0
+  cached_network_image: any
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  flutter_svg: ^0.19.3
+  flutter_svg: any
 
 dev_dependencies:
   flutter_test:

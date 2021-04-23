@@ -7,7 +7,7 @@ import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
   final userid;
-  const HomePage({Key key, this.userid}) : super(key: key);
+  const HomePage({Key key, @required  this.userid}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
       Menu(
         userID: widget.userid,
       ),
-      Orders(),
-      VendorPr()
+      Orders(userid: widget.userid,),
+      VendorPr(userID: widget.userid,)
     ];
 
     return Scaffold(

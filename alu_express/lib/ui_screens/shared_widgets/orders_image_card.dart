@@ -1,31 +1,27 @@
+import 'package:alu_express/services/Models/services.dart';
 import 'package:alu_express/services/temp_res/order_data.dart';
 import 'package:flutter/material.dart';
 
 class ImageCard extends StatefulWidget {
-  final String image;
-  final String ordernumber;
-  final String time;
-  final String orderid;
-  const ImageCard(
-      {Key key, this.image, this.ordernumber, this.time, this.orderid})
-      : super(key: key);
+  final Map products;
+
+  const ImageCard({
+    Key key,
+    @required this.products,
+  }) : super(key: key);
 
   @override
   _ImageCardState createState() => _ImageCardState();
 }
 
 class _ImageCardState extends State<ImageCard> {
-  final List<String> sidelist = ['apple', 'banana', 'orange', 'lemon'];
+  final FirebaseServices firebaseServices = FirebaseServices();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _bottomSheet(
-            image: widget.image,
-            title: widget.orderid,
-            rating: 2.toDouble(),
-            remaining: 20.toDouble(),
-            sidelist: sidelist);
+        _bottomSheet(products: widget.products);
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.20,
@@ -41,7 +37,7 @@ class _ImageCardState extends State<ImageCard> {
                   height: MediaQuery.of(context).size.height * 0.16,
                   width: MediaQuery.of(context).size.width * 0.60,
                   child: Image.network(
-                    widget.image,
+                    widget.products["image"],
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -57,7 +53,7 @@ class _ImageCardState extends State<ImageCard> {
                   height: MediaQuery.of(context).size.height * 0.033,
                 ),
                 Text(
-                  "Order #23",
+                  widget.products["ordernumber"],
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -65,17 +61,12 @@ class _ImageCardState extends State<ImageCard> {
                       fontFamily: "PTSans"),
                 ),
                 Text(
-                  "10.20",
+                  " widget.products[time]",
                   style: TextStyle(color: Colors.grey),
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      _bottomSheet(
-                          image: widget.image,
-                          title: widget.orderid,
-                          rating: 2.toDouble(),
-                          remaining: 20.toDouble(),
-                          sidelist: sidelist);
+                      _bottomSheet(products: widget.products);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.deepOrange,
@@ -100,12 +91,14 @@ class _ImageCardState extends State<ImageCard> {
     );
   }
 
-  void _bottomSheet(
-      {String image,
-      String title,
-      double rating,
-      double remaining,
-      List<String> sidelist}) {
+
+  void _bottomSheet({
+    Map products,
+  }) {
+    String secondstime = widget.products["time"].substring(18, 28);
+    print(widget.products["time"]);
+    print(secondstime);
+    print(DateTime.fromMicrosecondsSinceEpoch((int.parse(secondstime)) * 1000000));
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -134,7 +127,7 @@ class _ImageCardState extends State<ImageCard> {
                             height: MediaQuery.of(context).size.height * 0.22,
                             width: MediaQuery.of(context).size.width * 0.95,
                             child: Image.network(
-                              image,
+                              products["image"],
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -193,12 +186,16 @@ class _ImageCardState extends State<ImageCard> {
                       },
                     ),
                   ),
-                  InkWell(
+
+                  if (products['state'] == "Pending")...{
+       InkWell(
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
                           onPressed: () {
+                            firebaseServices.updateField(products["orderid"],
+                                "Accepted", "orderStatus", "orders");
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
@@ -218,6 +215,8 @@ class _ImageCardState extends State<ImageCard> {
                           )),
                       ElevatedButton(
                           onPressed: () {
+                              firebaseServices.updateField(products["orderid"],
+                                "Completed", "orderStatus", "orders");
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
@@ -237,9 +236,42 @@ class _ImageCardState extends State<ImageCard> {
                           ))
                     ],
                   ))
+                  }else if (products['state'] == "Accepted")...{
+                             InkWell(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            firebaseServices.updateField(products["orderid"],
+                                "Completed", "orderStatus", "orders");
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.deepOrange,
+                            onPrimary: Colors.black, // foreground
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Complete Order',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "PTSans"),
+                          )),
+              
+                    ],
+                  ))
+                  } else if (products['state'] == "Completed")...{
+
+
+                  }
+         
                 ]),
           );
         });
   }
-
 }
