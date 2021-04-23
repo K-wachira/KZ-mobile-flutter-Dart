@@ -6,7 +6,9 @@ import 'package:alu_express_student/ui_screens/login_ui_screens/landing_page.dar
 import 'package:alu_express_student/ui_screens/notifications/notifications.dart';
 import 'package:alu_express_student/ui_screens/profile_pages/student_profile.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
@@ -53,134 +55,158 @@ class _MyDrawerState extends State<MyDrawer> {
     List userList = Provider.of<List<UserModel>>(context);
     print(userList);
     print(widget.userid);
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: displayHeight(context) * 0.1),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return userList == null
+        ? SpinKitSquareCircle(color: Colors.amberAccent)
+        : Column(
             children: [
-              CircleAvatar(
-                radius: 50.0,
-                backgroundColor: Colors.red[900],
-                backgroundImage: NetworkImage(userList[0].profileUrl),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                userList[0].fname,
-                style: GoogleFonts.ptSans(
-                    fontSize: 22.0, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(userList[0].email, style: GoogleFonts.ptSans(fontSize: 18)),
-              SizedBox(height: 10.0),
+              Container(
+                padding: EdgeInsets.only(top: displayHeight(context) * 0.1),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: userList[0].profileUrl,
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 100.0,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              SpinKitRotatingCircle(
+                        color: Colors.white,
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                    // CircleAvatar(
+                    //   radius: 50.0,
+                    //   backgroundColor: Colors.red[900],
+                    //   backgroundImage: NetworkImage(userList[0].profileUrl),
+                    // ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      userList[0].fname,
+                      style: GoogleFonts.ptSans(
+                          fontSize: 22.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(userList[0].email,
+                        style: GoogleFonts.ptSans(fontSize: 18)),
+                    SizedBox(height: 10.0),
 
-              // Place Divider Here
-              Divider(
-                height: 20.0,
-                color: Colors.red[900],
-                thickness: 1,
-              ),
+                    // Place Divider Here
+                    Divider(
+                      height: 20.0,
+                      color: Colors.red[900],
+                      thickness: 1,
+                    ),
 
-              //Menu
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StudentProfile(
-                                userid: widget.userid,
-                              )));
-                },
-                leading: Icon(
-                  LineIcons.userEdit,
-                  color: Colors.red[900],
+                    //Menu
+                    ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StudentProfile(
+                                      userid: widget.userid,
+                                    )));
+                      },
+                      leading: Icon(
+                        LineIcons.userEdit,
+                        color: Colors.red[900],
+                      ),
+                      title: Text("Profile",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(
+                      height: displayHeight(context) * 0.03,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                      userid: widget.userid,
+                                    )));
+                      },
+                      leading: Icon(
+                        Icons.food_bank_outlined,
+                        color: Colors.red[900],
+                      ),
+                      title: Text("Food List",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(
+                      height: displayHeight(context) * 0.03,
+                    ),
+                    // ListTile(
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //         context,
+                    //         new MaterialPageRoute(
+                    //             builder: (context) => new Cart()));
+                    //   },
+                    //   leading: Icon(
+                    //     LineIcons.shoppingCart,
+                    //     color: Colors.red[900],
+                    //   ),
+                    //   title: Text("Cart",
+                    //       style: GoogleFonts.ptSans(
+                    //           fontSize: 18, fontWeight: FontWeight.bold)),
+                    // ),
+                    // SizedBox(
+                    //   height: displayHeight(context) * 0.03,
+                    // ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Notifications()));
+                      },
+                      leading: Icon(
+                        Icons.notifications_outlined,
+                        color: Colors.red[900],
+                      ),
+                      title: Text("Notifications",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(
+                      height: displayHeight(context) * 0.39,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        firebaseServices.signOut();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => LandingPage()),
+                            (Route<dynamic> route) => false);
+                      },
+                      leading: Icon(
+                        Icons.logout,
+                        color: Colors.red[900],
+                      ),
+                      title: Text("Log Out",
+                          style: GoogleFonts.ptSans(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    )
+                  ],
                 ),
-                title: Text("Profile",
-                    style: GoogleFonts.ptSans(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(
-                height: displayHeight(context) * 0.03,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => HomePage(
-                                userid: widget.userid,
-                              )));
-                },
-                leading: Icon(
-                  Icons.food_bank_outlined,
-                  color: Colors.red[900],
-                ),
-                title: Text("Food List",
-                    style: GoogleFonts.ptSans(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(
-                height: displayHeight(context) * 0.03,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(context,
-                      new MaterialPageRoute(builder: (context) => new Cart()));
-                },
-                leading: Icon(
-                  LineIcons.shoppingCart,
-                  color: Colors.red[900],
-                ),
-                title: Text("Cart",
-                    style: GoogleFonts.ptSans(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(
-                height: displayHeight(context) * 0.03,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new Notifications()));
-                },
-                leading: Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.red[900],
-                ),
-                title: Text("Notifications",
-                    style: GoogleFonts.ptSans(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(
-                height: displayHeight(context) * 0.15,
-              ),
-              ListTile(
-                onTap: () {
-                  firebaseServices.signOut();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LandingPage()),
-                      (Route<dynamic> route) => false);
-                },
-                leading: Icon(
-                  Icons.logout,
-                  color: Colors.red[900],
-                ),
-                title: Text("Log Out",
-                    style: GoogleFonts.ptSans(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
               )
             ],
-          ),
-        )
-      ],
-    );
+          );
   }
 }

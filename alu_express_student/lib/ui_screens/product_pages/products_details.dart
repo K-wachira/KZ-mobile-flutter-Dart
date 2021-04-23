@@ -1,5 +1,6 @@
 import 'package:alu_express_student/services/Models/cart_funtionality.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -92,10 +93,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ],
               ),
             ),
-            Image(
-              image: NetworkImage(widget.productDetails["Image"]),
+            CachedNetworkImage(
+              imageUrl: widget.productDetails["Image"],
               height: displayHeight(context) * 0.4,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
+
+            // Image(
+            //   image: NetworkImage(widget.productDetails["Image"]),
+            //   height: displayHeight(context) * 0.4,
+            // ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(

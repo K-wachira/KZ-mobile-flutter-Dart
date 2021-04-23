@@ -1,4 +1,5 @@
 import 'package:alu_express/ui_screens/shared_widgets/menu_item.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,16 +19,16 @@ class MenuCard extends StatefulWidget {
   const MenuCard(
       {Key key,
       @required this.image,
-     @required  this.name,
-     @required  this.price,
-     @required  this.category,
-     @required  this.description,
-     @required  this.discount,
-     @required  this.isFeaured,
-     @required  this.size,
-     @required  this.ingredients,
-     @required  this.vendor,
-    @required   this.documentId})
+      @required this.name,
+      @required this.price,
+      @required this.category,
+      @required this.description,
+      @required this.discount,
+      @required this.isFeaured,
+      @required this.size,
+      @required this.ingredients,
+      @required this.vendor,
+      @required this.documentId})
       : super(key: key);
 
   @override
@@ -62,12 +63,25 @@ class _MenuCardState extends State<MenuCard> {
           },
           contentPadding:
               EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          leading: CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(
-              widget.image,
+          leading: CachedNetworkImage(
+            imageUrl: widget.image,
+            imageBuilder: (context, imageProvider) => Container(
+              width: 80.0,
+              height: 80.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
             ),
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
+          // leading: CircleAvatar(
+          //   radius: 50,
+          //   backgroundImage: NetworkImage(
+          //     widget.image,
+          //   ),
+          // ),
           title: Text(
             widget.name,
             style: GoogleFonts.ptSans(fontSize: 18, letterSpacing: .3),

@@ -7,10 +7,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:alu_express_student/services/Models/cart_funtionality.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeProducts extends StatefulWidget {
   final userid;
@@ -213,10 +215,23 @@ class _HomeProductsState extends State<HomeProducts> {
                             fontSize: 17,
                             letterSpacing: .3),
                       ),
-                      Image(
-                        image: NetworkImage(productDetails["Image"]),
+                      CachedNetworkImage(
                         height: displayHeight(context) * 0.2,
+                        imageUrl: productDetails["Image"],
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                SpinKitRotatingCircle(
+                          color: Colors.amberAccent,
+                        ),
+                        // CircularProgressIndicator(
+                        //     value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+
+                      // Image(
+                      //   image:
+                      //       CachedNetworkImageProvider(productDetails["Image"]),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
@@ -413,9 +428,7 @@ class ViewUserPage extends StatelessWidget {
     List userList = Provider.of<List<FoodModel>>(context);
 
     return userList == null
-        ? Padding(
-            padding: const EdgeInsets.all(500.0),
-            child: LinearProgressIndicator())
+        ? SpinKitSquareCircle(color: Colors.amberAccent)
         : GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -516,9 +529,14 @@ class _ProductCardState extends State<ProductCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(padding: EdgeInsets.only(top: 5)),
-          Image(
+          CachedNetworkImage(
             width: displayWidth(context) * 0.4,
-            image: NetworkImage(widget.image),
+            imageUrl: widget.image,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                SpinKitRotatingCircle(
+              color: Colors.amber,
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           Container(
             decoration: BoxDecoration(

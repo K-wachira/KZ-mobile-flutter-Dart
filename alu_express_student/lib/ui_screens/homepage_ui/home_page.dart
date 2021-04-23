@@ -8,7 +8,7 @@ import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
   final userid;
-  const HomePage({Key key, this.userid}) : super(key: key);
+  const HomePage({Key key, @required this.userid}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }

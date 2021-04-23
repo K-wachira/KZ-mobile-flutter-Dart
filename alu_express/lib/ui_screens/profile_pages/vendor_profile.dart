@@ -5,6 +5,7 @@ import 'package:alu_express/ui_screens/homepage_ui/home_page.dart';
 import 'package:alu_express/ui_screens/login_ui_screens/landing_page.dart';
 import 'package:alu_express/ui_screens/profile_pages/change_profile_pic.dart';
 import 'package:alu_express/ui_screens/profile_pages/vendor_card.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,10 +90,27 @@ class _VendorProfileState extends State<VendorProfile> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.amber,
-                        backgroundImage: NetworkImage(vendordata[0].profileURL),
+                      CachedNetworkImage(
+                        imageUrl: vendordata[0].profileURL,
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: 100.0,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                        ),
+                        placeholder: (context, url) => SpinKitPulse(
+                          color: Colors.amberAccent,
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+
+                      // CircleAvatar(
+                      //   backgroundColor: Colors.amber,
+                      //   backgroundImage: NetworkImage(vendordata[0].profileURL),
+                      // ),
                       Positioned(
                         right: 0,
                         bottom: 25,

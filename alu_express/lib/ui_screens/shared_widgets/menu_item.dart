@@ -1,4 +1,5 @@
 import 'package:alu_express/ui_screens/shared_widgets/menu_edit_pop_up.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,7 +55,7 @@ class _EditProductState extends State<EditProduct> {
                 decoration: BoxDecoration(
                   color: Colors.lightBlueAccent,
                   image: DecorationImage(
-                    image: NetworkImage(widget.image),
+                    image: CachedNetworkImageProvider(widget.image),
                     fit: BoxFit.cover,
                   ),
                 ),

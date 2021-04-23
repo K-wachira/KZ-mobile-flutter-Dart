@@ -1,5 +1,6 @@
 import 'package:alu_express_student/services/Models/cart_funtionality.dart';
 import 'package:alu_express_student/ui_screens/shared_widgets/size_helpers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -146,10 +147,18 @@ class _ProductCardState extends State<ProductCard> {
                             fontWeight: FontWeight.w400,
                             letterSpacing: .3),
                       ),
-                      Image(
-                        image: NetworkImage(productDetails["Image"]),
+                      CachedNetworkImage(
+                        imageUrl: productDetails["Image"],
                         height: displayHeight(context) * 0.2,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+                      // Image(
+                      //   image: NetworkImage(productDetails["Image"]),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Center(
@@ -215,10 +224,17 @@ class _ProductCardState extends State<ProductCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(padding: EdgeInsets.only(top: 5)),
-          Image(
+          CachedNetworkImage(
+            imageUrl: widget.image,
             width: displayWidth(context) * 0.4,
-            image: NetworkImage(widget.image),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
+          // Image(
+          //   width: displayWidth(context) * 0.4,
+          //   image: NetworkImage(widget.image),
+          // ),
           Container(
             decoration: BoxDecoration(
                 color: Colors.grey[100],
